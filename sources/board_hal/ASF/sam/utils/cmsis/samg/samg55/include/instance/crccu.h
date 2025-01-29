@@ -39,7 +39,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef _SAMG55_CRCCU_INSTANCE_
@@ -47,37 +48,78 @@
 
 /* ========== Register definition for CRCCU peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-  #define REG_CRCCU_DSCR                     (0x40048000U) /**< \brief (CRCCU) CRCCU Descriptor Base Register */
-  #define REG_CRCCU_DMA_EN                   (0x40048008U) /**< \brief (CRCCU) CRCCU DMA Enable Register */
-  #define REG_CRCCU_DMA_DIS                  (0x4004800CU) /**< \brief (CRCCU) CRCCU DMA Disable Register */
-  #define REG_CRCCU_DMA_SR                   (0x40048010U) /**< \brief (CRCCU) CRCCU DMA Status Register */
-  #define REG_CRCCU_DMA_IER                  (0x40048014U) /**< \brief (CRCCU) CRCCU DMA Interrupt Enable Register */
-  #define REG_CRCCU_DMA_IDR                  (0x40048018U) /**< \brief (CRCCU) CRCCU DMA Interrupt Disable Register */
-  #define REG_CRCCU_DMA_IMR                  (0x4004801CU) /**< \brief (CRCCU) CRCCU DMA Interrupt Mask Register */
-  #define REG_CRCCU_DMA_ISR                  (0x40048020U) /**< \brief (CRCCU) CRCCU DMA Interrupt Status Register */
-  #define REG_CRCCU_CR                       (0x40048034U) /**< \brief (CRCCU) CRCCU Control Register */
-  #define REG_CRCCU_MR                       (0x40048038U) /**< \brief (CRCCU) CRCCU Mode Register */
-  #define REG_CRCCU_SR                       (0x4004803CU) /**< \brief (CRCCU) CRCCU Status Register */
-  #define REG_CRCCU_IER                      (0x40048040U) /**< \brief (CRCCU) CRCCU Interrupt Enable Register */
-  #define REG_CRCCU_IDR                      (0x40048044U) /**< \brief (CRCCU) CRCCU Interrupt Disable Register */
-  #define REG_CRCCU_IMR                      (0x40048048U) /**< \brief (CRCCU) CRCCU Interrupt Mask Register */
-  #define REG_CRCCU_ISR                      (0x4004804CU) /**< \brief (CRCCU) CRCCU Interrupt Status Register */
+#define REG_CRCCU_DSCR                                                         \
+  (0x40048000U) /**< \brief (CRCCU) CRCCU Descriptor Base Register */
+#define REG_CRCCU_DMA_EN                                                       \
+  (0x40048008U) /**< \brief (CRCCU) CRCCU DMA Enable Register */
+#define REG_CRCCU_DMA_DIS                                                      \
+  (0x4004800CU) /**< \brief (CRCCU) CRCCU DMA Disable Register */
+#define REG_CRCCU_DMA_SR                                                       \
+  (0x40048010U) /**< \brief (CRCCU) CRCCU DMA Status Register */
+#define REG_CRCCU_DMA_IER                                                      \
+  (0x40048014U) /**< \brief (CRCCU) CRCCU DMA Interrupt Enable Register */
+#define REG_CRCCU_DMA_IDR                                                      \
+  (0x40048018U) /**< \brief (CRCCU) CRCCU DMA Interrupt Disable Register */
+#define REG_CRCCU_DMA_IMR                                                      \
+  (0x4004801CU) /**< \brief (CRCCU) CRCCU DMA Interrupt Mask Register */
+#define REG_CRCCU_DMA_ISR                                                      \
+  (0x40048020U) /**< \brief (CRCCU) CRCCU DMA Interrupt Status Register */
+#define REG_CRCCU_CR (0x40048034U) /**< \brief (CRCCU) CRCCU Control Register  \
+                                    */
+#define REG_CRCCU_MR (0x40048038U) /**< \brief (CRCCU) CRCCU Mode Register */
+#define REG_CRCCU_SR (0x4004803CU) /**< \brief (CRCCU) CRCCU Status Register   \
+                                    */
+#define REG_CRCCU_IER                                                          \
+  (0x40048040U) /**< \brief (CRCCU) CRCCU Interrupt Enable Register */
+#define REG_CRCCU_IDR                                                          \
+  (0x40048044U) /**< \brief (CRCCU) CRCCU Interrupt Disable Register */
+#define REG_CRCCU_IMR                                                          \
+  (0x40048048U) /**< \brief (CRCCU) CRCCU Interrupt Mask Register */
+#define REG_CRCCU_ISR                                                          \
+  (0x4004804CU) /**< \brief (CRCCU) CRCCU Interrupt Status Register */
 #else
-  #define REG_CRCCU_DSCR    (*(__IO uint32_t*)0x40048000U) /**< \brief (CRCCU) CRCCU Descriptor Base Register */
-  #define REG_CRCCU_DMA_EN  (*(__O  uint32_t*)0x40048008U) /**< \brief (CRCCU) CRCCU DMA Enable Register */
-  #define REG_CRCCU_DMA_DIS (*(__O  uint32_t*)0x4004800CU) /**< \brief (CRCCU) CRCCU DMA Disable Register */
-  #define REG_CRCCU_DMA_SR  (*(__I  uint32_t*)0x40048010U) /**< \brief (CRCCU) CRCCU DMA Status Register */
-  #define REG_CRCCU_DMA_IER (*(__O  uint32_t*)0x40048014U) /**< \brief (CRCCU) CRCCU DMA Interrupt Enable Register */
-  #define REG_CRCCU_DMA_IDR (*(__O  uint32_t*)0x40048018U) /**< \brief (CRCCU) CRCCU DMA Interrupt Disable Register */
-  #define REG_CRCCU_DMA_IMR (*(__I  uint32_t*)0x4004801CU) /**< \brief (CRCCU) CRCCU DMA Interrupt Mask Register */
-  #define REG_CRCCU_DMA_ISR (*(__I  uint32_t*)0x40048020U) /**< \brief (CRCCU) CRCCU DMA Interrupt Status Register */
-  #define REG_CRCCU_CR      (*(__O  uint32_t*)0x40048034U) /**< \brief (CRCCU) CRCCU Control Register */
-  #define REG_CRCCU_MR      (*(__IO uint32_t*)0x40048038U) /**< \brief (CRCCU) CRCCU Mode Register */
-  #define REG_CRCCU_SR      (*(__I  uint32_t*)0x4004803CU) /**< \brief (CRCCU) CRCCU Status Register */
-  #define REG_CRCCU_IER     (*(__O  uint32_t*)0x40048040U) /**< \brief (CRCCU) CRCCU Interrupt Enable Register */
-  #define REG_CRCCU_IDR     (*(__O  uint32_t*)0x40048044U) /**< \brief (CRCCU) CRCCU Interrupt Disable Register */
-  #define REG_CRCCU_IMR     (*(__I  uint32_t*)0x40048048U) /**< \brief (CRCCU) CRCCU Interrupt Mask Register */
-  #define REG_CRCCU_ISR     (*(__I  uint32_t*)0x4004804CU) /**< \brief (CRCCU) CRCCU Interrupt Status Register */
+#define REG_CRCCU_DSCR                                                         \
+  (*(__IO uint32_t                                                             \
+         *)0x40048000U) /**< \brief (CRCCU) CRCCU Descriptor Base Register */
+#define REG_CRCCU_DMA_EN                                                       \
+  (*(__O uint32_t                                                              \
+         *)0x40048008U) /**< \brief (CRCCU) CRCCU DMA Enable Register */
+#define REG_CRCCU_DMA_DIS                                                      \
+  (*(__O uint32_t                                                              \
+         *)0x4004800CU) /**< \brief (CRCCU) CRCCU DMA Disable Register */
+#define REG_CRCCU_DMA_SR                                                       \
+  (*(__I uint32_t                                                              \
+         *)0x40048010U) /**< \brief (CRCCU) CRCCU DMA Status Register */
+#define REG_CRCCU_DMA_IER                                                      \
+  (*(__O uint32_t *)0x40048014U) /**< \brief (CRCCU) CRCCU DMA Interrupt       \
+                                    Enable Register */
+#define REG_CRCCU_DMA_IDR                                                      \
+  (*(__O uint32_t *)0x40048018U) /**< \brief (CRCCU) CRCCU DMA Interrupt       \
+                                    Disable Register */
+#define REG_CRCCU_DMA_IMR                                                      \
+  (*(__I uint32_t *)0x4004801CU) /**< \brief (CRCCU) CRCCU DMA Interrupt Mask  \
+                                    Register */
+#define REG_CRCCU_DMA_ISR                                                      \
+  (*(__I uint32_t *)0x40048020U) /**< \brief (CRCCU) CRCCU DMA Interrupt       \
+                                    Status Register */
+#define REG_CRCCU_CR                                                           \
+  (*(__O uint32_t *)0x40048034U) /**< \brief (CRCCU) CRCCU Control Register */
+#define REG_CRCCU_MR                                                           \
+  (*(__IO uint32_t *)0x40048038U) /**< \brief (CRCCU) CRCCU Mode Register */
+#define REG_CRCCU_SR                                                           \
+  (*(__I uint32_t *)0x4004803CU) /**< \brief (CRCCU) CRCCU Status Register */
+#define REG_CRCCU_IER                                                          \
+  (*(__O uint32_t                                                              \
+         *)0x40048040U) /**< \brief (CRCCU) CRCCU Interrupt Enable Register */
+#define REG_CRCCU_IDR                                                          \
+  (*(__O uint32_t *)0x40048044U) /**< \brief (CRCCU) CRCCU Interrupt Disable   \
+                                    Register */
+#define REG_CRCCU_IMR                                                          \
+  (*(__I uint32_t                                                              \
+         *)0x40048048U) /**< \brief (CRCCU) CRCCU Interrupt Mask Register */
+#define REG_CRCCU_ISR                                                          \
+  (*(__I uint32_t                                                              \
+         *)0x4004804CU) /**< \brief (CRCCU) CRCCU Interrupt Status Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAMG55_CRCCU_INSTANCE_ */

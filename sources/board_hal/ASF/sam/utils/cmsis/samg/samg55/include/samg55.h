@@ -39,23 +39,24 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 #ifndef _SAMG55_
 #define _SAMG55_
 
-#if defined (__SAMG55G18__)
+#if defined(__SAMG55G18__)
 #include "samg55g18.h"
-#elif defined (__SAMG55G19__)
+#elif defined(__SAMG55G19__)
 #include "samg55g19.h"
-#elif defined (__SAMG55J18__)
+#elif defined(__SAMG55J18__)
 #include "samg55j18.h"
-#elif defined (__SAMG55J19__)
+#elif defined(__SAMG55J19__)
 #include "samg55j19.h"
-#elif defined (__SAMG55N19__)
+#elif defined(__SAMG55N19__)
 #include "samg55n19.h"
 #else
-  #error Library does not support the specified device.
+#error Library does not support the specified device.
 #endif
 
 #endif /* _SAMG55_ */

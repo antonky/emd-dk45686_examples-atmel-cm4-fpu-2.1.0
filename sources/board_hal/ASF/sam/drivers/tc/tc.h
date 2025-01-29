@@ -41,17 +41,19 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef TC_H_INCLUDED
 #define TC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_tc_group SAM3/4S/4L/4E/4N/4CM/4C/G Timer Counter (TC) Driver
+ * \defgroup asfdoc_sam_drivers_tc_group SAM3/4S/4L/4E/4N/4CM/4C/G Timer Counter
+ * (TC) Driver
  *
- * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers 
- * provides an interface for the configuration and management of the 
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers
+ * provides an interface for the configuration and management of the
  * device's Timer Counter functionality.
  *
  * The Timer Counter (TC) includes several identical 16-bit or 32-bit
@@ -90,29 +92,29 @@
  * to the device-specific datasheet for more information.
  *
  * Each channel can be independently programmed to perform a wide range of
- * functions that includes frequency measurement, event counting, interval measurement,
- * pulse generation, delay timing, and pulse width modulation.
+ * functions that includes frequency measurement, event counting, interval
+ * measurement, pulse generation, delay timing, and pulse width modulation.
  *
  * Each channel has three external clock inputs, five internal clock inputs,
- * and two multi-purpose input/output signals which can be configured by the user.
- * Each channel drives an internal interrupt signal which can be programmed to
- * generate processor interrupts.
+ * and two multi-purpose input/output signals which can be configured by the
+ * user. Each channel drives an internal interrupt signal which can be
+ * programmed to generate processor interrupts.
  *
- * The Timer Counter (TC) embeds a quadrature decoder logic connected in front of
- * the timers. When enabled, the quadrature decoder performs the input line
+ * The Timer Counter (TC) embeds a quadrature decoder logic connected in front
+ * of the timers. When enabled, the quadrature decoder performs the input line
  * filtering, decoding of quadrature signals and connects to the timers/counters
  * in order to read the position and speed of the motor.
  *
  *
  * \section asfdoc_sam_drivers_tc_special_considerations Special Considerations
  * \subsection asfdoc_sam_drivers_tc_special_considerations_clock External Clock
- * In all cases, if an external clock is used, the duration of each of its levels
- * must be longer than the master clock (MCLK) period. The external clock frequency
- * must be at least 2.5 times lower than the master clock.
+ * In all cases, if an external clock is used, the duration of each of its
+ * levels must be longer than the master clock (MCLK) period. The external clock
+ * frequency must be at least 2.5 times lower than the master clock.
  *
- * \subsection asfdoc_sam_drivers_tc_special_considerations_trigger External Trigger
- * If an external trigger is used, the duration of its pulses must be longer than
- * the master clock (MCLK) period in order to be detected.
+ * \subsection asfdoc_sam_drivers_tc_special_considerations_trigger External
+ * Trigger If an external trigger is used, the duration of its pulses must be
+ * longer than the master clock (MCLK) period in order to be detected.
  *
  *
  * \section asfdoc_sam_drivers_tc_extra_info Extra Information
@@ -152,12 +154,11 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  * \param[out] p_tc Module hardware register base address pointer
  *
  */
- __always_inline static void tc_sync_trigger(Tc *p_tc)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	
-	p_tc->TC_BCR = TC_BCR_SYNC;
+__always_inline static void tc_sync_trigger(Tc *p_tc) {
+  /* Validate inputs. */
+  Assert(p_tc);
+
+  p_tc->TC_BCR = TC_BCR_SYNC;
 }
 
 /**
@@ -168,15 +169,15 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  * \param[out] p_tc        Module hardware register base address pointer
  * \param[in] ul_blockmode Block mode register value to set
  *
- * \note For more information regarding <i>ul_blockmode</i> configuration refer to
- * the section  entitled "TC Block Mode Register" in the device-specific datasheet.
+ * \note For more information regarding <i>ul_blockmode</i> configuration refer
+ * to the section  entitled "TC Block Mode Register" in the device-specific
+ * datasheet.
  */
- __always_inline static void tc_set_block_mode(Tc *p_tc, uint32_t ul_blockmode)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	
-	p_tc->TC_BMR = ul_blockmode;
+__always_inline static void tc_set_block_mode(Tc *p_tc, uint32_t ul_blockmode) {
+  /* Validate inputs. */
+  Assert(p_tc);
+
+  p_tc->TC_BMR = ul_blockmode;
 }
 
 #if (!SAM3U) || defined(__DOXYGEN__)
@@ -192,18 +193,14 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  *
  * \return 0 for OK.
  */
- __always_inline static uint32_t tc_init_2bit_gray(
-		Tc *p_tc,
-		uint32_t ul_channel,
-		uint32_t ul_steppermode)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static uint32_t tc_init_2bit_gray(Tc *p_tc, uint32_t ul_channel,
+                                                  uint32_t ul_steppermode) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	p_tc->TC_CHANNEL[ul_channel].TC_SMMR = ul_steppermode;
-	return 0;
+  p_tc->TC_CHANNEL[ul_channel].TC_SMMR = ul_steppermode;
+  return 0;
 }
 #endif /* (!SAM3U) || defined(__DOXYGEN__) */
 
@@ -213,14 +210,12 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  * \param[out] p_tc      Module hardware register base address pointer
  * \param[in] ul_channel Channel to configure
  */
- __always_inline static void tc_start(Tc *p_tc, uint32_t ul_channel)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static void tc_start(Tc *p_tc, uint32_t ul_channel) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	p_tc->TC_CHANNEL[ul_channel].TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG;
+  p_tc->TC_CHANNEL[ul_channel].TC_CCR = TC_CCR_CLKEN | TC_CCR_SWTRG;
 }
 
 /**
@@ -229,14 +224,12 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  * \param[out] p_tc      Module hardware register base address pointer
  * \param[in] ul_channel Channel to configure
  */
- __always_inline static void tc_stop(Tc *p_tc, uint32_t ul_channel)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static void tc_stop(Tc *p_tc, uint32_t ul_channel) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	p_tc->TC_CHANNEL[ul_channel].TC_CCR = TC_CCR_CLKDIS;
+  p_tc->TC_CHANNEL[ul_channel].TC_CCR = TC_CCR_CLKDIS;
 }
 
 /**
@@ -247,14 +240,12 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  *
  * \return The counter value.
  */
- __always_inline static uint32_t tc_read_cv(Tc *p_tc, uint32_t ul_channel)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static uint32_t tc_read_cv(Tc *p_tc, uint32_t ul_channel) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	return p_tc->TC_CHANNEL[ul_channel].TC_CV;
+  return p_tc->TC_CHANNEL[ul_channel].TC_CV;
 }
 
 /**
@@ -265,14 +256,12 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  *
  * \return The TC Register A (RA) value.
  */
- __always_inline static uint32_t tc_read_ra(Tc *p_tc, uint32_t ul_channel)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static uint32_t tc_read_ra(Tc *p_tc, uint32_t ul_channel) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	return p_tc->TC_CHANNEL[ul_channel].TC_RA;
+  return p_tc->TC_CHANNEL[ul_channel].TC_RA;
 }
 
 /**
@@ -283,14 +272,12 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  *
  * \return The TC Register B (RB) value.
  */
- __always_inline static uint32_t tc_read_rb(Tc *p_tc, uint32_t ul_channel)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static uint32_t tc_read_rb(Tc *p_tc, uint32_t ul_channel) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	return p_tc->TC_CHANNEL[ul_channel].TC_RB;
+  return p_tc->TC_CHANNEL[ul_channel].TC_RB;
 }
 
 /**
@@ -301,14 +288,12 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  *
  * \return The Register C (RC) value.
  */
- __always_inline static uint32_t tc_read_rc(Tc *p_tc, uint32_t ul_channel)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static uint32_t tc_read_rc(Tc *p_tc, uint32_t ul_channel) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	return p_tc->TC_CHANNEL[ul_channel].TC_RC;
+  return p_tc->TC_CHANNEL[ul_channel].TC_RC;
 }
 
 /**
@@ -318,15 +303,13 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  * \param[in] ul_channel Channel to write
  * \param[in] ul_value   Value to write
  */
- __always_inline static void tc_write_ra(Tc *p_tc, uint32_t ul_channel,
-		uint32_t ul_value)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static void tc_write_ra(Tc *p_tc, uint32_t ul_channel,
+                                        uint32_t ul_value) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	p_tc->TC_CHANNEL[ul_channel].TC_RA = ul_value;
+  p_tc->TC_CHANNEL[ul_channel].TC_RA = ul_value;
 }
 
 /**
@@ -336,15 +319,13 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  * \param[in] ul_channel Channel to write
  * \param[in] ul_value   Value to write
  */
- __always_inline static void tc_write_rb(Tc *p_tc, uint32_t ul_channel,
-		uint32_t ul_value)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static void tc_write_rb(Tc *p_tc, uint32_t ul_channel,
+                                        uint32_t ul_value) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	p_tc->TC_CHANNEL[ul_channel].TC_RB = ul_value;
+  p_tc->TC_CHANNEL[ul_channel].TC_RB = ul_value;
 }
 
 /**
@@ -354,19 +335,18 @@ void tc_init(Tc *p_tc, uint32_t ul_Channel, uint32_t ul_Mode);
  * \param[in] ul_channel Channel to write
  * \param[in] ul_value   Value to write
  */
- __always_inline static void tc_write_rc(Tc *p_tc, uint32_t ul_channel,
-		uint32_t ul_value)
-{
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+__always_inline static void tc_write_rc(Tc *p_tc, uint32_t ul_channel,
+                                        uint32_t ul_value) {
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
 
-	p_tc->TC_CHANNEL[ul_channel].TC_RC = ul_value;
+  p_tc->TC_CHANNEL[ul_channel].TC_RC = ul_value;
 }
 
 uint32_t tc_find_mck_divisor(uint32_t ul_freq, uint32_t ul_mck,
-		uint32_t *p_uldiv, uint32_t *ul_tcclks, uint32_t ul_boardmck);
+                             uint32_t *p_uldiv, uint32_t *ul_tcclks,
+                             uint32_t ul_boardmck);
 
 /**
  * \brief Enable the TC interrupts on the specified channel.
@@ -375,33 +355,29 @@ uint32_t tc_find_mck_divisor(uint32_t ul_freq, uint32_t ul_mck,
  * \param[in] ul_channel Channel to configure
  * \param[in] ul_sources Bitmask of interrupt sources
  *
- * Where the input parameter <i>ul_sources</i> can be one or more of the following:
- * <table>
- * <tr>
- *    <th>Parameter Value</th>
- *    <th>Description</th>
+ * Where the input parameter <i>ul_sources</i> can be one or more of the
+ * following: <table> <tr> <th>Parameter Value</th> <th>Description</th>
  * </tr>
- *     <tr><td>TC_IER_COVFS</td><td>Enables the Counter Overflow Interrupt</td></tr>
- *     <tr><td>TC_IER_LOVRS</td><td>Enables the Load Overrun Interrupt</td></tr>
- *     <tr><td>TC_IER_CPAS</td><td>Enables the RA Compare Interrupt</td></tr>
- *     <tr><td>TC_IER_CPBS</td><td>Enables the RB Compare Interrupt</td></tr>
- *     <tr><td>TC_IER_CPCS</td><td>Enables the RC Compare Interrupt</td></tr>
- *     <tr><td>TC_IER_LDRAS</td><td>Enables the RA Load Interrupt</td></tr>
- *     <tr><td>TC_IER_LDRBS</td><td>Enables the RB Load Interrupt</td></tr>
- *     <tr><td>TC_IER_ETRGS</td><td>Enables the External Trigger Interrupt</td></tr>
+ *     <tr><td>TC_IER_COVFS</td><td>Enables the Counter Overflow
+ * Interrupt</td></tr> <tr><td>TC_IER_LOVRS</td><td>Enables the Load Overrun
+ * Interrupt</td></tr> <tr><td>TC_IER_CPAS</td><td>Enables the RA Compare
+ * Interrupt</td></tr> <tr><td>TC_IER_CPBS</td><td>Enables the RB Compare
+ * Interrupt</td></tr> <tr><td>TC_IER_CPCS</td><td>Enables the RC Compare
+ * Interrupt</td></tr> <tr><td>TC_IER_LDRAS</td><td>Enables the RA Load
+ * Interrupt</td></tr> <tr><td>TC_IER_LDRBS</td><td>Enables the RB Load
+ * Interrupt</td></tr> <tr><td>TC_IER_ETRGS</td><td>Enables the External Trigger
+ * Interrupt</td></tr>
  * </table>
  */
- __always_inline static void tc_enable_interrupt(Tc *p_tc, uint32_t ul_channel,
-		uint32_t ul_sources)
-{
-	TcChannel *tc_channel;
+__always_inline static void tc_enable_interrupt(Tc *p_tc, uint32_t ul_channel,
+                                                uint32_t ul_sources) {
+  TcChannel *tc_channel;
 
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
-	tc_channel = p_tc->TC_CHANNEL + ul_channel;
-	tc_channel->TC_IER = ul_sources;
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+  tc_channel = p_tc->TC_CHANNEL + ul_channel;
+  tc_channel->TC_IER = ul_sources;
 }
 
 /**
@@ -411,33 +387,29 @@ uint32_t tc_find_mck_divisor(uint32_t ul_freq, uint32_t ul_mck,
  * \param[in] ul_channel Channel to configure
  * \param[in] ul_sources A bitmask of Interrupt sources
  *
- * Where the input parameter <i>ul_sources</i> can be one or more of the following:
- * <table>
- * <tr>
- *    <th>Parameter Value</th>
- *    <th>Description</th>
+ * Where the input parameter <i>ul_sources</i> can be one or more of the
+ * following: <table> <tr> <th>Parameter Value</th> <th>Description</th>
  * </tr>
- *     <tr><td>TC_IDR_COVFS</td><td>Disables the Counter Overflow Interrupt</td></tr>
- *     <tr><td>TC_IDR_LOVRS</td><td>Disables the Load Overrun Interrupt</td></tr>
- *     <tr><td>TC_IDR_CPAS</td><td>Disables the RA Compare Interrupt</td></tr>
- *     <tr><td>TC_IDR_CPBS</td><td>Disables the RB Compare Interrupt</td></tr>
- *     <tr><td>TC_IDR_CPCS</td><td>Disables the RC Compare Interrupt</td></tr>
- *     <tr><td>TC_IDR_LDRAS</td><td>Disables the RA Load Interrupt</td></tr>
- *     <tr><td>TC_IDR_LDRBS</td><td>Disables the RB Load Interrupt</td></tr>
- *     <tr><td>TC_IDR_ETRGS</td><td>Disables the External Trigger Interrupt</td></tr>
+ *     <tr><td>TC_IDR_COVFS</td><td>Disables the Counter Overflow
+ * Interrupt</td></tr> <tr><td>TC_IDR_LOVRS</td><td>Disables the Load Overrun
+ * Interrupt</td></tr> <tr><td>TC_IDR_CPAS</td><td>Disables the RA Compare
+ * Interrupt</td></tr> <tr><td>TC_IDR_CPBS</td><td>Disables the RB Compare
+ * Interrupt</td></tr> <tr><td>TC_IDR_CPCS</td><td>Disables the RC Compare
+ * Interrupt</td></tr> <tr><td>TC_IDR_LDRAS</td><td>Disables the RA Load
+ * Interrupt</td></tr> <tr><td>TC_IDR_LDRBS</td><td>Disables the RB Load
+ * Interrupt</td></tr> <tr><td>TC_IDR_ETRGS</td><td>Disables the External
+ * Trigger Interrupt</td></tr>
  * </table>
  */
- __always_inline static void tc_disable_interrupt(Tc *p_tc, uint32_t ul_channel,
-		uint32_t ul_sources)
-{
-	TcChannel *tc_channel;
+__always_inline static void tc_disable_interrupt(Tc *p_tc, uint32_t ul_channel,
+                                                 uint32_t ul_sources) {
+  TcChannel *tc_channel;
 
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
-	tc_channel = p_tc->TC_CHANNEL + ul_channel;
-	tc_channel->TC_IDR = ul_sources;
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+  tc_channel = p_tc->TC_CHANNEL + ul_channel;
+  tc_channel->TC_IDR = ul_sources;
 }
 
 /**
@@ -448,16 +420,15 @@ uint32_t tc_find_mck_divisor(uint32_t ul_freq, uint32_t ul_mck,
  *
  * \return The TC interrupt mask value.
  */
- __always_inline static uint32_t tc_get_interrupt_mask(Tc *p_tc, uint32_t ul_channel)
-{
-	TcChannel *tc_channel;
+__always_inline static uint32_t tc_get_interrupt_mask(Tc *p_tc,
+                                                      uint32_t ul_channel) {
+  TcChannel *tc_channel;
 
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
-	tc_channel = p_tc->TC_CHANNEL + ul_channel;
-	return tc_channel->TC_IMR;
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+  tc_channel = p_tc->TC_CHANNEL + ul_channel;
+  return tc_channel->TC_IMR;
 }
 
 /**
@@ -468,17 +439,15 @@ uint32_t tc_find_mck_divisor(uint32_t ul_freq, uint32_t ul_mck,
  *
  * \return The current TC status.
  */
- __always_inline static uint32_t tc_get_status(Tc *p_tc, uint32_t ul_channel)
-{
-	TcChannel *tc_channel;
+__always_inline static uint32_t tc_get_status(Tc *p_tc, uint32_t ul_channel) {
+  TcChannel *tc_channel;
 
-	/* Validate inputs. */
-	Assert(p_tc);
-	Assert(ul_channel <
-			(sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
-			
-	tc_channel = p_tc->TC_CHANNEL + ul_channel;
-	return tc_channel->TC_SR;
+  /* Validate inputs. */
+  Assert(p_tc);
+  Assert(ul_channel < (sizeof(p_tc->TC_CHANNEL) / sizeof(p_tc->TC_CHANNEL[0])));
+
+  tc_channel = p_tc->TC_CHANNEL + ul_channel;
+  return tc_channel->TC_SR;
 }
 
 #if (!SAM4L && !SAMG) || defined(__DOXYGEN__)
@@ -589,20 +558,21 @@ uint32_t tc_get_version(Tc *p_tc);
  *	</tr>
  * </table>
  */
- 
+
 /**
  * \page asfdoc_sam_drivers_tc_exqsg Examples for Timer Counter
  *
  * This is a list of the available Quick Start Guides (QSGs) and example
- * applications for \ref asfdoc_sam_drivers_tc_group. QSGs are simple examples with
- * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that a QSG can be compiled as a standalone application or be
- * added to the user application.
+ * applications for \ref asfdoc_sam_drivers_tc_group. QSGs are simple examples
+ *with step-by-step instructions to configure and use this driver in a selection
+ *of use cases. Note that a QSG can be compiled as a standalone application or
+ *be added to the user application.
  *
  *  - \subpage asfdoc_sam_drivers_tc_qsg
  *  - \subpage asfdoc_sam_drivers_tc_example
  *
- * \page asfdoc_sam_drivers_tc_document_revision_history Document Revision History
+ * \page asfdoc_sam_drivers_tc_document_revision_history Document Revision
+ *History
  *
  * <table>
  *	<tr>
@@ -613,7 +583,8 @@ uint32_t tc_get_version(Tc *p_tc);
  *	<tr>
  *		<td>42301B</td>
  *		<td>07/2015</td>
- *		<td>Updated title of application note and added list of supported devices</td>
+ *		<td>Updated title of application note and added list of
+ *supported devices</td>
  *	</tr>
  *	<tr>
  *		<td>42301A</td>
@@ -623,14 +594,14 @@ uint32_t tc_get_version(Tc *p_tc);
  * </table>
  *
  */
- 
+
 /**
  * \page asfdoc_sam_drivers_tc_qsg Quick Start Guide for the TC driver
  *
  * This is the quick start guide for the \ref asfdoc_sam_drivers_tc_group, with
  * step-by-step instructions on how to configure and use the driver for
- * a specific use case. The code examples can be copied into the main 
- * application loop or any other function that will need to control the 
+ * a specific use case. The code examples can be copied into the main
+ * application loop or any other function that will need to control the
  * AST module.
  *
  * \section asfdoc_sam_drivers_tc_qsg_use_cases Use Cases
@@ -693,7 +664,8 @@ uint32_t tc_get_version(Tc *p_tc);
  * \code uint32_t gs_ul_captured_rb; \endcode
  * \snippet tc_capture_waveform_example.c tc_capture_irq_handler_read_rb
  *
- * \section asfdoc_sam_drivers_tc_qsg_basic_waveform TC Waveform Mode Basic Usage
+ * \section asfdoc_sam_drivers_tc_qsg_basic_waveform TC Waveform Mode Basic
+ *Usage
  *
  * This use case will demonstrate how to initialize the TC module to
  * operate in waveform mode. Note, that the macros used to select
@@ -734,7 +706,8 @@ uint32_t tc_get_version(Tc *p_tc);
  *			| TC_CMR_WAVE       // Waveform mode is enabled
  *			| TC_CMR_ACPA_SET   // RA Compare Effect: set
  *			| TC_CMR_ACPC_CLEAR // RC Compare Effect: clear
- *			| TC_CMR_CPCTRG     // UP mode with automatic trigger on RC Compare
+ *			| TC_CMR_CPCTRG     // UP mode with automatic trigger on
+ *RC Compare
  *	);
  *
  *	// Configure waveform frequency and duty cycle.

@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #include "pdc.h"
@@ -58,54 +59,48 @@ extern "C" {
  * \brief Configure PDC for data transmit.
  *
  * \param[out] p_pdc        Device structure pointer
- * \param[in] p_packet      Pointer to packet information for current buffer register
- *                          set. Use NULL to leave unaltered.
- * \param[in] p_next_packet Pointer to packet information for next buffer register
- *                          set. Use NULL to leave unaltered.
+ * \param[in] p_packet      Pointer to packet information for current buffer
+ * register set. Use NULL to leave unaltered.
+ * \param[in] p_next_packet Pointer to packet information for next buffer
+ * register set. Use NULL to leave unaltered.
  */
-void pdc_tx_init(
-		Pdc *p_pdc,
-		pdc_packet_t *p_packet,
-		pdc_packet_t *p_next_packet)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	if (p_packet) {
-		p_pdc->PERIPH_TPR = p_packet->ul_addr;
-		p_pdc->PERIPH_TCR = p_packet->ul_size;
-	}
-	if (p_next_packet) {
-		p_pdc->PERIPH_TNPR = p_next_packet->ul_addr;
-		p_pdc->PERIPH_TNCR = p_next_packet->ul_size;
-	}
+void pdc_tx_init(Pdc *p_pdc, pdc_packet_t *p_packet,
+                 pdc_packet_t *p_next_packet) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  if (p_packet) {
+    p_pdc->PERIPH_TPR = p_packet->ul_addr;
+    p_pdc->PERIPH_TCR = p_packet->ul_size;
+  }
+  if (p_next_packet) {
+    p_pdc->PERIPH_TNPR = p_next_packet->ul_addr;
+    p_pdc->PERIPH_TNCR = p_next_packet->ul_size;
+  }
 }
 
 /**
  * \brief Configure PDC for data receive.
  *
  * \param[out] p_pdc        Device structure pointer
- * \param[in] p_packet      Pointer to packet information for current buffer register
- *                          set. Use NULL to leave unaltered.
- * \param[in] p_next_packet Pointer to packet information for next buffer register
- *                          set. Use NULL to leave unaltered.
+ * \param[in] p_packet      Pointer to packet information for current buffer
+ * register set. Use NULL to leave unaltered.
+ * \param[in] p_next_packet Pointer to packet information for next buffer
+ * register set. Use NULL to leave unaltered.
  */
-void pdc_rx_init(
-		Pdc *p_pdc,
-		pdc_packet_t *p_packet,
-		pdc_packet_t *p_next_packet)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	if (p_packet) {
-		p_pdc->PERIPH_RPR = p_packet->ul_addr;
-		p_pdc->PERIPH_RCR = p_packet->ul_size;
-	}
-	if (p_next_packet) {
-		p_pdc->PERIPH_RNPR = p_next_packet->ul_addr;
-		p_pdc->PERIPH_RNCR = p_next_packet->ul_size;
-	}
+void pdc_rx_init(Pdc *p_pdc, pdc_packet_t *p_packet,
+                 pdc_packet_t *p_next_packet) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  if (p_packet) {
+    p_pdc->PERIPH_RPR = p_packet->ul_addr;
+    p_pdc->PERIPH_RCR = p_packet->ul_size;
+  }
+  if (p_next_packet) {
+    p_pdc->PERIPH_RNPR = p_next_packet->ul_addr;
+    p_pdc->PERIPH_RNCR = p_next_packet->ul_size;
+  }
 }
 
 /**
@@ -113,14 +108,12 @@ void pdc_rx_init(
  *
  * \param[out] p_pdc Device structure pointer
  */
-void pdc_rx_clear_cnt(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	p_pdc->PERIPH_RNCR = 0;
-	p_pdc->PERIPH_RCR = 0;
+void pdc_rx_clear_cnt(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  p_pdc->PERIPH_RNCR = 0;
+  p_pdc->PERIPH_RCR = 0;
 }
 
 /**
@@ -133,15 +126,11 @@ void pdc_rx_clear_cnt(
  * \param[in] ul_controls Transfer directions
  *                        (bit PERIPH_PTCR_RXTEN and bit PERIPH_PTCR_TXTEN)
  */
-void pdc_enable_transfer(
-		Pdc *p_pdc,
-		uint32_t ul_controls)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	p_pdc->PERIPH_PTCR =
-			ul_controls & (PERIPH_PTCR_RXTEN | PERIPH_PTCR_TXTEN);
+void pdc_enable_transfer(Pdc *p_pdc, uint32_t ul_controls) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  p_pdc->PERIPH_PTCR = ul_controls & (PERIPH_PTCR_RXTEN | PERIPH_PTCR_TXTEN);
 }
 
 /**
@@ -151,15 +140,11 @@ void pdc_enable_transfer(
  * \param[in] ul_controls Transfer directions
  *                        (bit PERIPH_PTCR_TXTDIS, bit PERIPH_PTCR_TXTDIS)
  */
-void pdc_disable_transfer(
-		Pdc *p_pdc,
-		uint32_t ul_controls)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	p_pdc->PERIPH_PTCR =
-			ul_controls & (PERIPH_PTCR_RXTDIS | PERIPH_PTCR_TXTDIS);
+void pdc_disable_transfer(Pdc *p_pdc, uint32_t ul_controls) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  p_pdc->PERIPH_PTCR = ul_controls & (PERIPH_PTCR_RXTDIS | PERIPH_PTCR_TXTDIS);
 }
 
 /**
@@ -188,13 +173,11 @@ void pdc_disable_transfer(
  * </table>
  *
  */
-uint32_t pdc_read_status(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	return p_pdc->PERIPH_PTSR;
+uint32_t pdc_read_status(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  return p_pdc->PERIPH_PTSR;
 }
 
 /**
@@ -204,13 +187,11 @@ uint32_t pdc_read_status(
  *
  * \return Receive Pointer Register value.
  */
-uint32_t pdc_read_rx_ptr(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	return p_pdc->PERIPH_RPR;
+uint32_t pdc_read_rx_ptr(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  return p_pdc->PERIPH_RPR;
 }
 
 /**
@@ -220,13 +201,11 @@ uint32_t pdc_read_rx_ptr(
  *
  * \return Receive Counter Register value.
  */
-uint32_t pdc_read_rx_counter(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	return p_pdc->PERIPH_RCR;
+uint32_t pdc_read_rx_counter(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  return p_pdc->PERIPH_RCR;
 }
 
 /**
@@ -236,13 +215,11 @@ uint32_t pdc_read_rx_counter(
  *
  * \return Transmit Pointer Register value.
  */
-uint32_t pdc_read_tx_ptr(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	return p_pdc->PERIPH_TPR;
+uint32_t pdc_read_tx_ptr(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  return p_pdc->PERIPH_TPR;
 }
 
 /**
@@ -252,13 +229,11 @@ uint32_t pdc_read_tx_ptr(
  *
  * \return Transmit Counter Register value.
  */
-uint32_t pdc_read_tx_counter(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	return p_pdc->PERIPH_TCR;
+uint32_t pdc_read_tx_counter(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  return p_pdc->PERIPH_TCR;
 }
 
 /**
@@ -268,13 +243,11 @@ uint32_t pdc_read_tx_counter(
  *
  * \return Receive Next Pointer Register value.
  */
-uint32_t pdc_read_rx_next_ptr(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	return p_pdc->PERIPH_RNPR;
+uint32_t pdc_read_rx_next_ptr(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  return p_pdc->PERIPH_RNPR;
 }
 
 /**
@@ -284,13 +257,11 @@ uint32_t pdc_read_rx_next_ptr(
  *
  * \return Receive Next Counter Register value.
  */
-uint32_t pdc_read_rx_next_counter(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	return p_pdc->PERIPH_RNCR;
+uint32_t pdc_read_rx_next_counter(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  return p_pdc->PERIPH_RNCR;
 }
 
 /**
@@ -300,13 +271,11 @@ uint32_t pdc_read_rx_next_counter(
  *
  * \return Transmit Next Pointer Register value.
  */
-uint32_t pdc_read_tx_next_ptr(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	return p_pdc->PERIPH_TNPR;
+uint32_t pdc_read_tx_next_ptr(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  return p_pdc->PERIPH_TNPR;
 }
 
 /**
@@ -316,13 +285,11 @@ uint32_t pdc_read_tx_next_ptr(
  *
  * \return Transmit Next Counter Register value.
  */
-uint32_t pdc_read_tx_next_counter(
-		Pdc *p_pdc)
-{
-	/* Validate inputs. */
-	Assert(p_pdc);
-	
-	return p_pdc->PERIPH_TNCR;
+uint32_t pdc_read_tx_next_counter(Pdc *p_pdc) {
+  /* Validate inputs. */
+  Assert(p_pdc);
+
+  return p_pdc->PERIPH_TNCR;
 }
 
 /// @cond

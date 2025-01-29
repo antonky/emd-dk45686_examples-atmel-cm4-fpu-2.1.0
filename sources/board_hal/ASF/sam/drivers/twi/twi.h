@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef TWI_H_INCLUDED
@@ -58,60 +59,60 @@ extern "C" {
 /// @endcond
 
 /** Time-out value (number of attempts). */
-#define TWI_TIMEOUT              30000
+#define TWI_TIMEOUT 30000
 
 /**
  * \brief Return codes for TWI APIs.
  * @{
  */
-#define TWI_SUCCESS              0
-#define TWI_INVALID_ARGUMENT     1
-#define TWI_ARBITRATION_LOST     2
-#define TWI_NO_CHIP_FOUND        3
-#define TWI_RECEIVE_OVERRUN      4
-#define TWI_RECEIVE_NACK         5
-#define TWI_SEND_OVERRUN         6
-#define TWI_SEND_NACK            7
-#define TWI_BUSY                 8
-#define TWI_ERROR_TIMEOUT        9
+#define TWI_SUCCESS 0
+#define TWI_INVALID_ARGUMENT 1
+#define TWI_ARBITRATION_LOST 2
+#define TWI_NO_CHIP_FOUND 3
+#define TWI_RECEIVE_OVERRUN 4
+#define TWI_RECEIVE_NACK 5
+#define TWI_SEND_OVERRUN 6
+#define TWI_SEND_NACK 7
+#define TWI_BUSY 8
+#define TWI_ERROR_TIMEOUT 9
 /**
  * @}
  */
- 
+
 /**
  * \brief Input parameters when initializing the TWI module mode.
  */
 typedef struct twi_options {
-	//! MCK for TWI.
-	uint32_t master_clk;
-	//! The baud rate of the TWI bus.
-	uint32_t speed;
-	//! The desired address.
-	uint8_t chip;
-	//! SMBUS mode (set 1 to use SMBUS quick command, otherwise don't).
-	uint8_t smbus;
+  //! MCK for TWI.
+  uint32_t master_clk;
+  //! The baud rate of the TWI bus.
+  uint32_t speed;
+  //! The desired address.
+  uint8_t chip;
+  //! SMBUS mode (set 1 to use SMBUS quick command, otherwise don't).
+  uint8_t smbus;
 } twi_options_t;
 
 /**
  * \brief Information concerning the data transmission.
  */
 typedef struct twi_packet {
-	//! TWI address/commands to issue to the other chip (node).
-	uint8_t addr[3];
-	//! Length of the TWI data address segment (1-3 bytes).
-	uint32_t addr_length;
-	//! Where to find the data to be transferred.
-	void *buffer;
-	//! How many bytes do we want to transfer.
-	uint32_t length;
-	//! TWI chip address to communicate with.
-	uint8_t chip;
+  //! TWI address/commands to issue to the other chip (node).
+  uint8_t addr[3];
+  //! Length of the TWI data address segment (1-3 bytes).
+  uint32_t addr_length;
+  //! Where to find the data to be transferred.
+  void *buffer;
+  //! How many bytes do we want to transfer.
+  uint32_t length;
+  //! TWI chip address to communicate with.
+  uint8_t chip;
 } twi_packet_t;
 
 #if SAMG55
 enum twi_source_clock {
-	TWI_SOURCE_PERIPH_CLK = TWI_CWGR_BRSRCCLK_PERIPH_CLK,
-	TWI_SOURCE_PCK_CLK = TWI_CWGR_BRSRCCLK_PMC_PCK,	
+  TWI_SOURCE_PERIPH_CLK = TWI_CWGR_BRSRCCLK_PERIPH_CLK,
+  TWI_SOURCE_PCK_CLK = TWI_CWGR_BRSRCCLK_PMC_PCK,
 };
 #endif
 
@@ -147,20 +148,18 @@ void twi_smbus_set_timing(Twi *p_twi, uint32_t ul_timing);
 void twi_set_alternative_command(Twi *p_twi, uint32_t ul_alt_cmd);
 void twi_set_filter(Twi *p_twi, uint32_t ul_filter);
 void twi_mask_slave_addr(Twi *p_twi, uint32_t ul_mask);
-void twi_set_sleepwalking(Twi *p_twi,
-		uint32_t ul_matching_addr1, bool flag1,
-		uint32_t ul_matching_addr2, bool flag2,
-		uint32_t ul_matching_addr3, bool flag3,
-		uint32_t ul_matching_data, bool flag);
+void twi_set_sleepwalking(Twi *p_twi, uint32_t ul_matching_addr1, bool flag1,
+                          uint32_t ul_matching_addr2, bool flag2,
+                          uint32_t ul_matching_addr3, bool flag3,
+                          uint32_t ul_matching_data, bool flag);
 
 /**
  * \brief Enable high speed mode.
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_highspeed(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_HSEN;
+static inline void twi_enable_highspeed(Twi *p_twi) {
+  p_twi->TWI_CR = TWI_CR_HSEN;
 }
 
 /**
@@ -168,9 +167,8 @@ static inline void twi_enable_highspeed(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_highspeed(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_HSDIS;
+static inline void twi_disable_highspeed(Twi *p_twi) {
+  p_twi->TWI_CR = TWI_CR_HSDIS;
 }
 
 /**
@@ -178,9 +176,8 @@ static inline void twi_disable_highspeed(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_smbus(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_SMBEN;
+static inline void twi_enable_smbus(Twi *p_twi) {
+  p_twi->TWI_CR = TWI_CR_SMBEN;
 }
 
 /**
@@ -188,9 +185,8 @@ static inline void twi_enable_smbus(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_smbus(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_SMBDIS;
+static inline void twi_disable_smbus(Twi *p_twi) {
+  p_twi->TWI_CR = TWI_CR_SMBDIS;
 }
 
 /**
@@ -198,19 +194,15 @@ static inline void twi_disable_smbus(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_pec(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_PECEN;
-}
+static inline void twi_enable_pec(Twi *p_twi) { p_twi->TWI_CR = TWI_CR_PECEN; }
 
 /**
  * \brief Disable packet error checking.
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_pec(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_PECDIS;
+static inline void twi_disable_pec(Twi *p_twi) {
+  p_twi->TWI_CR = TWI_CR_PECDIS;
 }
 
 /**
@@ -218,19 +210,22 @@ static inline void twi_disable_pec(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_request_pec(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_PECRQ;
-}
+static inline void twi_request_pec(Twi *p_twi) { p_twi->TWI_CR = TWI_CR_PECRQ; }
 
 /**
  * \brief If master mode is enabled, send a bus clear command.
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_send_clear(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_CLEAR;
+static inline void twi_send_clear(Twi *p_twi) { p_twi->TWI_CR = TWI_CR_CLEAR; }
+
+/**
+ * \brief Enable alternative command mode.
+ *
+ * \param p_twi   Base address of the TWI instance.
+ */
+static inline void twi_enable_alternative_command(Twi *p_twi) {
+  p_twi->TWI_CR = TWI_CR_ACMEN;
 }
 
 /**
@@ -238,19 +233,8 @@ static inline void twi_send_clear(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_alternative_command(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_ACMEN;
-}
-
-/**
- * \brief Enable alternative command mode.
- *
- * \param p_twi   Base address of the TWI instance.
- */
-static inline void twi_disable_alternative_command(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_ACMDIS;
+static inline void twi_disable_alternative_command(Twi *p_twi) {
+  p_twi->TWI_CR = TWI_CR_ACMDIS;
 }
 
 /**
@@ -258,39 +242,35 @@ static inline void twi_disable_alternative_command(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_thr_clear(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_THRCLR;
-}
+static inline void twi_thr_clear(Twi *p_twi) { p_twi->TWI_CR = TWI_CR_THRCLR; }
 
 /**
  * \brief Clear the TWI FSM lock.
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_lock_clear(Twi *p_twi)
-{
-	p_twi->TWI_CR = TWI_CR_LOCKCLR;
+static inline void twi_lock_clear(Twi *p_twi) {
+  p_twi->TWI_CR = TWI_CR_LOCKCLR;
 }
 
 /**
- * \brief Normal value to be returned in the ACK cycle of the data phase in slave receiver mode.
+ * \brief Normal value to be returned in the ACK cycle of the data phase in
+ * slave receiver mode.
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_slave_nack(Twi *p_twi)
-{
-	p_twi->TWI_SMR &= ~TWI_SMR_NACKEN;
+static inline void twi_disable_slave_nack(Twi *p_twi) {
+  p_twi->TWI_SMR &= ~TWI_SMR_NACKEN;
 }
 
 /**
- * \brief NACK value to be returned in the ACK cycle of the data phase in slave receiver mode.
+ * \brief NACK value to be returned in the ACK cycle of the data phase in slave
+ * receiver mode.
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_slave_nack(Twi *p_twi)
-{
-	p_twi->TWI_SMR |= TWI_SMR_NACKEN;
+static inline void twi_enable_slave_nack(Twi *p_twi) {
+  p_twi->TWI_SMR |= TWI_SMR_NACKEN;
 }
 
 /**
@@ -298,9 +278,8 @@ static inline void twi_enable_slave_nack(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_slave_default_addr(Twi *p_twi)
-{
-	p_twi->TWI_SMR &= ~TWI_SMR_SMDA;
+static inline void twi_disable_slave_default_addr(Twi *p_twi) {
+  p_twi->TWI_SMR &= ~TWI_SMR_SMDA;
 }
 
 /**
@@ -308,9 +287,8 @@ static inline void twi_disable_slave_default_addr(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_slave_default_addr(Twi *p_twi)
-{
-	p_twi->TWI_SMR |= TWI_SMR_SMDA;
+static inline void twi_enable_slave_default_addr(Twi *p_twi) {
+  p_twi->TWI_SMR |= TWI_SMR_SMDA;
 }
 
 /**
@@ -318,9 +296,8 @@ static inline void twi_enable_slave_default_addr(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_smbus_host_header(Twi *p_twi)
-{
-	p_twi->TWI_SMR &= ~TWI_SMR_SMHH;
+static inline void twi_disable_smbus_host_header(Twi *p_twi) {
+  p_twi->TWI_SMR &= ~TWI_SMR_SMHH;
 }
 
 /**
@@ -328,19 +305,18 @@ static inline void twi_disable_smbus_host_header(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_smbus_host_header(Twi *p_twi)
-{
-	p_twi->TWI_SMR |= TWI_SMR_SMHH;
+static inline void twi_enable_smbus_host_header(Twi *p_twi) {
+  p_twi->TWI_SMR |= TWI_SMR_SMHH;
 }
 
 /**
- * \brief Clock stretching disabled in slave mode, OVRE and UNRE will indicate overrun and underrun.
+ * \brief Clock stretching disabled in slave mode, OVRE and UNRE will indicate
+ * overrun and underrun.
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_clock_wait_state(Twi *p_twi)
-{
-	p_twi->TWI_SMR |= TWI_SMR_SCLWSDIS;
+static inline void twi_disable_clock_wait_state(Twi *p_twi) {
+  p_twi->TWI_SMR |= TWI_SMR_SCLWSDIS;
 }
 
 /**
@@ -348,9 +324,8 @@ static inline void twi_disable_clock_wait_state(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_clear_disable_clock_wait_state(Twi *p_twi)
-{
-	p_twi->TWI_SMR &= ~TWI_SMR_SCLWSDIS;
+static inline void twi_clear_disable_clock_wait_state(Twi *p_twi) {
+  p_twi->TWI_SMR &= ~TWI_SMR_SCLWSDIS;
 }
 
 /**
@@ -358,9 +333,8 @@ static inline void twi_clear_disable_clock_wait_state(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_slave_addr1_matching(Twi *p_twi)
-{
-	p_twi->TWI_SMR &= ~TWI_SMR_SADR1EN;
+static inline void twi_disable_slave_addr1_matching(Twi *p_twi) {
+  p_twi->TWI_SMR &= ~TWI_SMR_SADR1EN;
 }
 
 /**
@@ -368,9 +342,8 @@ static inline void twi_disable_slave_addr1_matching(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_slave_addr1_matching(Twi *p_twi)
-{
-	p_twi->TWI_SMR |= TWI_SMR_SADR1EN;
+static inline void twi_enable_slave_addr1_matching(Twi *p_twi) {
+  p_twi->TWI_SMR |= TWI_SMR_SADR1EN;
 }
 
 /**
@@ -378,9 +351,8 @@ static inline void twi_enable_slave_addr1_matching(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_slave_addr2_matching(Twi *p_twi)
-{
-	p_twi->TWI_SMR &= ~TWI_SMR_SADR2EN;
+static inline void twi_disable_slave_addr2_matching(Twi *p_twi) {
+  p_twi->TWI_SMR &= ~TWI_SMR_SADR2EN;
 }
 
 /**
@@ -388,9 +360,8 @@ static inline void twi_disable_slave_addr2_matching(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_slave_addr2_matching(Twi *p_twi)
-{
-	p_twi->TWI_SMR |= TWI_SMR_SADR2EN;
+static inline void twi_enable_slave_addr2_matching(Twi *p_twi) {
+  p_twi->TWI_SMR |= TWI_SMR_SADR2EN;
 }
 
 /**
@@ -398,9 +369,8 @@ static inline void twi_enable_slave_addr2_matching(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_slave_addr3_matching(Twi *p_twi)
-{
-	p_twi->TWI_SMR &= ~TWI_SMR_SADR3EN;
+static inline void twi_disable_slave_addr3_matching(Twi *p_twi) {
+  p_twi->TWI_SMR &= ~TWI_SMR_SADR3EN;
 }
 
 /**
@@ -408,9 +378,8 @@ static inline void twi_disable_slave_addr3_matching(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_enable_slave_addr3_matching(Twi *p_twi)
-{
-	p_twi->TWI_SMR |= TWI_SMR_SADR3EN;
+static inline void twi_enable_slave_addr3_matching(Twi *p_twi) {
+  p_twi->TWI_SMR |= TWI_SMR_SADR3EN;
 }
 
 /**
@@ -418,9 +387,8 @@ static inline void twi_enable_slave_addr3_matching(Twi *p_twi)
  *
  * \param p_twi   Base address of the TWI instance.
  */
-static inline void twi_disable_slave_data_matching(Twi *p_twi)
-{
-	p_twi->TWI_SMR &= ~TWI_SMR_DATAMEN;
+static inline void twi_disable_slave_data_matching(Twi *p_twi) {
+  p_twi->TWI_SMR &= ~TWI_SMR_DATAMEN;
 }
 
 /**
@@ -429,10 +397,10 @@ static inline void twi_disable_slave_data_matching(Twi *p_twi)
  * \param p_twi   Base address of the TWI instance.
  * \param src_clk  Source clock.
  */
-static inline void twi_select_source_clock(Twi *p_twi, enum twi_source_clock src_clk)
-{
-	p_twi->TWI_CWGR &= ~TWI_CWGR_BRSRCCLK;
-	p_twi->TWI_CWGR |= src_clk;
+static inline void twi_select_source_clock(Twi *p_twi,
+                                           enum twi_source_clock src_clk) {
+  p_twi->TWI_CWGR &= ~TWI_CWGR_BRSRCCLK;
+  p_twi->TWI_CWGR |= src_clk;
 }
 #endif
 

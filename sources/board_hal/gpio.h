@@ -1,10 +1,10 @@
 /*
  *
  * Copyright (c) [2016] by InvenSense, Inc.
- * 
+ *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
@@ -29,29 +29,34 @@ extern "C" {
 /** @brief Enumeration of the GPIOs connected to the INV sensor:
        - INV_GPIO_REVG represents the GPIO between AP and ICM for rev G
        - INV_GPIO_REVI represents the GPIO between AP and ICM for rev I
-       - INV_GPIO_ONBOARD_REVB represents the GPIO between AP and on-board ICM for rev B
-       - INV_GPIO_BOARD_REVB_DB represents the GPIO between AP and DB ICM for rev B
-       - INV_GPIO_BOARD_REVDPLUS represents the GPIO between AP and DB ICM for rev D+
+       - INV_GPIO_ONBOARD_REVB represents the GPIO between AP and on-board ICM
+   for rev B
+       - INV_GPIO_BOARD_REVB_DB represents the GPIO between AP and DB ICM for
+   rev B
+       - INV_GPIO_BOARD_REVDPLUS represents the GPIO between AP and DB ICM for
+   rev D+
 */
 typedef enum gpio_board_type {
-	INV_GPIO_BOARD_REVG = 0,
-	INV_GPIO_BOARD_REVI = INV_GPIO_BOARD_REVG,
-	INV_GPIO_BOARD_REVB = 1,
-	INV_GPIO_BOARD_REVB_DB,
-	INV_GPIO_BOARD_REVDPLUS,
-	INV_GPIO_BOARD_MAX
+  INV_GPIO_BOARD_REVG = 0,
+  INV_GPIO_BOARD_REVI = INV_GPIO_BOARD_REVG,
+  INV_GPIO_BOARD_REVB = 1,
+  INV_GPIO_BOARD_REVB_DB,
+  INV_GPIO_BOARD_REVDPLUS,
+  INV_GPIO_BOARD_MAX
 } gpio_num_t;
 
 enum gpio_inv_pin_num {
-	INV_GPIO_INT1 = 0,         /* Connected to the INT1 pin of the Invensense chip. */
-	INV_GPIO_INT2,             /* Connected to the INT2 pin of the Invensense chip. */
-	INV_GPIO_FSYNC,            /* Connected to the FSYNC pin of the Invensense chip. */
-	INV_GPIO_3RD_PARTY_INT1,   /* Connected to the interrupt pin of the 3rd party chip. */
-	INV_GPIO_SW0_BUTTON,       /* Connected to the SW0 button. */
-	INV_GPIO_CLKIN,            /* Output SLCK on PA17 pin. Set a hardware bridge to connect to CLKIN pin of the Invensense chip. */
-	INV_GPIO_AD0,              /* Connected to the AD0 pin of the Invensense chip. */
-	INV_GPIO_CSN,              /* Connected to the CSn pin of the Invensense chip. */
-	INV_GPIO_MAX
+  INV_GPIO_INT1 = 0, /* Connected to the INT1 pin of the Invensense chip. */
+  INV_GPIO_INT2,     /* Connected to the INT2 pin of the Invensense chip. */
+  INV_GPIO_FSYNC,    /* Connected to the FSYNC pin of the Invensense chip. */
+  INV_GPIO_3RD_PARTY_INT1, /* Connected to the interrupt pin of the 3rd party
+                              chip. */
+  INV_GPIO_SW0_BUTTON,     /* Connected to the SW0 button. */
+  INV_GPIO_CLKIN, /* Output SLCK on PA17 pin. Set a hardware bridge to connect
+                     to CLKIN pin of the Invensense chip. */
+  INV_GPIO_AD0,   /* Connected to the AD0 pin of the Invensense chip. */
+  INV_GPIO_CSN,   /* Connected to the CSn pin of the Invensense chip. */
+  INV_GPIO_MAX
 };
 
 /** @brief Force board revision
@@ -81,19 +86,20 @@ void inv_gpio_toggle_pin(unsigned pin_num);
 int inv_gpio_get_status(unsigned pin_num);
 
 /** @brief Set GPIO state high
-*   @param[in] pin_num which GPIO pin shall be toggled
-*/
+ *   @param[in] pin_num which GPIO pin shall be toggled
+ */
 void inv_gpio_set_pin_high(unsigned pin_num);
 
 /** @brief Set GPIO state low
-*   @param[in] pin_num which GPIO pin shall be toggled
-*/
+ *   @param[in] pin_num which GPIO pin shall be toggled
+ */
 void inv_gpio_set_pin_low(unsigned pin_num);
 
 /** @brief Output 32kHz clock to PA17
- *  @param[in]	pin_num which GPIO pin to output clock 
+ *  @param[in]	pin_num which GPIO pin to output clock
  *  @warning Pin must be PA17
- *  @warning This is not compatible with any call to gpio_sensor_irq_init(TO_MASK(GPIO_SENSOR_IRQ_D7))
+ *  @warning This is not compatible with any call to
+ * gpio_sensor_irq_init(TO_MASK(GPIO_SENSOR_IRQ_D7))
  */
 int inv_gpio_output_clk_on_pin(unsigned pin_num);
 
@@ -103,14 +109,15 @@ int inv_gpio_output_clk_on_pin(unsigned pin_num);
  */
 int inv_gpio_disable_clk_on_pin(unsigned pin_num);
 
-
 /** @brief Init the sensor line interrupt to wake-up the MCU
  *  @param[in]	int_num         IRQ pin as defined by enum gpio_sensor_irq_num
  *  @param[in]	interrupt_cb    callback to call on interrupt
  *  @param[in]	context         context passed to callback
  */
 void inv_gpio_sensor_irq_init(unsigned pin_num,
-		void (*interrupt_cb)(void * context, unsigned int_num), void * context);
+                              void (*interrupt_cb)(void *context,
+                                                   unsigned int_num),
+                              void *context);
 
 #ifdef __cplusplus
 }

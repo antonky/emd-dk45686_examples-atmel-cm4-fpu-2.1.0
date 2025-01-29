@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef _STRINGZ_H_
@@ -59,13 +60,14 @@
  *
  * Stringize a preprocessing token, this token being allowed to be \#defined.
  *
- * May be used only within macros with the token passed as an argument if the token is \#defined.
+ * May be used only within macros with the token passed as an argument if the
+ * token is \#defined.
  *
  * For example, writing STRINGZ(PIN) within a macro \#defined by PIN_NAME(PIN)
  * and invoked as PIN_NAME(PIN0) with PIN0 \#defined as A0 is equivalent to
  * writing "A0".
  */
-#define STRINGZ(x)                                #x
+#define STRINGZ(x) #x
 
 /*! \brief Absolute stringize.
  *
@@ -76,10 +78,10 @@
  * For example, writing ASTRINGZ(PIN0) anywhere with PIN0 \#defined as A0 is
  * equivalent to writing "A0".
  */
-#define ASTRINGZ(x)                               STRINGZ(x)
+#define ASTRINGZ(x) STRINGZ(x)
 
 /**
  * \}
  */
 
-#endif  // _STRINGZ_H_
+#endif // _STRINGZ_H_

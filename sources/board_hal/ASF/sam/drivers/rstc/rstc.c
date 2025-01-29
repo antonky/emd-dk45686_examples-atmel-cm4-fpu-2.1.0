@@ -41,9 +41,10 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
- 
+
 #include "rstc.h"
 
 /// @cond
@@ -54,7 +55,7 @@ extern "C" {
 /**INDENT-ON**/
 /// @endcond
 
-#define RSTC_KEY  0xA5000000
+#define RSTC_KEY 0xA5000000
 
 /**
  * \brief Set the external reset length.
@@ -62,19 +63,16 @@ extern "C" {
  * \param[in,out] p_rstc Module hardware register base address pointer
  * \param[in] ul_length The length of external reset
  */
-void rstc_set_external_reset(
-		Rstc *p_rstc,
-		const uint32_t ul_length)
-{
-	/* Validate the parameters. */
-	Assert(p_rstc);
-	
-	uint32_t mode = p_rstc->RSTC_MR;
+void rstc_set_external_reset(Rstc *p_rstc, const uint32_t ul_length) {
+  /* Validate the parameters. */
+  Assert(p_rstc);
 
-	mode &= ~(RSTC_MR_ERSTL_Msk | RSTC_MR_KEY_Msk);
-	mode |= (RSTC_MR_ERSTL(ul_length) | RSTC_KEY);
+  uint32_t mode = p_rstc->RSTC_MR;
 
-	p_rstc->RSTC_MR = mode;
+  mode &= ~(RSTC_MR_ERSTL_Msk | RSTC_MR_KEY_Msk);
+  mode |= (RSTC_MR_ERSTL(ul_length) | RSTC_KEY);
+
+  p_rstc->RSTC_MR = mode;
 }
 
 /**
@@ -82,18 +80,16 @@ void rstc_set_external_reset(
  *
  * \param[in,out] p_rstc Module hardware register base address pointer
  */
-void rstc_enable_user_reset(
-		Rstc *p_rstc)
-{
-	/* Validate the parameters. */
-	Assert(p_rstc);
-	
-	uint32_t mode = p_rstc->RSTC_MR;
+void rstc_enable_user_reset(Rstc *p_rstc) {
+  /* Validate the parameters. */
+  Assert(p_rstc);
 
-	mode &= ~RSTC_MR_KEY_Msk;
-	mode |= (RSTC_MR_URSTEN | RSTC_KEY);
+  uint32_t mode = p_rstc->RSTC_MR;
 
-	p_rstc->RSTC_MR = mode;
+  mode &= ~RSTC_MR_KEY_Msk;
+  mode |= (RSTC_MR_URSTEN | RSTC_KEY);
+
+  p_rstc->RSTC_MR = mode;
 }
 
 /**
@@ -101,18 +97,16 @@ void rstc_enable_user_reset(
  *
  * \param[in,out] p_rstc Module hardware register base address pointer
  */
-void rstc_disable_user_reset(
-		Rstc *p_rstc)
-{
-	/* Validate the parameters. */
-	Assert(p_rstc);
-	
-	uint32_t mode = p_rstc->RSTC_MR;
+void rstc_disable_user_reset(Rstc *p_rstc) {
+  /* Validate the parameters. */
+  Assert(p_rstc);
 
-	mode &= ~(RSTC_MR_URSTEN | RSTC_MR_KEY_Msk);
-	mode |= RSTC_KEY;
+  uint32_t mode = p_rstc->RSTC_MR;
 
-	p_rstc->RSTC_MR = mode;
+  mode &= ~(RSTC_MR_URSTEN | RSTC_MR_KEY_Msk);
+  mode |= RSTC_KEY;
+
+  p_rstc->RSTC_MR = mode;
 }
 
 /**
@@ -120,18 +114,16 @@ void rstc_disable_user_reset(
  *
  * \param[in,out] p_rstc Module hardware register base address pointer
  */
-void rstc_enable_user_reset_interrupt(
-		Rstc *p_rstc)
-{
-	/* Validate the parameters. */
-	Assert(p_rstc);
-	
-	uint32_t mode = p_rstc->RSTC_MR;
+void rstc_enable_user_reset_interrupt(Rstc *p_rstc) {
+  /* Validate the parameters. */
+  Assert(p_rstc);
 
-	mode &= ~RSTC_MR_KEY_Msk;
-	mode |= (RSTC_MR_URSTIEN | RSTC_KEY);
+  uint32_t mode = p_rstc->RSTC_MR;
 
-	p_rstc->RSTC_MR = mode;
+  mode &= ~RSTC_MR_KEY_Msk;
+  mode |= (RSTC_MR_URSTIEN | RSTC_KEY);
+
+  p_rstc->RSTC_MR = mode;
 }
 
 /**
@@ -139,18 +131,16 @@ void rstc_enable_user_reset_interrupt(
  *
  * \param[in,out] p_rstc Module hardware register base address pointer
  */
-void rstc_disable_user_reset_interrupt(
-		Rstc *p_rstc)
-{
-	/* Validate the parameters. */
-	Assert(p_rstc);
-	
-	uint32_t mode = p_rstc->RSTC_MR;
+void rstc_disable_user_reset_interrupt(Rstc *p_rstc) {
+  /* Validate the parameters. */
+  Assert(p_rstc);
 
-	mode &= ~(RSTC_MR_URSTIEN | RSTC_MR_KEY_Msk);
-	mode |= RSTC_KEY;
+  uint32_t mode = p_rstc->RSTC_MR;
 
-	p_rstc->RSTC_MR = mode;
+  mode &= ~(RSTC_MR_URSTIEN | RSTC_MR_KEY_Msk);
+  mode |= RSTC_KEY;
+
+  p_rstc->RSTC_MR = mode;
 }
 
 /**
@@ -158,13 +148,11 @@ void rstc_disable_user_reset_interrupt(
  *
  * \param[out] p_rstc Module hardware register base address pointer
  */
-void rstc_start_software_reset(
-		Rstc *p_rstc)
-{
+void rstc_start_software_reset(Rstc *p_rstc) {
 #if (SAMV71 || SAMV70 || SAMS70 || SAME70)
-	p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_PROCRST;
+  p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_PROCRST;
 #else
-	p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_PROCRST | RSTC_CR_PERRST;
+  p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_PROCRST | RSTC_CR_PERRST;
 #endif
 }
 
@@ -173,10 +161,8 @@ void rstc_start_software_reset(
  *
  * \param[out] p_rstc Module hardware register base address pointer
  */
-void rstc_reset_extern(
-		Rstc *p_rstc)
-{
-	p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_EXTRST;
+void rstc_reset_extern(Rstc *p_rstc) {
+  p_rstc->RSTC_CR = RSTC_KEY | RSTC_CR_EXTRST;
 }
 
 /**
@@ -186,11 +172,7 @@ void rstc_reset_extern(
  *
  * \return RSTC status.
  */
-uint32_t rstc_get_status(
-		Rstc *p_rstc)
-{
-	return p_rstc->RSTC_SR;
-}
+uint32_t rstc_get_status(Rstc *p_rstc) { return p_rstc->RSTC_SR; }
 
 /**
  * \brief Get the reset cause.
@@ -199,10 +181,8 @@ uint32_t rstc_get_status(
  *
  * \return The last reset cause.
  */
-uint32_t rstc_get_reset_cause(
-		Rstc *p_rstc)
-{
-	return (p_rstc->RSTC_SR & RSTC_SR_RSTTYP_Msk);
+uint32_t rstc_get_reset_cause(Rstc *p_rstc) {
+  return (p_rstc->RSTC_SR & RSTC_SR_RSTTYP_Msk);
 }
 
 /// @cond

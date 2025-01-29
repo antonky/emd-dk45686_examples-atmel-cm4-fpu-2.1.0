@@ -43,7 +43,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 #include "serial.h"
 
@@ -56,16 +57,14 @@
  *
  */
 status_code_t usart_serial_write_packet(usart_if usart, const uint8_t *data,
-		size_t len)
-{
-	while (len) {
-		usart_serial_putchar(usart, *data);
-		len--;
-		data++;
-	}
-	return STATUS_OK;
+                                        size_t len) {
+  while (len) {
+    usart_serial_putchar(usart, *data);
+    len--;
+    data++;
+  }
+  return STATUS_OK;
 }
-
 
 /**
  * \brief Receive a sequence of bytes from USART device
@@ -76,12 +75,11 @@ status_code_t usart_serial_write_packet(usart_if usart, const uint8_t *data,
  *
  */
 status_code_t usart_serial_read_packet(usart_if usart, uint8_t *data,
-		size_t len)
-{
-	while (len) {
-		usart_serial_getchar(usart, data);
-		len--;
-		data++;
-	}
-	return STATUS_OK;
+                                       size_t len) {
+  while (len) {
+    usart_serial_getchar(usart, data);
+    len--;
+    data++;
+  }
+  return STATUS_OK;
 }

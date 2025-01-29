@@ -42,7 +42,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef USART_H_INCLUDED
@@ -71,164 +72,167 @@ extern "C" {
 /// @endcond
 
 /** Clock phase. */
-#define SPI_CPHA    (1 << 0)
+#define SPI_CPHA (1 << 0)
 
 /** Clock polarity. */
-#define SPI_CPOL    (1 << 1)
+#define SPI_CPOL (1 << 1)
 
 /** SPI mode definition. */
-#define SPI_MODE_0  0
-#define SPI_MODE_1  (SPI_CPHA)
-#define SPI_MODE_2  (SPI_CPOL)
-#define SPI_MODE_3  (SPI_CPOL | SPI_CPHA)
+#define SPI_MODE_0 0
+#define SPI_MODE_1 (SPI_CPHA)
+#define SPI_MODE_2 (SPI_CPOL)
+#define SPI_MODE_3 (SPI_CPOL | SPI_CPHA)
 
 /**micro definition for LIN mode of SAMV71*/
 #if (SAMV71 || SAMV70 || SAME70 || SAMS70)
-#define US_MR_USART_MODE_LIN_MASTER  0x0A
-#define US_MR_USART_MODE_LIN_SLAVE   0x0B
+#define US_MR_USART_MODE_LIN_MASTER 0x0A
+#define US_MR_USART_MODE_LIN_SLAVE 0x0B
 #endif
 /* Input parameters when initializing RS232 and similar modes. */
 typedef struct {
-	/* Set baud rate of the USART (unused in slave modes). */
-	uint32_t baudrate;
+  /* Set baud rate of the USART (unused in slave modes). */
+  uint32_t baudrate;
 
-	/*
-	 * Number of bits, which should be one of the following: US_MR_CHRL_5_BIT,
-	 * US_MR_CHRL_6_BIT, US_MR_CHRL_7_BIT, US_MR_CHRL_8_BIT or
-	 * US_MR_MODE9.
-	 */
-	uint32_t char_length;
+  /*
+   * Number of bits, which should be one of the following: US_MR_CHRL_5_BIT,
+   * US_MR_CHRL_6_BIT, US_MR_CHRL_7_BIT, US_MR_CHRL_8_BIT or
+   * US_MR_MODE9.
+   */
+  uint32_t char_length;
 
-	/*
-	 * Parity type, which should be one of the following: US_MR_PAR_EVEN,
-	 * US_MR_PAR_ODD, US_MR_PAR_SPACE, US_MR_PAR_MARK, US_MR_PAR_NO
-	 * or US_MR_PAR_MULTIDROP.
-	 */
-	uint32_t parity_type;
+  /*
+   * Parity type, which should be one of the following: US_MR_PAR_EVEN,
+   * US_MR_PAR_ODD, US_MR_PAR_SPACE, US_MR_PAR_MARK, US_MR_PAR_NO
+   * or US_MR_PAR_MULTIDROP.
+   */
+  uint32_t parity_type;
 
-	/*
-	 * Number of stop bits between two characters: US_MR_NBSTOP_1_BIT,
-	 * US_MR_NBSTOP_1_5_BIT, US_MR_NBSTOP_2_BIT.
-	 * \note US_MR_NBSTOP_1_5_BIT is supported in asynchronous modes only.
-	 */
-	uint32_t stop_bits;
+  /*
+   * Number of stop bits between two characters: US_MR_NBSTOP_1_BIT,
+   * US_MR_NBSTOP_1_5_BIT, US_MR_NBSTOP_2_BIT.
+   * \note US_MR_NBSTOP_1_5_BIT is supported in asynchronous modes only.
+   */
+  uint32_t stop_bits;
 
-	/*
-	 * Run the channel in test mode, which should be one of following:
-	 * US_MR_CHMODE_NORMAL, US_MR_CHMODE_AUTOMATIC,
-	 * US_MR_CHMODE_LOCAL_LOOPBACK, US_MR_CHMODE_REMOTE_LOOPBACK.
-	 */
-	uint32_t channel_mode;
+  /*
+   * Run the channel in test mode, which should be one of following:
+   * US_MR_CHMODE_NORMAL, US_MR_CHMODE_AUTOMATIC,
+   * US_MR_CHMODE_LOCAL_LOOPBACK, US_MR_CHMODE_REMOTE_LOOPBACK.
+   */
+  uint32_t channel_mode;
 
-	/* Filter of IrDA mode, useless in other modes. */
-	uint32_t irda_filter;
+  /* Filter of IrDA mode, useless in other modes. */
+  uint32_t irda_filter;
 } sam_usart_opt_t;
 
 /* Input parameters when initializing ISO7816 mode. */
 typedef struct {
-	/* Set the frequency of the ISO7816 clock. */
-	uint32_t iso7816_hz;
+  /* Set the frequency of the ISO7816 clock. */
+  uint32_t iso7816_hz;
 
-	/*
-	 * The number of ISO7816 clock ticks in every bit period (1 to 2047,
-	 * 0 = disable clock). Baudrate rate = iso7816_hz / fidi_ratio.
-	 */
-	uint32_t fidi_ratio;
+  /*
+   * The number of ISO7816 clock ticks in every bit period (1 to 2047,
+   * 0 = disable clock). Baudrate rate = iso7816_hz / fidi_ratio.
+   */
+  uint32_t fidi_ratio;
 
-	/*
-	 * How to calculate the parity bit: US_MR_PAR_EVEN for normal mode or
-	 * US_MR_PAR_ODD for inverse mode.
-	 */
-	uint32_t parity_type;
+  /*
+   * How to calculate the parity bit: US_MR_PAR_EVEN for normal mode or
+   * US_MR_PAR_ODD for inverse mode.
+   */
+  uint32_t parity_type;
 
-	/*
-	 * Inhibit Non Acknowledge:
-	 *   - 0: the NACK is generated;
-	 *   - 1: the NACK is not generated.
-	 *
-	 * \note This bit will be used only in ISO7816 mode, protocol T = 0
-	 * receiver.
-	 */
-	uint32_t inhibit_nack;
+  /*
+   * Inhibit Non Acknowledge:
+   *   - 0: the NACK is generated;
+   *   - 1: the NACK is not generated.
+   *
+   * \note This bit will be used only in ISO7816 mode, protocol T = 0
+   * receiver.
+   */
+  uint32_t inhibit_nack;
 
-	/*
-	 * Disable successive NACKs.
-	 *  - 0: NACK is sent on the ISO line as soon as a parity error occurs
-	 * in the received character. Successive parity errors are counted up to
-	 * the value in the max_iterations field. These parity errors generate
-	 * a NACK on the ISO line. As soon as this value is reached, no additional
-	 * NACK is sent on the ISO line. The ITERATION flag is asserted.
-	 */
-	uint32_t dis_suc_nack;
+  /*
+   * Disable successive NACKs.
+   *  - 0: NACK is sent on the ISO line as soon as a parity error occurs
+   * in the received character. Successive parity errors are counted up to
+   * the value in the max_iterations field. These parity errors generate
+   * a NACK on the ISO line. As soon as this value is reached, no additional
+   * NACK is sent on the ISO line. The ITERATION flag is asserted.
+   */
+  uint32_t dis_suc_nack;
 
-	/* Max number of repetitions (0 to 7). */
-	uint32_t max_iterations;
+  /* Max number of repetitions (0 to 7). */
+  uint32_t max_iterations;
 
-	/*
-	 * Bit order in transmitted characters:
-	 *   - 0: LSB first;
-	 *   - 1: MSB first.
-	 */
-	uint32_t bit_order;
+  /*
+   * Bit order in transmitted characters:
+   *   - 0: LSB first;
+   *   - 1: MSB first.
+   */
+  uint32_t bit_order;
 
-	/*
-	 * Which protocol is used:
-	 *   - 0: T = 0;
-	 *   - 1: T = 1.
-	 */
-	uint32_t protocol_type;
+  /*
+   * Which protocol is used:
+   *   - 0: T = 0;
+   *   - 1: T = 1.
+   */
+  uint32_t protocol_type;
 } usart_iso7816_opt_t;
 
 /* Input parameters when initializing SPI mode. */
 typedef struct {
-	/* Set the frequency of the SPI clock (unused in slave mode). */
-	uint32_t baudrate;
+  /* Set the frequency of the SPI clock (unused in slave mode). */
+  uint32_t baudrate;
 
-	/*
-	 * Number of bits, which should be one of the following: US_MR_CHRL_5_BIT,
-	 * US_MR_CHRL_6_BIT, US_MR_CHRL_7_BIT, US_MR_CHRL_8_BIT or
-	 * US_MR_MODE9.
-	 */
-	uint32_t char_length;
+  /*
+   * Number of bits, which should be one of the following: US_MR_CHRL_5_BIT,
+   * US_MR_CHRL_6_BIT, US_MR_CHRL_7_BIT, US_MR_CHRL_8_BIT or
+   * US_MR_MODE9.
+   */
+  uint32_t char_length;
 
-	/*
-	 * Which SPI mode to use, which should be one of the following:
-	 * SPI_MODE_0, SPI_MODE_1, SPI_MODE_2, SPI_MODE_3.
-	 */
-	uint32_t spi_mode;
+  /*
+   * Which SPI mode to use, which should be one of the following:
+   * SPI_MODE_0, SPI_MODE_1, SPI_MODE_2, SPI_MODE_3.
+   */
+  uint32_t spi_mode;
 
-	/*
-	 * Run the channel in test mode, which should be one of following:
-	 * US_MR_CHMODE_NORMAL, US_MR_CHMODE_AUTOMATIC,
-	 * US_MR_CHMODE_LOCAL_LOOPBACK, US_MR_CHMODE_REMOTE_LOOPBACK.
-	 */
-	uint32_t channel_mode;
+  /*
+   * Run the channel in test mode, which should be one of following:
+   * US_MR_CHMODE_NORMAL, US_MR_CHMODE_AUTOMATIC,
+   * US_MR_CHMODE_LOCAL_LOOPBACK, US_MR_CHMODE_REMOTE_LOOPBACK.
+   */
+  uint32_t channel_mode;
 } usart_spi_opt_t;
 
 void usart_reset(Usart *p_usart);
-uint32_t usart_set_async_baudrate(Usart *p_usart,
-		uint32_t baudrate, uint32_t ul_mck);
-uint32_t usart_init_rs232(Usart *p_usart,
-		const sam_usart_opt_t *p_usart_opt, uint32_t ul_mck);
+uint32_t usart_set_async_baudrate(Usart *p_usart, uint32_t baudrate,
+                                  uint32_t ul_mck);
+uint32_t usart_init_rs232(Usart *p_usart, const sam_usart_opt_t *p_usart_opt,
+                          uint32_t ul_mck);
 uint32_t usart_init_hw_handshaking(Usart *p_usart,
-		const sam_usart_opt_t *p_usart_opt, uint32_t ul_mck);
+                                   const sam_usart_opt_t *p_usart_opt,
+                                   uint32_t ul_mck);
 #if (SAM3S || SAM4S || SAM3U || SAM4L || SAM4E)
-uint32_t usart_init_modem(Usart *p_usart,
-		const sam_usart_opt_t *p_usart_opt, uint32_t ul_mck);
+uint32_t usart_init_modem(Usart *p_usart, const sam_usart_opt_t *p_usart_opt,
+                          uint32_t ul_mck);
 #endif
 uint32_t usart_init_sync_master(Usart *p_usart,
-		const sam_usart_opt_t *p_usart_opt, uint32_t ul_mck);
+                                const sam_usart_opt_t *p_usart_opt,
+                                uint32_t ul_mck);
 uint32_t usart_init_sync_slave(Usart *p_usart,
-		const sam_usart_opt_t *p_usart_opt);
-uint32_t usart_init_rs485(Usart *p_usart,
-		const sam_usart_opt_t *p_usart_opt, uint32_t ul_mck);
+                               const sam_usart_opt_t *p_usart_opt);
+uint32_t usart_init_rs485(Usart *p_usart, const sam_usart_opt_t *p_usart_opt,
+                          uint32_t ul_mck);
 #if (!SAMG55 && !SAMV71 && !SAMV70 && !SAME70 && !SAMS70)
-uint32_t usart_init_irda(Usart *p_usart,
-		const sam_usart_opt_t *p_usart_opt, uint32_t ul_mck);
+uint32_t usart_init_irda(Usart *p_usart, const sam_usart_opt_t *p_usart_opt,
+                         uint32_t ul_mck);
 #endif
 #if (!SAMV71 && !SAMV70 && !SAME70 && !SAMS70)
 uint32_t usart_init_iso7816(Usart *p_usart,
-		const usart_iso7816_opt_t *p_usart_opt, uint32_t ul_mck);
+                            const usart_iso7816_opt_t *p_usart_opt,
+                            uint32_t ul_mck);
 void usart_reset_iterations(Usart *p_usart);
 void usart_reset_nack(Usart *p_usart);
 uint32_t usart_is_rx_buf_end(Usart *p_usart);
@@ -238,14 +242,15 @@ uint32_t usart_is_tx_buf_empty(Usart *p_usart);
 uint8_t usart_get_error_number(Usart *p_usart);
 #endif
 uint32_t usart_init_spi_master(Usart *p_usart,
-		const usart_spi_opt_t *p_usart_opt, uint32_t ul_mck);
+                               const usart_spi_opt_t *p_usart_opt,
+                               uint32_t ul_mck);
 uint32_t usart_init_spi_slave(Usart *p_usart,
-		const usart_spi_opt_t *p_usart_opt);
+                              const usart_spi_opt_t *p_usart_opt);
 #if (SAM3XA || SAM4L || SAMG55 || SAMV71 || SAMV70 || SAME70 || SAMS70)
 uint32_t usart_init_lin_master(Usart *p_usart, uint32_t ul_baudrate,
-		uint32_t ul_mck);
+                               uint32_t ul_mck);
 uint32_t usart_init_lin_slave(Usart *p_usart, uint32_t ul_baudrate,
-		uint32_t ul_mck);
+                              uint32_t ul_mck);
 void usart_lin_abort_tx(Usart *p_usart);
 void usart_lin_send_wakeup_signal(Usart *p_usart);
 void usart_lin_set_node_action(Usart *p_usart, uint8_t uc_action);
@@ -270,20 +275,21 @@ uint8_t usart_lin_identifier_send_complete(Usart *usart);
 uint8_t usart_lin_identifier_reception_complete(Usart *usart);
 uint8_t usart_lin_tx_complete(Usart *usart);
 uint32_t usart_init_lon(Usart *p_usart, uint32_t ul_baudrate, uint32_t ul_mck);
-void  usart_lon_set_comm_type(Usart *p_usart, uint8_t uc_type);
+void usart_lon_set_comm_type(Usart *p_usart, uint8_t uc_type);
 void usart_lon_disable_coll_detection(Usart *p_usart);
 void usart_lon_enable_coll_detection(Usart *p_usart);
-void  usart_lon_set_tcol(Usart *p_usart, uint8_t uc_type);
-void  usart_lon_set_cdtail(Usart *p_usart, uint8_t uc_type);
-void  usart_lon_set_dmam(Usart *p_usart, uint8_t uc_type);
-void  usart_lon_set_beta1_tx_len(Usart *p_usart, uint32_t ul_len);
-void  usart_lon_set_beta1_rx_len(Usart *p_usart, uint32_t ul_len);
-void  usart_lon_set_priority(Usart *p_usart, uint8_t uc_psnb, uint8_t uc_nps);
-void  usart_lon_set_tx_idt(Usart *p_usart, uint32_t ul_time);
-void  usart_lon_set_rx_idt(Usart *p_usart, uint32_t ul_time);
-void  usart_lon_set_pre_len(Usart *p_usart, uint32_t ul_len);
-void  usart_lon_set_data_len(Usart *p_usart, uint8_t uc_len);
-void  usart_lon_set_l2hdr(Usart *p_usart, uint8_t uc_bli, uint8_t uc_altp, uint8_t uc_pb);
+void usart_lon_set_tcol(Usart *p_usart, uint8_t uc_type);
+void usart_lon_set_cdtail(Usart *p_usart, uint8_t uc_type);
+void usart_lon_set_dmam(Usart *p_usart, uint8_t uc_type);
+void usart_lon_set_beta1_tx_len(Usart *p_usart, uint32_t ul_len);
+void usart_lon_set_beta1_rx_len(Usart *p_usart, uint32_t ul_len);
+void usart_lon_set_priority(Usart *p_usart, uint8_t uc_psnb, uint8_t uc_nps);
+void usart_lon_set_tx_idt(Usart *p_usart, uint32_t ul_time);
+void usart_lon_set_rx_idt(Usart *p_usart, uint32_t ul_time);
+void usart_lon_set_pre_len(Usart *p_usart, uint32_t ul_len);
+void usart_lon_set_data_len(Usart *p_usart, uint8_t uc_len);
+void usart_lon_set_l2hdr(Usart *p_usart, uint8_t uc_bli, uint8_t uc_altp,
+                         uint8_t uc_pb);
 uint32_t usart_lon_is_tx_end(Usart *p_usart);
 uint32_t usart_lon_is_rx_end(Usart *p_usart);
 #endif
@@ -331,7 +337,8 @@ Pdc *usart_get_pdc_base(Usart *p_usart);
 void usart_enable_writeprotect(Usart *p_usart);
 void usart_disable_writeprotect(Usart *p_usart);
 uint32_t usart_get_writeprotect_status(Usart *p_usart);
-#if (SAM3S || SAM4S || SAM3U || SAM3XA || SAM4L || SAM4E || SAM4C || SAM4CP || SAM4CM || SAMV70 || SAMV71 || SAMS70 || SAME70)
+#if (SAM3S || SAM4S || SAM3U || SAM3XA || SAM4L || SAM4E || SAM4C || SAM4CP || \
+     SAM4CM || SAMV70 || SAMV71 || SAMS70 || SAME70)
 void usart_man_set_tx_pre_len(Usart *p_usart, uint8_t uc_len);
 void usart_man_set_tx_pre_pattern(Usart *p_usart, uint8_t uc_pattern);
 void usart_man_set_tx_polarity(Usart *p_usart, uint8_t uc_polarity);
@@ -347,8 +354,8 @@ uint32_t usart_get_version(Usart *p_usart);
 #endif
 
 #if SAMG55
-void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
-		bool cmpmode, bool cmppar, uint8_t ul_high_value);
+void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value, bool cmpmode,
+                            bool cmppar, uint8_t ul_high_value);
 #endif
 
 /// @cond 0
@@ -404,48 +411,49 @@ void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
  * The following configuration must be added to the project (typically to a
  * conf_usart.h file, but it can also be added to your main application file.)
  * \code
-	#define USART_SERIAL                 USART0
-	#define USART_SERIAL_ID              ID_USART0  //USART0 for sam4l
-	#define USART_SERIAL_BAUDRATE        9600
-	#define USART_SERIAL_CHAR_LENGTH     US_MR_CHRL_8_BIT
-	#define USART_SERIAL_PARITY          US_MR_PAR_NO
-	#define USART_SERIAL_STOP_BIT        US_MR_NBSTOP_1_BIT
+        #define USART_SERIAL                 USART0
+        #define USART_SERIAL_ID              ID_USART0  //USART0 for sam4l
+        #define USART_SERIAL_BAUDRATE        9600
+        #define USART_SERIAL_CHAR_LENGTH     US_MR_CHRL_8_BIT
+        #define USART_SERIAL_PARITY          US_MR_PAR_NO
+        #define USART_SERIAL_STOP_BIT        US_MR_NBSTOP_1_BIT
 \endcode
  *
  * Add to application initialization:
  * \code
-	    sysclk_init();
+            sysclk_init();
 
-	    board_init();
+            board_init();
 
-	    const sam_usart_opt_t usart_console_settings = {
-	        USART_SERIAL_BAUDRATE,
-	        USART_SERIAL_CHAR_LENGTH,
-	        USART_SERIAL_PARITY,
-	        USART_SERIAL_STOP_BIT,
-	        US_MR_CHMODE_NORMAL
-	    };
+            const sam_usart_opt_t usart_console_settings = {
+                USART_SERIAL_BAUDRATE,
+                USART_SERIAL_CHAR_LENGTH,
+                USART_SERIAL_PARITY,
+                USART_SERIAL_STOP_BIT,
+                US_MR_CHMODE_NORMAL
+            };
     #if SAM4L
       sysclk_enable_peripheral_clock(USART_SERIAL);
     #else
-	    sysclk_enable_peripheral_clock(USART_SERIAL_ID);
+            sysclk_enable_peripheral_clock(USART_SERIAL_ID);
     #endif
-	    usart_init_rs232(USART_SERIAL, &usart_console_settings,
-	            sysclk_get_main_hz());
-	    usart_enable_tx(USART_SERIAL);
-	    usart_enable_rx(USART_SERIAL);
+            usart_init_rs232(USART_SERIAL, &usart_console_settings,
+                    sysclk_get_main_hz());
+            usart_enable_tx(USART_SERIAL);
+            usart_enable_rx(USART_SERIAL);
 \endcode
  *
  * \subsection usart_basic_use_case_setup_flow Workflow
  * -# Initialize system clock:
  *   \code
-	sysclk_init();
+        sysclk_init();
 \endcode
  * -# Configure the USART Tx and Rx pins by call the board init function:
  *   \code
-	board_init();
+        board_init();
 \endcode
- * \note Set the following define in conf_board.h file to enable COM port,it will be used in
+ * \note Set the following define in conf_board.h file to enable COM port,it
+will be used in
  * board_init() function to set up IOPorts for the USART pins.
  * For SAM4L:
  *   \code
@@ -457,31 +465,31 @@ void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
 \endcode
  * -# Create USART options struct:
  *   \code
-	const sam_usart_opt_t usart_console_settings = {
-	     USART_SERIAL_BAUDRATE,
-	     USART_SERIAL_CHAR_LENGTH,
-	     USART_SERIAL_PARITY,
-	     USART_SERIAL_STOP_BIT,
-	     US_MR_CHMODE_NORMAL
-	};
+        const sam_usart_opt_t usart_console_settings = {
+             USART_SERIAL_BAUDRATE,
+             USART_SERIAL_CHAR_LENGTH,
+             USART_SERIAL_PARITY,
+             USART_SERIAL_STOP_BIT,
+             US_MR_CHMODE_NORMAL
+        };
 \endcode
  * -# Enable the clock to the USART module:
  *   \code
-	  #if SAM4L
+          #if SAM4L
       sysclk_enable_peripheral_clock(USART_SERIAL);
     #else
-	    sysclk_enable_peripheral_clock(USART_SERIAL_ID);
+            sysclk_enable_peripheral_clock(USART_SERIAL_ID);
     #endif
 \endcode
  * -# Initialize the USART module in RS232 mode:
  *   \code
-	usart_init_rs232(USART_SERIAL, &usart_console_settings,
-	        sysclk_get_main_hz());
+        usart_init_rs232(USART_SERIAL, &usart_console_settings,
+                sysclk_get_main_hz());
 \endcode
  * -# Enable the Rx and Tx modes of the USART module:
  *   \code
-	usart_enable_tx(USART_SERIAL);
-	usart_enable_rx(USART_SERIAL);
+        usart_enable_tx(USART_SERIAL);
+        usart_enable_rx(USART_SERIAL);
 \endcode
  *
  * \section usart_basic_use_case_usage Usage steps
@@ -489,7 +497,7 @@ void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
  * \subsection usart_basic_use_case_usage_code Example code
  * Add to application C-file:
  * \code
-	usart_putchar(USART_SERIAL, 'a');
+        usart_putchar(USART_SERIAL, 'a');
 \endcode
  *
  * \subsection usart_basic_use_case_usage_flow Workflow
@@ -521,55 +529,56 @@ void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
  * The following configuration must be added to the project (typically to a
  * conf_usart.h file, but it can also be added to your main application file.):
  * \code
-	#define USART_SERIAL                 USART0
-	#define USART_SERIAL_ID              ID_USART0  //USART0 for sam4l
-	#define USART_SERIAL_BAUDRATE        9600
-	#define USART_SERIAL_CHAR_LENGTH     US_MR_CHRL_8_BIT
-	#define USART_SERIAL_PARITY          US_MR_PAR_NO
-	#define USART_SERIAL_STOP_BIT        US_MR_NBSTOP_1_BIT
+        #define USART_SERIAL                 USART0
+        #define USART_SERIAL_ID              ID_USART0  //USART0 for sam4l
+        #define USART_SERIAL_BAUDRATE        9600
+        #define USART_SERIAL_CHAR_LENGTH     US_MR_CHRL_8_BIT
+        #define USART_SERIAL_PARITY          US_MR_PAR_NO
+        #define USART_SERIAL_STOP_BIT        US_MR_NBSTOP_1_BIT
 \endcode
  *
  * A variable for the received byte must be added:
  * \code
-	uint32_t received_byte;
+        uint32_t received_byte;
 \endcode
  *
  * Add to application initialization:
  * \code
-	    sysclk_init();
+            sysclk_init();
 
-	    board_init();
+            board_init();
 
-	    const sam_usart_opt_t usart_console_settings = {
-	        USART_SERIAL_BAUDRATE,
-	        USART_SERIAL_CHAR_LENGTH,
-	        USART_SERIAL_PARITY,
-	        USART_SERIAL_STOP_BIT,
-	        US_MR_CHMODE_NORMAL
-	    };
+            const sam_usart_opt_t usart_console_settings = {
+                USART_SERIAL_BAUDRATE,
+                USART_SERIAL_CHAR_LENGTH,
+                USART_SERIAL_PARITY,
+                USART_SERIAL_STOP_BIT,
+                US_MR_CHMODE_NORMAL
+            };
 
     #if SAM4L
       sysclk_enable_peripheral_clock(USART_SERIAL);
     #else
-	    sysclk_enable_peripheral_clock(USART_SERIAL_ID);
+            sysclk_enable_peripheral_clock(USART_SERIAL_ID);
     #endif
 
-	    usart_init_rs232(USART_SERIAL, &usart_console_settings,
-	            sysclk_get_main_hz());
-	    usart_enable_tx(USART_SERIAL);
-	    usart_enable_rx(USART_SERIAL);
+            usart_init_rs232(USART_SERIAL, &usart_console_settings,
+                    sysclk_get_main_hz());
+            usart_enable_tx(USART_SERIAL);
+            usart_enable_rx(USART_SERIAL);
 \endcode
  *
  * \subsection usart_use_case_1_setup_flow Workflow
  * -# Initialize system clock:
  *   \code
-	sysclk_init();
+        sysclk_init();
 \endcode
  * -# Configure the USART Tx and Rx pins  by call the board init function:
  *   \code
-	board_init();
+        board_init();
 \endcode
- * \note Set the following define in conf_board.h file to enable COM port,it will be used in
+ * \note Set the following define in conf_board.h file to enable COM port,it
+will be used in
  * board_init() function to set up IOPorts for the USART pins.
  * For SAM4L:
  *   \code
@@ -581,31 +590,31 @@ void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
 \endcode
  * -# Create USART options struct:
  *   \code
-	const sam_usart_opt_t usart_console_settings = {
-	     USART_SERIAL_BAUDRATE,
-	     USART_SERIAL_CHAR_LENGTH,
-	     USART_SERIAL_PARITY,
-	     USART_SERIAL_STOP_BIT,
-	     US_MR_CHMODE_NORMAL
-	};
+        const sam_usart_opt_t usart_console_settings = {
+             USART_SERIAL_BAUDRATE,
+             USART_SERIAL_CHAR_LENGTH,
+             USART_SERIAL_PARITY,
+             USART_SERIAL_STOP_BIT,
+             US_MR_CHMODE_NORMAL
+        };
 \endcode
  * -# Enable the clock to the USART module:
  *   \code
     #if SAM4L
       sysclk_enable_peripheral_clock(USART_SERIAL);
     #else
-	    sysclk_enable_peripheral_clock(USART_SERIAL_ID);
+            sysclk_enable_peripheral_clock(USART_SERIAL_ID);
     #endif
 \endcode
  * -# Initialize the USART module in RS232 mode:
  *   \code
-	usart_init_rs232(USART_SERIAL, &usart_console_settings,
-	        sysclk_get_main_hz());
+        usart_init_rs232(USART_SERIAL, &usart_console_settings,
+                sysclk_get_main_hz());
 \endcode
  * -# Enable the Rx and Tx modes of the USART module:
  *   \code
-	usart_enable_tx(USART_SERIAL);
-	usart_enable_rx(USART_SERIAL);
+        usart_enable_tx(USART_SERIAL);
+        usart_enable_rx(USART_SERIAL);
 \endcode
  *
  * \section usart_use_case_1_usage Usage steps
@@ -613,8 +622,8 @@ void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
  * \subsection usart_use_case_1_usage_code Example code
  * Add to, e.g., main loop in application C-file:
  * \code
-	received_byte = usart_getchar(USART_SERIAL);
-	usart_putchar(USART_SERIAL, received_byte);
+        received_byte = usart_getchar(USART_SERIAL);
+        usart_putchar(USART_SERIAL, received_byte);
 \endcode
  *
  * \subsection usart_use_case_1_usage_flow Workflow
@@ -651,59 +660,60 @@ void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
  * The following configuration must be added to the project (typically to a
  * conf_usart.h file, but it can also be added to your main application file.):
  * \code
-	#define USART_SERIAL                 USART0
-	#define USART_SERIAL_ID              ID_USART0  //USART0 for sam4l
-	#define USART_SERIAL_ISR_HANDLER     USART0_Handler
-	#define USART_SERIAL_BAUDRATE        9600
-	#define USART_SERIAL_CHAR_LENGTH     US_MR_CHRL_8_BIT
-	#define USART_SERIAL_PARITY          US_MR_PAR_NO
-	#define USART_SERIAL_STOP_BIT        US_MR_NBSTOP_1_BIT
+        #define USART_SERIAL                 USART0
+        #define USART_SERIAL_ID              ID_USART0  //USART0 for sam4l
+        #define USART_SERIAL_ISR_HANDLER     USART0_Handler
+        #define USART_SERIAL_BAUDRATE        9600
+        #define USART_SERIAL_CHAR_LENGTH     US_MR_CHRL_8_BIT
+        #define USART_SERIAL_PARITY          US_MR_PAR_NO
+        #define USART_SERIAL_STOP_BIT        US_MR_NBSTOP_1_BIT
 \endcode
  *
  * A variable for the received byte must be added:
  * \code
-	uint32_t received_byte;
+        uint32_t received_byte;
 \endcode
  *
  * Add to application initialization:
  * \code
-	    sysclk_init();
+            sysclk_init();
 
-	    board_init();
+            board_init();
 
-	    const sam_usart_opt_t usart_console_settings = {
-	        USART_SERIAL_BAUDRATE,
-	        USART_SERIAL_CHAR_LENGTH,
-	        USART_SERIAL_PARITY,
-	        USART_SERIAL_STOP_BIT,
-	        US_MR_CHMODE_NORMAL
-	    };
+            const sam_usart_opt_t usart_console_settings = {
+                USART_SERIAL_BAUDRATE,
+                USART_SERIAL_CHAR_LENGTH,
+                USART_SERIAL_PARITY,
+                USART_SERIAL_STOP_BIT,
+                US_MR_CHMODE_NORMAL
+            };
 
     #if SAM4L
       sysclk_enable_peripheral_clock(USART_SERIAL);
     #else
-	    sysclk_enable_peripheral_clock(USART_SERIAL_ID);
+            sysclk_enable_peripheral_clock(USART_SERIAL_ID);
     #endif
 
-	    usart_init_rs232(USART_SERIAL, &usart_console_settings,
-	            sysclk_get_main_hz());
-	    usart_enable_tx(USART_SERIAL);
-	    usart_enable_rx(USART_SERIAL);
+            usart_init_rs232(USART_SERIAL, &usart_console_settings,
+                    sysclk_get_main_hz());
+            usart_enable_tx(USART_SERIAL);
+            usart_enable_rx(USART_SERIAL);
 
-	    usart_enable_interrupt(USART_SERIAL, US_IER_RXRDY);
-	    NVIC_EnableIRQ(USART_SERIAL_IRQ);
+            usart_enable_interrupt(USART_SERIAL, US_IER_RXRDY);
+            NVIC_EnableIRQ(USART_SERIAL_IRQ);
 \endcode
  *
  * \subsection usart_use_case_2_setup_flow Workflow
  * -# Initialize system clock:
  *   \code
-	sysclk_init();
+        sysclk_init();
 \endcode
  * -# Configure the USART Tx and Rx pins  by call the board init function:
  *   \code
-	board_init();
+        board_init();
 \endcode
- * \note Set the following define in conf_board.h file to enable COM port,it will be used in
+ * \note Set the following define in conf_board.h file to enable COM port,it
+will be used in
  * board_init() function to set up IOPorts for the USART pins.
  * For SAM4L:
  *   \code
@@ -715,54 +725,54 @@ void usart_set_sleepwalking(Usart *p_uart, uint8_t ul_low_value,
 \endcode
  * -# Create USART options struct:
  *   \code
-	const sam_usart_opt_t usart_console_settings = {
-	     USART_SERIAL_BAUDRATE,
-	     USART_SERIAL_CHAR_LENGTH,
-	     USART_SERIAL_PARITY,
-	     USART_SERIAL_STOP_BIT,
-	     US_MR_CHMODE_NORMAL
-	};
+        const sam_usart_opt_t usart_console_settings = {
+             USART_SERIAL_BAUDRATE,
+             USART_SERIAL_CHAR_LENGTH,
+             USART_SERIAL_PARITY,
+             USART_SERIAL_STOP_BIT,
+             US_MR_CHMODE_NORMAL
+        };
 \endcode
  * -# Enable the clock to the USART module:
  *   \code
     #if SAM4L
       sysclk_enable_peripheral_clock(USART_SERIAL);
     #else
-	    sysclk_enable_peripheral_clock(USART_SERIAL_ID);
+            sysclk_enable_peripheral_clock(USART_SERIAL_ID);
     #endif
 \endcode
  * -# Initialize the USART module in RS232 mode:
  *   \code
-	usart_init_rs232(USART_SERIAL, &usart_console_settings,
-	        sysclk_get_main_hz());
+        usart_init_rs232(USART_SERIAL, &usart_console_settings,
+                sysclk_get_main_hz());
 \endcode
  * -# Enable the Rx and Tx modes of the USART module:
  *   \code
-	usart_enable_tx(USART_SERIAL);
-	usart_enable_rx(USART_SERIAL);
+        usart_enable_tx(USART_SERIAL);
+        usart_enable_rx(USART_SERIAL);
 \endcode
  * -# Enable the USART character reception interrupt, and general interrupts
  *   for the USART module.
  *   \code
-	usart_enable_interrupt(USART_SERIAL, US_IER_RXRDY);
-	NVIC_EnableIRQ(USART_SERIAL_IRQ);
+        usart_enable_interrupt(USART_SERIAL, US_IER_RXRDY);
+        NVIC_EnableIRQ(USART_SERIAL_IRQ);
 \endcode
  * \section usart_use_case_2_usage Usage steps
  *
  * \subsection usart_use_case_2_usage_code Example code
  * Add to your main application C-file the USART interrupt handler:
  * \code
-	 void USART_SERIAL_ISR_HANDLER(void)
-	 {
-	    uint32_t dw_status = usart_get_status(USART_SERIAL);
+         void USART_SERIAL_ISR_HANDLER(void)
+         {
+            uint32_t dw_status = usart_get_status(USART_SERIAL);
 
-	    if (dw_status & US_CSR_RXRDY) {
-	        uint32_t received_byte;
+            if (dw_status & US_CSR_RXRDY) {
+                uint32_t received_byte;
 
-	        usart_read(USART_SERIAL, &received_byte);
-	        usart_write(USART_SERIAL, received_byte);
-	    }
-	 }
+                usart_read(USART_SERIAL, &received_byte);
+                usart_write(USART_SERIAL, received_byte);
+            }
+         }
 \endcode
  *
  * \subsection usart_use_case_2_usage_flow Workflow

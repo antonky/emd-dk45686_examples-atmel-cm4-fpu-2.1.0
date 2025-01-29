@@ -1,10 +1,10 @@
 /*
  *
  * Copyright (c) [2020] by InvenSense, Inc.
- * 
+ *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
@@ -21,8 +21,8 @@
 #include "imu/inv_imu_transport.h" /* For inv_imu_serif_type_t */
 
 /* Boards drivers */
-#include "uart.h"
 #include "gpio.h"
+#include "uart.h"
 
 /* Utils */
 #include "Invn/EmbUtils/Message.h"
@@ -67,8 +67,8 @@ int si_config_uart_for_bin(inv_uart_num_t id);
  */
 int si_get_uart_command(inv_uart_num_t id, char *cmd);
 
-/* 
- * I/O for IMU device 
+/*
+ * I/O for IMU device
  */
 
 /** @brief Configure I/O for IMU device.
@@ -93,8 +93,8 @@ int si_io_imu_read_reg(uint8_t reg, uint8_t *buf, uint32_t len);
  */
 int si_io_imu_write_reg(uint8_t reg, const uint8_t *buf, uint32_t len);
 
-/* 
- * I/O for AKM device 
+/*
+ * I/O for AKM device
  */
 
 /** @brief Configure I/O for AKM device.
@@ -119,18 +119,21 @@ int si_io_akm_read_reg(void *serif, uint8_t reg, uint8_t *buf, uint32_t len);
  *  @param[in] len    Number of byte to be written.
  *  @return           0 on success, negative value on error.
  */
-int si_io_akm_write_reg(void *serif, uint8_t reg, const uint8_t *buf, uint32_t len);
+int si_io_akm_write_reg(void *serif, uint8_t reg, const uint8_t *buf,
+                        uint32_t len);
 
 int si_io_akm_init_timer();
 int si_io_akm_start_sampling_timer(const uint32_t period_us,
-                                   void interrupt_timer_mag_cb(void *context), int *ch);
+                                   void interrupt_timer_mag_cb(void *context),
+                                   int *ch);
 int si_io_akm_stop_sampling_timer(int ch);
-int si_io_akm_start_data_timer(const uint32_t period_us, void interrupt_timer_mag_cb(void *context),
+int si_io_akm_start_data_timer(const uint32_t period_us,
+                               void interrupt_timer_mag_cb(void *context),
                                int *ch);
 int si_io_akm_stop_data_timer(int ch);
 
-/* 
- * Timers 
+/*
+ * Timers
  */
 
 /** @brief Initialize timers IP.
@@ -150,8 +153,8 @@ void si_sleep_us(uint32_t us);
  */
 uint64_t si_get_time_us();
 
-/* 
- * RTC/CLKIN 
+/*
+ * RTC/CLKIN
  */
 
 /** @brief Initialize RTC IP and output 32768Hz RTC on clock pin.
@@ -168,21 +171,24 @@ int si_uninit_clkin();
  * GPIO
  */
 
-#define SI_GPIO_INT1    INV_GPIO_INT1
-#define SI_GPIO_INT2    INV_GPIO_INT2
+#define SI_GPIO_INT1 INV_GPIO_INT1
+#define SI_GPIO_INT2 INV_GPIO_INT2
 #define SI_GPIO_INT_MAG INV_GPIO_3RD_PARTY_INT1
 
-/** @brief Initializes GPIO module to trigger callback when interrupt from IMU fires.
+/** @brief Initializes GPIO module to trigger callback when interrupt from IMU
+ * fires.
  *  @param[in] int_num  Interrupt pin (`SI_GPIO_INT1` or `SI_GPIO_INT2`).
  *  @param[in] int_cb   Callback to be called when interrupt fires.
  *  @return             0 on success, negative value on error.
  */
-int si_init_gpio_int(unsigned int_num, void (*int_cb)(void *context, unsigned int_num));
+int si_init_gpio_int(unsigned int_num,
+                     void (*int_cb)(void *context, unsigned int_num));
 
-/** @brief Initializes GPIO module to initializes FSYNC output pin and trigger callback at
- *         a given frequency to allow user to toggle FSYNC pin at regular interval to emulate 
- *         camera module.
- *  @param[in] freq             Frequency at which fsync_timer_cb should be called (0 if no timer is to be enabled)
+/** @brief Initializes GPIO module to initializes FSYNC output pin and trigger
+ * callback at a given frequency to allow user to toggle FSYNC pin at regular
+ * interval to emulate camera module.
+ *  @param[in] freq             Frequency at which fsync_timer_cb should be
+ * called (0 if no timer is to be enabled)
  *  @param[in] fsync_timer_cb   Callback to be called when FSYNC timer expires.
  *  @return                     0 on success, negative value on error.
  */
@@ -202,23 +208,23 @@ void si_toggle_gpio_fsync(void);
  */
 
 /**
-  * @brief  Initialize the FLASH
-  * @return 0 if init succeeds, flash_status otherwise
-  */
+ * @brief  Initialize the FLASH
+ * @return 0 if init succeeds, flash_status otherwise
+ */
 int si_flash_storage_init(void);
 
 /**
-  * @brief  Read data from the FLASH sector
-  * @param  pData, pointer on 84 bytes buffer of data
-  * @return 0 if read succeeds, flash_status otherwise
-  */
+ * @brief  Read data from the FLASH sector
+ * @param  pData, pointer on 84 bytes buffer of data
+ * @return 0 if read succeeds, flash_status otherwise
+ */
 int si_flash_storage_read(uint8_t *pData);
 
 /**
-  * @brief  Write data to the FLASH sector
-  * @param  pData, pointer on 84 bytes buffer of data
-  * @return 0 if write succeeds, flash_status otherwise
-  */
+ * @brief  Write data to the FLASH sector
+ * @param  pData, pointer on 84 bytes buffer of data
+ * @return 0 if write succeeds, flash_status otherwise
+ */
 int si_flash_storage_write(const uint8_t *pData);
 
 /*
@@ -237,17 +243,18 @@ void si_enable_irq();
  * Error codes
  */
 
-/** @brief In case of error, print message, file and line and return with error code.
+/** @brief In case of error, print message, file and line and return with error
+ * code.
  *  @param[in] rc  Error code (rc).
  */
-#define SI_CHECK_RC(rc)                                                                            \
-	do {                                                                                           \
-		if (si_print_error_if_any(rc)) {                                                           \
-			INV_MSG(INV_MSG_LEVEL_ERROR, "At %s (line %d)", __FILE__, __LINE__);                   \
-			si_sleep_us(100000);                                                                   \
-			return rc;                                                                             \
-		}                                                                                          \
-	} while (0)
+#define SI_CHECK_RC(rc)                                                        \
+  do {                                                                         \
+    if (si_print_error_if_any(rc)) {                                           \
+      INV_MSG(INV_MSG_LEVEL_ERROR, "At %s (line %d)", __FILE__, __LINE__);     \
+      si_sleep_us(100000);                                                     \
+      return rc;                                                               \
+    }                                                                          \
+  } while (0)
 
 /** @brief Check return code from driver and print message if it is an error.
  *  @param[in] rc  Return code from the driver.

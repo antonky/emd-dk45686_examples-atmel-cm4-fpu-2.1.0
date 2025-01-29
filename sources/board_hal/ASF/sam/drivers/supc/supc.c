@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #include "supc.h"
@@ -57,8 +58,8 @@ extern "C" {
 /**
  * \defgroup sam_drivers_supc_group Supply Controller (SUPC)
  *
- * Driver for the SUPC (Supply Controller). This driver provides access to the main
- * features of the Supply Controller.
+ * Driver for the SUPC (Supply Controller). This driver provides access to the
+ * main features of the Supply Controller.
  *
  * @{
  */
@@ -69,13 +70,12 @@ extern "C" {
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_enable_backup_mode(Supc *p_supc)
-{
-	p_supc->SUPC_CR = SUPC_CR_KEY_PASSWD | SUPC_CR_VROFF;
-	uint32_t ul_dummy = p_supc->SUPC_MR;
-	__DSB();
-	__WFE();
-	__WFI();
+void supc_enable_backup_mode(Supc *p_supc) {
+  p_supc->SUPC_CR = SUPC_CR_KEY_PASSWD | SUPC_CR_VROFF;
+  uint32_t ul_dummy = p_supc->SUPC_MR;
+  __DSB();
+  __WFE();
+  __WFI();
 }
 
 /**
@@ -83,51 +83,52 @@ void supc_enable_backup_mode(Supc *p_supc)
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_enable_voltage_regulator(Supc *p_supc)
-{
+void supc_enable_voltage_regulator(Supc *p_supc) {
 #if (SAM3U || SAM3XA)
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_VDDIORDYONREG));
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_VDDIORDYONREG;
+  uint32_t ul_mr =
+      p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_VDDIORDYONREG));
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_VDDIORDYONREG;
 #else
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_ONREG));
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_ONREG;
+  uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_ONREG));
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_ONREG;
 #endif
 }
 
 /**
- * \brief Disable the internal voltage regulator to supply VDDCORE with an external supply.
+ * \brief Disable the internal voltage regulator to supply VDDCORE with an
+ * external supply.
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_disable_voltage_regulator(Supc *p_supc)
-{
+void supc_disable_voltage_regulator(Supc *p_supc) {
 #if (SAM3U || SAM3XA)
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_VDDIORDYONREG));
+  uint32_t ul_mr =
+      p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_VDDIORDYONREG));
 #else
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_ONREG));
+  uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_ONREG));
 #endif
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
 }
 #endif
 
 /**
- * \brief Switch slow clock source selection to external 32k (Xtal or Bypass) oscillator.
- * This function disables the PLLs.
+ * \brief Switch slow clock source selection to external 32k (Xtal or Bypass)
+ * oscillator. This function disables the PLLs.
  *
- * \note Switching sclk back to 32krc is only possible by shutting down the VDDIO power supply.
+ * \note Switching sclk back to 32krc is only possible by shutting down the
+ * VDDIO power supply.
  *
  * \param ul_bypass 0 for Xtal, 1 for bypass.
  */
-void supc_switch_sclk_to_32kxtal(Supc *p_supc, uint32_t ul_bypass)
-{
-	/* Set Bypass mode if required */
-	if (ul_bypass == 1) {
-		p_supc->SUPC_MR |= SUPC_MR_KEY_PASSWD | SUPC_MR_OSCBYPASS;
-	} else {
-		p_supc->SUPC_MR &= ~(SUPC_MR_KEY_PASSWD | SUPC_MR_OSCBYPASS);
-	}
+void supc_switch_sclk_to_32kxtal(Supc *p_supc, uint32_t ul_bypass) {
+  /* Set Bypass mode if required */
+  if (ul_bypass == 1) {
+    p_supc->SUPC_MR |= SUPC_MR_KEY_PASSWD | SUPC_MR_OSCBYPASS;
+  } else {
+    p_supc->SUPC_MR &= ~(SUPC_MR_KEY_PASSWD | SUPC_MR_OSCBYPASS);
+  }
 
-	p_supc->SUPC_CR |= SUPC_CR_KEY_PASSWD | SUPC_CR_XTALSEL;
+  p_supc->SUPC_CR |= SUPC_CR_KEY_PASSWD | SUPC_CR_XTALSEL;
 }
 
 /**
@@ -135,10 +136,9 @@ void supc_switch_sclk_to_32kxtal(Supc *p_supc, uint32_t ul_bypass)
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_enable_brownout_detector(Supc *p_supc)
-{
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BODDIS));
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
+void supc_enable_brownout_detector(Supc *p_supc) {
+  uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BODDIS));
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
 }
 
 /**
@@ -146,32 +146,31 @@ void supc_enable_brownout_detector(Supc *p_supc)
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_disable_brownout_detector(Supc *p_supc)
-{
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BODDIS));
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_BODDIS;
+void supc_disable_brownout_detector(Supc *p_supc) {
+  uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BODDIS));
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_BODDIS;
 }
 
 /**
- * \brief Enable the assertion of core reset signal when a brownout detection occurs.
+ * \brief Enable the assertion of core reset signal when a brownout detection
+ * occurs.
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_enable_brownout_reset(Supc *p_supc)
-{
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BODRSTEN));
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_BODRSTEN;
+void supc_enable_brownout_reset(Supc *p_supc) {
+  uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BODRSTEN));
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_BODRSTEN;
 }
 
 /**
- * \brief Disable the assertion of core reset signal when a brownout detection occurs.
+ * \brief Disable the assertion of core reset signal when a brownout detection
+ * occurs.
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_disable_brownout_reset(Supc *p_supc)
-{
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BODRSTEN));
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
+void supc_disable_brownout_reset(Supc *p_supc) {
+  uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BODRSTEN));
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
 }
 
 /**
@@ -180,10 +179,9 @@ void supc_disable_brownout_reset(Supc *p_supc)
  * \param p_supc Pointer to a SUPC instance.
  * \param ul_threshold Supply monitor threshold (between 1.9V and 3.4V).
  */
-void supc_set_monitor_threshold(Supc *p_supc, uint32_t ul_threshold)
-{
-	uint32_t ul_smmr = p_supc->SUPC_SMMR & (~SUPC_SMMR_SMTH_Msk);
-	p_supc->SUPC_SMMR = ul_smmr | (SUPC_SMMR_SMTH_Msk & ul_threshold);
+void supc_set_monitor_threshold(Supc *p_supc, uint32_t ul_threshold) {
+  uint32_t ul_smmr = p_supc->SUPC_SMMR & (~SUPC_SMMR_SMTH_Msk);
+  p_supc->SUPC_SMMR = ul_smmr | (SUPC_SMMR_SMTH_Msk & ul_threshold);
 }
 
 /**
@@ -192,50 +190,49 @@ void supc_set_monitor_threshold(Supc *p_supc, uint32_t ul_threshold)
  * \param p_supc Pointer to a SUPC instance.
  * \param ul_period Supply monitor sampling period.
  */
-void supc_set_monitor_sampling_period(Supc *p_supc, uint32_t ul_period)
-{
-	uint32_t ul_smmr = p_supc->SUPC_SMMR & (~SUPC_SMMR_SMSMPL_Msk);
-	p_supc->SUPC_SMMR = ul_smmr | (SUPC_SMMR_SMSMPL_Msk & ul_period);
+void supc_set_monitor_sampling_period(Supc *p_supc, uint32_t ul_period) {
+  uint32_t ul_smmr = p_supc->SUPC_SMMR & (~SUPC_SMMR_SMSMPL_Msk);
+  p_supc->SUPC_SMMR = ul_smmr | (SUPC_SMMR_SMSMPL_Msk & ul_period);
 }
 
 /**
- * \brief Enable the assertion of the core reset signal when a supply monitor detection occurs.
+ * \brief Enable the assertion of the core reset signal when a supply monitor
+ * detection occurs.
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_enable_monitor_reset(Supc *p_supc)
-{
-	p_supc->SUPC_SMMR |= SUPC_SMMR_SMRSTEN;
+void supc_enable_monitor_reset(Supc *p_supc) {
+  p_supc->SUPC_SMMR |= SUPC_SMMR_SMRSTEN;
 }
 
 /**
- * \brief Disable the assertion of core reset signal when a supply monitor detection occurs.
+ * \brief Disable the assertion of core reset signal when a supply monitor
+ * detection occurs.
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_disable_monitor_reset(Supc *p_supc)
-{
-	p_supc->SUPC_SMMR &= ~SUPC_SMMR_SMRSTEN;
+void supc_disable_monitor_reset(Supc *p_supc) {
+  p_supc->SUPC_SMMR &= ~SUPC_SMMR_SMRSTEN;
 }
 
 /**
- * \brief Enable the assertion of SUPC interrupt signal when a supply monitor detection occurs.
+ * \brief Enable the assertion of SUPC interrupt signal when a supply monitor
+ * detection occurs.
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_enable_monitor_interrupt(Supc *p_supc)
-{
-	p_supc->SUPC_SMMR |= SUPC_SMMR_SMIEN;
+void supc_enable_monitor_interrupt(Supc *p_supc) {
+  p_supc->SUPC_SMMR |= SUPC_SMMR_SMIEN;
 }
 
 /**
- * \brief Disable the assertion of SUPC interrupt signal when a supply monitor detection occurs.
+ * \brief Disable the assertion of SUPC interrupt signal when a supply monitor
+ * detection occurs.
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_disable_monitor_interrupt(Supc *p_supc)
-{
-	p_supc->SUPC_SMMR &= ~SUPC_SMMR_SMIEN;
+void supc_disable_monitor_interrupt(Supc *p_supc) {
+  p_supc->SUPC_SMMR &= ~SUPC_SMMR_SMIEN;
 }
 
 #if (!(SAMG51 || SAMG53 || SAMG54))
@@ -243,11 +240,11 @@ void supc_disable_monitor_interrupt(Supc *p_supc)
  * \brief Set system controller wake up mode.
  *
  * \param p_supc Pointer to a SUPC instance.
- * \param ul_mode Bitmask of wake up mode (please refer to datasheet for more details).
+ * \param ul_mode Bitmask of wake up mode (please refer to datasheet for more
+ * details).
  */
-void supc_set_wakeup_mode(Supc *p_supc, uint32_t ul_mode)
-{
-	p_supc->SUPC_WUMR = ul_mode;
+void supc_set_wakeup_mode(Supc *p_supc, uint32_t ul_mode) {
+  p_supc->SUPC_WUMR = ul_mode;
 }
 
 /**
@@ -257,13 +254,13 @@ void supc_set_wakeup_mode(Supc *p_supc, uint32_t ul_mode)
  * \param ul_inputs Bitmask of wake-up inputs that can force wake up of
  * the core power supply.
  * \param ul_transition Bitmask of level transition of the wake-up inputs.
- * 1 means a high-to-low level transition forces the wake up of core power supply.
- * 0 means a low-to-high level transition forces the wake up of core power supply.
+ * 1 means a high-to-low level transition forces the wake up of core power
+ * supply. 0 means a low-to-high level transition forces the wake up of core
+ * power supply.
  */
 void supc_set_wakeup_inputs(Supc *p_supc, uint32_t ul_inputs,
-		uint32_t ul_transition)
-{
-	p_supc->SUPC_WUIR = ul_inputs | ul_transition;
+                            uint32_t ul_transition) {
+  p_supc->SUPC_WUIR = ul_inputs | ul_transition;
 }
 #endif
 
@@ -274,10 +271,7 @@ void supc_set_wakeup_inputs(Supc *p_supc, uint32_t ul_inputs,
  *
  * \return The status of supply controller.
  */
-uint32_t supc_get_status(Supc *p_supc)
-{
-	return p_supc->SUPC_SR;
-}
+uint32_t supc_get_status(Supc *p_supc) { return p_supc->SUPC_SR; }
 
 #if (SAM4C || SAM4CP || SAM4CM)
 /**
@@ -285,10 +279,9 @@ uint32_t supc_get_status(Supc *p_supc)
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_enable_backup_power_on_reset(Supc *p_supc)
-{
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BUPPOREN));
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_BUPPOREN;
+void supc_enable_backup_power_on_reset(Supc *p_supc) {
+  uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BUPPOREN));
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_BUPPOREN;
 }
 
 /**
@@ -296,10 +289,9 @@ void supc_enable_backup_power_on_reset(Supc *p_supc)
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_disable_backup_power_on_reset(Supc *p_supc)
-{
-	uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BUPPOREN));
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
+void supc_disable_backup_power_on_reset(Supc *p_supc) {
+  uint32_t ul_mr = p_supc->SUPC_MR & (~(SUPC_MR_KEY_Msk | SUPC_MR_BUPPOREN));
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
 }
 /**
  * \brief Get SLCD power mode.
@@ -308,9 +300,8 @@ void supc_disable_backup_power_on_reset(Supc *p_supc)
  *
  * \return The mode of SLCDC.
  */
-enum slcdc_power_mode supc_get_slcd_power_mode(Supc *p_supc)
-{
-	return (enum slcdc_power_mode)(p_supc->SUPC_MR & SUPC_MR_LCDMODE_Msk);
+enum slcdc_power_mode supc_get_slcd_power_mode(Supc *p_supc) {
+  return (enum slcdc_power_mode)(p_supc->SUPC_MR & SUPC_MR_LCDMODE_Msk);
 }
 
 /**
@@ -319,30 +310,31 @@ enum slcdc_power_mode supc_get_slcd_power_mode(Supc *p_supc)
  * \param p_supc Pointer to a SUPC instance.
  * \param mode The mode of SLCDC.
  */
-void supc_set_slcd_power_mode(Supc *p_supc, enum slcdc_power_mode mode)
-{
-	enum slcdc_power_mode pre_mode;
-	uint32_t tmp;
+void supc_set_slcd_power_mode(Supc *p_supc, enum slcdc_power_mode mode) {
+  enum slcdc_power_mode pre_mode;
+  uint32_t tmp;
 
-	pre_mode = supc_get_slcd_power_mode(p_supc);
+  pre_mode = supc_get_slcd_power_mode(p_supc);
 
-	if ((pre_mode == SLCDC_POWER_MODE_LCDON_EXTVR) &&
-			(mode == SLCDC_POWER_MODE_LCDON_INVR)) {
-		return;
-	} else if ((pre_mode == SLCDC_POWER_MODE_LCDON_INVR) &&
-			(mode == SLCDC_POWER_MODE_LCDON_EXTVR)) {
-		return;
-	}
-	tmp = p_supc->SUPC_MR;
-	tmp &= ~SUPC_MR_LCDMODE_Msk;
-	tmp |=  SUPC_MR_KEY_PASSWD | mode;
-	p_supc->SUPC_MR = tmp;
+  if ((pre_mode == SLCDC_POWER_MODE_LCDON_EXTVR) &&
+      (mode == SLCDC_POWER_MODE_LCDON_INVR)) {
+    return;
+  } else if ((pre_mode == SLCDC_POWER_MODE_LCDON_INVR) &&
+             (mode == SLCDC_POWER_MODE_LCDON_EXTVR)) {
+    return;
+  }
+  tmp = p_supc->SUPC_MR;
+  tmp &= ~SUPC_MR_LCDMODE_Msk;
+  tmp |= SUPC_MR_KEY_PASSWD | mode;
+  p_supc->SUPC_MR = tmp;
 
-	if (mode == SLCDC_POWER_MODE_LCDOFF) {
-		while(supc_get_status(p_supc) & SUPC_SR_LCDS_ENABLED);
-	} else {
-		while(!(supc_get_status(p_supc) & SUPC_SR_LCDS_ENABLED));
-	}
+  if (mode == SLCDC_POWER_MODE_LCDOFF) {
+    while (supc_get_status(p_supc) & SUPC_SR_LCDS_ENABLED)
+      ;
+  } else {
+    while (!(supc_get_status(p_supc) & SUPC_SR_LCDS_ENABLED))
+      ;
+  }
 }
 
 /**
@@ -351,13 +343,11 @@ void supc_set_slcd_power_mode(Supc *p_supc, enum slcdc_power_mode mode)
  * \param p_supc Pointer to a SUPC instance.
  * \param vol  The voltage of Regulator Output.
  */
-void supc_set_slcd_vol(Supc *p_supc, uint32_t vol)
-{
-	uint32_t tmp= p_supc->SUPC_MR;
-	tmp &= ~SUPC_MR_LCDVROUT_Msk;
-	tmp |=  SUPC_MR_KEY_PASSWD |  SUPC_MR_LCDVROUT(vol);
-	p_supc->SUPC_MR = tmp;
-
+void supc_set_slcd_vol(Supc *p_supc, uint32_t vol) {
+  uint32_t tmp = p_supc->SUPC_MR;
+  tmp &= ~SUPC_MR_LCDVROUT_Msk;
+  tmp |= SUPC_MR_KEY_PASSWD | SUPC_MR_LCDVROUT(vol);
+  p_supc->SUPC_MR = tmp;
 }
 #endif
 
@@ -367,15 +357,14 @@ void supc_set_slcd_vol(Supc *p_supc, uint32_t vol)
  *
  * \param p_supc Pointer to a SUPC instance.
  */
-void supc_set_regulator_trim_factory(Supc *p_supc)
-{
+void supc_set_regulator_trim_factory(Supc *p_supc) {
 #if SAMG54
-	uint32_t ul_mr = p_supc->SUPC_MR &
-			(~(SUPC_MR_VRVDD_Msk | SUPC_MR_VDDSEL_USER_VRVDD));
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
+  uint32_t ul_mr =
+      p_supc->SUPC_MR & (~(SUPC_MR_VRVDD_Msk | SUPC_MR_VDDSEL_USER_VRVDD));
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr;
 #else
-	uint32_t ul_pwmr = p_supc->SUPC_PWMR & (~SUPC_PWMR_ECPWRS);
-	p_supc->SUPC_PWMR = SUPC_PWMR_KEY_PASSWD | ul_pwmr;
+  uint32_t ul_pwmr = p_supc->SUPC_PWMR & (~SUPC_PWMR_ECPWRS);
+  p_supc->SUPC_PWMR = SUPC_PWMR_KEY_PASSWD | ul_pwmr;
 #endif
 }
 
@@ -385,18 +374,18 @@ void supc_set_regulator_trim_factory(Supc *p_supc)
  * \param p_supc Pointer to a SUPC instance.
  * \param value the trim value.
  *
- * \note For the trim value in 96M PLL, please read the value in flash unique identifier area.
+ * \note For the trim value in 96M PLL, please read the value in flash unique
+ * identifier area.
  */
-void supc_set_regulator_trim_user(Supc *p_supc, uint32_t value)
-{
+void supc_set_regulator_trim_user(Supc *p_supc, uint32_t value) {
 #if SAMG54
-	uint32_t ul_mr = p_supc->SUPC_MR & (~SUPC_MR_VRVDD_Msk);
-	p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_VDDSEL_USER_VRVDD
-		 | SUPC_MR_VRVDD(value);
+  uint32_t ul_mr = p_supc->SUPC_MR & (~SUPC_MR_VRVDD_Msk);
+  p_supc->SUPC_MR = SUPC_MR_KEY_PASSWD | ul_mr | SUPC_MR_VDDSEL_USER_VRVDD |
+                    SUPC_MR_VRVDD(value);
 #else
-	uint32_t ul_pwmr = p_supc->SUPC_PWMR & (~(0xFu << 9));
-	p_supc->SUPC_PWMR = SUPC_PWMR_KEY_PASSWD | ul_pwmr | SUPC_PWMR_ECPWRS
-		| ((value & 0xFu) << 9);
+  uint32_t ul_pwmr = p_supc->SUPC_PWMR & (~(0xFu << 9));
+  p_supc->SUPC_PWMR =
+      SUPC_PWMR_KEY_PASSWD | ul_pwmr | SUPC_PWMR_ECPWRS | ((value & 0xFu) << 9);
 #endif
 }
 
@@ -409,9 +398,8 @@ void supc_set_regulator_trim_user(Supc *p_supc, uint32_t value)
  * \param p_supc Pointer to a SUPC instance.
  *
  */
-void supc_backup_sram_on(Supc *p_supc)
-{
-	p_supc->SUPC_MR |= (SUPC_MR_KEY_PASSWD | SUPC_MR_BKUPRETON);
+void supc_backup_sram_on(Supc *p_supc) {
+  p_supc->SUPC_MR |= (SUPC_MR_KEY_PASSWD | SUPC_MR_BKUPRETON);
 }
 
 /**
@@ -420,9 +408,8 @@ void supc_backup_sram_on(Supc *p_supc)
  * \param p_supc Pointer to a SUPC instance.
  *
  */
-void supc_backup_sram_off(Supc *p_supc)
-{
-	p_supc->SUPC_MR &= (~(SUPC_MR_KEY_PASSWD | SUPC_MR_BKUPRETON));	
+void supc_backup_sram_off(Supc *p_supc) {
+  p_supc->SUPC_MR &= (~(SUPC_MR_KEY_PASSWD | SUPC_MR_BKUPRETON));
 }
 #endif
 

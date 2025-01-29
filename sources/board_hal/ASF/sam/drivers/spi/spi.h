@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef SPI_H_INCLUDED
@@ -58,28 +59,28 @@ extern "C" {
 /// @endcond
 
 /** Time-out value (number of attempts). */
-#define SPI_TIMEOUT       15000
+#define SPI_TIMEOUT 15000
 
 /** Status codes used by the SPI driver. */
-typedef enum
-{
-	SPI_ERROR = -1,
-	SPI_OK = 0,
-	SPI_ERROR_TIMEOUT = 1,
-	SPI_ERROR_ARGUMENT,
-	SPI_ERROR_OVERRUN,
-	SPI_ERROR_MODE_FAULT,
-	SPI_ERROR_OVERRUN_AND_MODE_FAULT
+typedef enum {
+  SPI_ERROR = -1,
+  SPI_OK = 0,
+  SPI_ERROR_TIMEOUT = 1,
+  SPI_ERROR_ARGUMENT,
+  SPI_ERROR_OVERRUN,
+  SPI_ERROR_MODE_FAULT,
+  SPI_ERROR_OVERRUN_AND_MODE_FAULT
 } spi_status_t;
 
 /** SPI Chip Select behavior modes while transferring. */
 typedef enum spi_cs_behavior {
-	/** CS does not rise until a new transfer is requested on different chip select. */
-	SPI_CS_KEEP_LOW = SPI_CSR_CSAAT,
-	/** CS rises if there is no more data to transfer. */
-	SPI_CS_RISE_NO_TX = 0,
-	/** CS is de-asserted systematically during a time DLYBCS. */
-	SPI_CS_RISE_FORCED = SPI_CSR_CSNAAT
+  /** CS does not rise until a new transfer is requested on different chip
+     select. */
+  SPI_CS_KEEP_LOW = SPI_CSR_CSAAT,
+  /** CS rises if there is no more data to transfer. */
+  SPI_CS_RISE_NO_TX = 0,
+  /** CS is de-asserted systematically during a time DLYBCS. */
+  SPI_CS_RISE_FORCED = SPI_CSR_CSNAAT
 } spi_cs_behavior_t;
 
 /**
@@ -88,27 +89,21 @@ typedef enum spi_cs_behavior {
  *
  * \param chip_sel_id The chip select number used
  */
-#define spi_get_pcs(chip_sel_id) ((~(1u<<(chip_sel_id)))&0xF)
+#define spi_get_pcs(chip_sel_id) ((~(1u << (chip_sel_id))) & 0xF)
 
 /**
  * \brief Reset SPI and set it to Slave mode.
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_reset(Spi *p_spi)
-{
-	p_spi->SPI_CR = SPI_CR_SWRST;
-}
+static inline void spi_reset(Spi *p_spi) { p_spi->SPI_CR = SPI_CR_SWRST; }
 
 /**
  * \brief Enable SPI.
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_enable(Spi *p_spi)
-{
-	p_spi->SPI_CR = SPI_CR_SPIEN;
-}
+static inline void spi_enable(Spi *p_spi) { p_spi->SPI_CR = SPI_CR_SPIEN; }
 
 /**
  * \brief Disable SPI.
@@ -118,10 +113,7 @@ static inline void spi_enable(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_disable(Spi *p_spi)
-{
-	p_spi->SPI_CR = SPI_CR_SPIDIS;
-}
+static inline void spi_disable(Spi *p_spi) { p_spi->SPI_CR = SPI_CR_SPIDIS; }
 
 /**
  * \brief Issue a LASTXFER command.
@@ -129,9 +121,8 @@ static inline void spi_disable(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_set_lastxfer(Spi *p_spi)
-{
-	p_spi->SPI_CR = SPI_CR_LASTXFER;
+static inline void spi_set_lastxfer(Spi *p_spi) {
+  p_spi->SPI_CR = SPI_CR_LASTXFER;
 }
 
 /**
@@ -139,9 +130,8 @@ static inline void spi_set_lastxfer(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_set_master_mode(Spi *p_spi)
-{
-	p_spi->SPI_MR |= SPI_MR_MSTR;
+static inline void spi_set_master_mode(Spi *p_spi) {
+  p_spi->SPI_MR |= SPI_MR_MSTR;
 }
 
 /**
@@ -149,9 +139,8 @@ static inline void spi_set_master_mode(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_set_slave_mode(Spi *p_spi)
-{
-	p_spi->SPI_MR &= (~SPI_MR_MSTR);
+static inline void spi_set_slave_mode(Spi *p_spi) {
+  p_spi->SPI_MR &= (~SPI_MR_MSTR);
 }
 
 /**
@@ -161,13 +150,12 @@ static inline void spi_set_slave_mode(Spi *p_spi)
  *
  * \return 1 for master mode, 0 for slave mode.
  */
-static inline uint32_t spi_get_mode(Spi *p_spi)
-{
-	if (p_spi->SPI_MR & SPI_MR_MSTR) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_get_mode(Spi *p_spi) {
+  if (p_spi->SPI_MR & SPI_MR_MSTR) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -176,9 +164,8 @@ static inline uint32_t spi_get_mode(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_set_variable_peripheral_select(Spi *p_spi)
-{
-	p_spi->SPI_MR |= SPI_MR_PS;
+static inline void spi_set_variable_peripheral_select(Spi *p_spi) {
+  p_spi->SPI_MR |= SPI_MR_PS;
 }
 
 /**
@@ -187,9 +174,8 @@ static inline void spi_set_variable_peripheral_select(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_set_fixed_peripheral_select(Spi *p_spi)
-{
-	p_spi->SPI_MR &= (~SPI_MR_PS);
+static inline void spi_set_fixed_peripheral_select(Spi *p_spi) {
+  p_spi->SPI_MR &= (~SPI_MR_PS);
 }
 
 /**
@@ -199,13 +185,12 @@ static inline void spi_set_fixed_peripheral_select(Spi *p_spi)
  *
  * \return 1 for Variable mode, 0 for fixed mode.
  */
-static inline uint32_t spi_get_peripheral_select_mode(Spi *p_spi)
-{
-	if (p_spi->SPI_MR & SPI_MR_PS) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_get_peripheral_select_mode(Spi *p_spi) {
+  if (p_spi->SPI_MR & SPI_MR_PS) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -213,9 +198,8 @@ static inline uint32_t spi_get_peripheral_select_mode(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_enable_peripheral_select_decode(Spi *p_spi)
-{
-	p_spi->SPI_MR |= SPI_MR_PCSDEC;
+static inline void spi_enable_peripheral_select_decode(Spi *p_spi) {
+  p_spi->SPI_MR |= SPI_MR_PCSDEC;
 }
 
 /**
@@ -223,9 +207,8 @@ static inline void spi_enable_peripheral_select_decode(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_disable_peripheral_select_decode(Spi *p_spi)
-{
-	p_spi->SPI_MR &= (~SPI_MR_PCSDEC);
+static inline void spi_disable_peripheral_select_decode(Spi *p_spi) {
+  p_spi->SPI_MR &= (~SPI_MR_PCSDEC);
 }
 
 /**
@@ -235,13 +218,12 @@ static inline void spi_disable_peripheral_select_decode(Spi *p_spi)
  *
  * \return 1 for decode mode, 0 for direct mode.
  */
-static inline uint32_t spi_get_peripheral_select_decode_setting(Spi *p_spi)
-{
-	if (p_spi->SPI_MR & SPI_MR_PCSDEC) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_get_peripheral_select_decode_setting(Spi *p_spi) {
+  if (p_spi->SPI_MR & SPI_MR_PCSDEC) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -249,9 +231,8 @@ static inline uint32_t spi_get_peripheral_select_decode_setting(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_enable_mode_fault_detect(Spi *p_spi)
-{
-	p_spi->SPI_MR &= (~SPI_MR_MODFDIS);
+static inline void spi_enable_mode_fault_detect(Spi *p_spi) {
+  p_spi->SPI_MR &= (~SPI_MR_MODFDIS);
 }
 
 /**
@@ -259,9 +240,8 @@ static inline void spi_enable_mode_fault_detect(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_disable_mode_fault_detect(Spi *p_spi)
-{
-	p_spi->SPI_MR |= SPI_MR_MODFDIS;
+static inline void spi_disable_mode_fault_detect(Spi *p_spi) {
+  p_spi->SPI_MR |= SPI_MR_MODFDIS;
 }
 
 /**
@@ -271,13 +251,12 @@ static inline void spi_disable_mode_fault_detect(Spi *p_spi)
  *
  * \return 1 for disabled, 0 for enabled.
  */
-static inline uint32_t spi_get_mode_fault_detect_setting(Spi *p_spi)
-{
-	if (p_spi->SPI_MR & SPI_MR_MODFDIS) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_get_mode_fault_detect_setting(Spi *p_spi) {
+  if (p_spi->SPI_MR & SPI_MR_MODFDIS) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -285,9 +264,8 @@ static inline uint32_t spi_get_mode_fault_detect_setting(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_enable_tx_on_rx_empty(Spi *p_spi)
-{
-	p_spi->SPI_MR |= SPI_MR_WDRBT;
+static inline void spi_enable_tx_on_rx_empty(Spi *p_spi) {
+  p_spi->SPI_MR |= SPI_MR_WDRBT;
 }
 
 /**
@@ -295,9 +273,8 @@ static inline void spi_enable_tx_on_rx_empty(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_disable_tx_on_rx_empty(Spi *p_spi)
-{
-	p_spi->SPI_MR &= (~SPI_MR_WDRBT);
+static inline void spi_disable_tx_on_rx_empty(Spi *p_spi) {
+  p_spi->SPI_MR &= (~SPI_MR_WDRBT);
 }
 
 /**
@@ -307,13 +284,12 @@ static inline void spi_disable_tx_on_rx_empty(Spi *p_spi)
  *
  * \return 1 for SPI waits, 0 for no wait.
  */
-static inline uint32_t spi_get_tx_on_rx_empty_setting(Spi *p_spi)
-{
-	if (p_spi->SPI_MR & SPI_MR_WDRBT) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_get_tx_on_rx_empty_setting(Spi *p_spi) {
+  if (p_spi->SPI_MR & SPI_MR_WDRBT) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -321,9 +297,8 @@ static inline uint32_t spi_get_tx_on_rx_empty_setting(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_enable_loopback(Spi *p_spi)
-{
-	p_spi->SPI_MR |= SPI_MR_LLB;
+static inline void spi_enable_loopback(Spi *p_spi) {
+  p_spi->SPI_MR |= SPI_MR_LLB;
 }
 
 /**
@@ -331,9 +306,8 @@ static inline void spi_enable_loopback(Spi *p_spi)
  *
  * \param p_spi Pointer to an SPI instance.
  */
-static inline void spi_disable_loopback(Spi *p_spi)
-{
-	p_spi->SPI_MR &= (~SPI_MR_LLB);
+static inline void spi_disable_loopback(Spi *p_spi) {
+  p_spi->SPI_MR &= (~SPI_MR_LLB);
 }
 
 void spi_enable_clock(Spi *p_spi);
@@ -342,7 +316,7 @@ void spi_set_peripheral_chip_select_value(Spi *p_spi, uint32_t ul_value);
 void spi_set_delay_between_chip_select(Spi *p_spi, uint32_t ul_delay);
 spi_status_t spi_read(Spi *p_spi, uint16_t *us_data, uint8_t *p_pcs);
 spi_status_t spi_write(Spi *p_spi, uint16_t us_data, uint8_t uc_pcs,
-		uint8_t uc_last);
+                       uint8_t uc_last);
 
 /**
  * \brief Read status register.
@@ -351,10 +325,7 @@ spi_status_t spi_write(Spi *p_spi, uint16_t us_data, uint8_t uc_pcs,
  *
  * \return SPI status register value.
  */
-static inline uint32_t spi_read_status(Spi *p_spi)
-{
-	return p_spi->SPI_SR;
-}
+static inline uint32_t spi_read_status(Spi *p_spi) { return p_spi->SPI_SR; }
 
 /**
  * \brief Test if the SPI is enabled.
@@ -363,13 +334,12 @@ static inline uint32_t spi_read_status(Spi *p_spi)
  *
  * \return 1 if the SPI is enabled, otherwise 0.
  */
-static inline uint32_t spi_is_enabled(Spi *p_spi)
-{
-	if (p_spi->SPI_SR & SPI_SR_SPIENS) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_is_enabled(Spi *p_spi) {
+  if (p_spi->SPI_SR & SPI_SR_SPIENS) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -379,9 +349,8 @@ static inline uint32_t spi_is_enabled(Spi *p_spi)
  * \param data The data byte to be loaded
  *
  */
-static inline void spi_put(Spi *p_spi, uint16_t data)
-{
-	p_spi->SPI_TDR = SPI_TDR_TD(data);
+static inline void spi_put(Spi *p_spi, uint16_t data) {
+  p_spi->SPI_TDR = SPI_TDR_TD(data);
 }
 
 /** \brief Get one data to a SPI peripheral.
@@ -390,9 +359,8 @@ static inline void spi_put(Spi *p_spi, uint16_t data)
  * \return The data byte
  *
  */
-static inline uint16_t spi_get(Spi *p_spi)
-{
-	return (p_spi->SPI_RDR & SPI_RDR_RD_Msk);
+static inline uint16_t spi_get(Spi *p_spi) {
+  return (p_spi->SPI_RDR & SPI_RDR_RD_Msk);
 }
 
 /**
@@ -403,13 +371,12 @@ static inline uint16_t spi_get(Spi *p_spi)
  * \retval 1 if transmissions are complete.
  * \retval 0 if transmissions are not complete.
  */
-static inline uint32_t spi_is_tx_empty(Spi *p_spi)
-{
-	if (p_spi->SPI_SR & SPI_SR_TXEMPTY) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_is_tx_empty(Spi *p_spi) {
+  if (p_spi->SPI_SR & SPI_SR_TXEMPTY) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -420,13 +387,12 @@ static inline uint32_t spi_is_tx_empty(Spi *p_spi)
  * \retval 1 if transmissions are complete.
  * \retval 0 if transmissions are not complete.
  */
-static inline uint32_t spi_is_tx_ready(Spi *p_spi)
-{
-	if (p_spi->SPI_SR & SPI_SR_TDRE) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_is_tx_ready(Spi *p_spi) {
+  if (p_spi->SPI_SR & SPI_SR_TDRE) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -436,13 +402,12 @@ static inline uint32_t spi_is_tx_ready(Spi *p_spi)
  *
  * \return 1 if the SPI Receive Holding Register is full, otherwise 0.
  */
-static inline uint32_t spi_is_rx_full(Spi *p_spi)
-{
-	if (p_spi->SPI_SR & SPI_SR_RDRF) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_is_rx_full(Spi *p_spi) {
+  if (p_spi->SPI_SR & SPI_SR_RDRF) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -452,14 +417,13 @@ static inline uint32_t spi_is_rx_full(Spi *p_spi)
  *
  * \return 1 if the SPI Receiver is ready, otherwise 0.
  */
-static inline uint32_t spi_is_rx_ready(Spi *p_spi)
-{
-	if ((p_spi->SPI_SR & (SPI_SR_RDRF | SPI_SR_TXEMPTY))
-			== (SPI_SR_RDRF | SPI_SR_TXEMPTY)) {
-		return 1;
-	} else {
-		return 0;
-	}
+static inline uint32_t spi_is_rx_ready(Spi *p_spi) {
+  if ((p_spi->SPI_SR & (SPI_SR_RDRF | SPI_SR_TXEMPTY)) ==
+      (SPI_SR_RDRF | SPI_SR_TXEMPTY)) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 /**
@@ -468,9 +432,8 @@ static inline uint32_t spi_is_rx_ready(Spi *p_spi)
  * \param p_spi Pointer to an SPI instance.
  * \param ul_sources Interrupts to be enabled.
  */
-static inline void spi_enable_interrupt(Spi *p_spi, uint32_t ul_sources)
-{
-	p_spi->SPI_IER = ul_sources;
+static inline void spi_enable_interrupt(Spi *p_spi, uint32_t ul_sources) {
+  p_spi->SPI_IER = ul_sources;
 }
 
 /**
@@ -479,9 +442,8 @@ static inline void spi_enable_interrupt(Spi *p_spi, uint32_t ul_sources)
  * \param p_spi Pointer to an SPI instance.
  * \param ul_sources Interrupts to be disabled.
  */
-static inline void spi_disable_interrupt(Spi *p_spi, uint32_t ul_sources)
-{
-	p_spi->SPI_IDR = ul_sources;
+static inline void spi_disable_interrupt(Spi *p_spi, uint32_t ul_sources) {
+  p_spi->SPI_IDR = ul_sources;
 }
 
 /**
@@ -491,24 +453,25 @@ static inline void spi_disable_interrupt(Spi *p_spi, uint32_t ul_sources)
  *
  * \return The interrupt mask value.
  */
-static inline uint32_t spi_read_interrupt_mask(Spi *p_spi)
-{
-	return p_spi->SPI_IMR;
+static inline uint32_t spi_read_interrupt_mask(Spi *p_spi) {
+  return p_spi->SPI_IMR;
 }
 
 void spi_set_clock_polarity(Spi *p_spi, uint32_t ul_pcs_ch,
-		uint32_t ul_polarity);
+                            uint32_t ul_polarity);
 void spi_set_clock_phase(Spi *p_spi, uint32_t ul_pcs_ch, uint32_t ul_phase);
 void spi_configure_cs_behavior(Spi *p_spi, uint32_t ul_pcs_ch,
-		uint32_t ul_cs_behavior);
-void spi_set_bits_per_transfer(Spi *p_spi, uint32_t ul_pcs_ch, uint32_t ul_bits);
+                               uint32_t ul_cs_behavior);
+void spi_set_bits_per_transfer(Spi *p_spi, uint32_t ul_pcs_ch,
+                               uint32_t ul_bits);
 int16_t spi_calc_baudrate_div(const uint32_t baudrate, uint32_t mck);
 int16_t spi_set_baudrate_div(Spi *p_spi, uint32_t ul_pcs_ch,
-		uint8_t uc_baudrate_divider);
+                             uint8_t uc_baudrate_divider);
 void spi_set_transfer_delay(Spi *p_spi, uint32_t ul_pcs_ch, uint8_t uc_dlybs,
-		uint8_t uc_dlybct);
+                            uint8_t uc_dlybct);
 
-#if (SAM3S || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM)
+#if (SAM3S || SAM3N || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP ||   \
+     SAM4CM)
 /**
  * \brief Get PDC registers base address.
  *
@@ -516,13 +479,12 @@ void spi_set_transfer_delay(Spi *p_spi, uint32_t ul_pcs_ch, uint8_t uc_dlybs,
  *
  * \return PDC registers base for PDC driver to access.
  */
-static inline Pdc *spi_get_pdc_base(Spi *p_spi)
-{
-	return (Pdc *)&(p_spi->SPI_RPR);
+static inline Pdc *spi_get_pdc_base(Spi *p_spi) {
+  return (Pdc *)&(p_spi->SPI_RPR);
 }
 #endif
 
-#if (SAM3U  || SAM3XA || SAMV71 || SAMV70 || SAME70 || SAMS70)
+#if (SAM3U || SAM3XA || SAMV71 || SAMV70 || SAME70 || SAMS70)
 /**
  * \brief Get transmit data register address for DMA operation.
  *
@@ -530,9 +492,8 @@ static inline Pdc *spi_get_pdc_base(Spi *p_spi)
  *
  * \return Transmit address for DMA access.
  */
-static inline void *spi_get_tx_access(Spi *p_spi)
-{
-	return (void *)&(p_spi->SPI_TDR);
+static inline void *spi_get_tx_access(Spi *p_spi) {
+  return (void *)&(p_spi->SPI_TDR);
 }
 
 /**
@@ -542,9 +503,8 @@ static inline void *spi_get_tx_access(Spi *p_spi)
  *
  * \return Receive address for DMA access.
  */
-static inline void *spi_get_rx_access(Spi *p_spi)
-{
-	return (void *)&(p_spi->SPI_RDR);
+static inline void *spi_get_rx_access(Spi *p_spi) {
+  return (void *)&(p_spi->SPI_RDR);
 }
 #endif
 
@@ -582,45 +542,49 @@ uint32_t spi_get_writeprotect_status(Spi *p_spi);
  * \subsection spi_basic_use_case_setup_code Example code
  * Add to application C-file:
  * \code
-	   void spi_master_init(Spi *p_spi)
-	   {
-	       spi_enable_clock(p_spi);
-	       spi_reset(p_spi);
-	       spi_set_master_mode(p_spi);
-	       spi_disable_mode_fault_detect(p_spi);
-	       spi_disable_loopback(p_spi);
-	       spi_set_peripheral_chip_select_value(p_spi,
-	                                            spi_get_pcs(DEFAULT_CHIP_ID));
-	       spi_set_fixed_peripheral_select(p_spi);
-	       spi_disable_peripheral_select_decode(p_spi);
-	       spi_set_delay_between_chip_select(p_spi, CONFIG_SPI_MASTER_DELAY_BCS);
-	   }
-	   void spi_master_setup_device(Spi *p_spi, struct spi_device *device,
-	       spi_flags_t flags, uint32_t baud_rate, board_spi_select_id_t sel_id)
-	   {
-	       spi_set_transfer_delay(p_spi, device->id, CONFIG_SPI_MASTER_DELAY_BS,
-	                              CONFIG_SPI_MASTER_DELAY_BCT);
+           void spi_master_init(Spi *p_spi)
+           {
+               spi_enable_clock(p_spi);
+               spi_reset(p_spi);
+               spi_set_master_mode(p_spi);
+               spi_disable_mode_fault_detect(p_spi);
+               spi_disable_loopback(p_spi);
+               spi_set_peripheral_chip_select_value(p_spi,
+                                                    spi_get_pcs(DEFAULT_CHIP_ID));
+               spi_set_fixed_peripheral_select(p_spi);
+               spi_disable_peripheral_select_decode(p_spi);
+               spi_set_delay_between_chip_select(p_spi,
+CONFIG_SPI_MASTER_DELAY_BCS);
+           }
+           void spi_master_setup_device(Spi *p_spi, struct spi_device *device,
+               spi_flags_t flags, uint32_t baud_rate, board_spi_select_id_t
+sel_id)
+           {
+               spi_set_transfer_delay(p_spi, device->id,
+CONFIG_SPI_MASTER_DELAY_BS, CONFIG_SPI_MASTER_DELAY_BCT);
 
-	       spi_set_bits_per_transfer(p_spi, device->id, CONFIG_SPI_MASTER_BITS_PER_TRANSFER);
-	       spi_set_baudrate_div(p_spi, device->id,
-	                            spi_calc_baudrate_div(baud_rate, sysclk_get_peripheral_hz()));
+               spi_set_bits_per_transfer(p_spi, device->id,
+CONFIG_SPI_MASTER_BITS_PER_TRANSFER); spi_set_baudrate_div(p_spi, device->id,
+                                    spi_calc_baudrate_div(baud_rate,
+sysclk_get_peripheral_hz()));
 
-	       spi_configure_cs_behavior(p_spi, device->id, SPI_CS_KEEP_LOW);
+               spi_configure_cs_behavior(p_spi, device->id, SPI_CS_KEEP_LOW);
 
-	       spi_set_clock_polarity(p_spi, device->id, flags >> 1);
-	       spi_set_clock_phase(p_spi, device->id, ((flags & 0x1) ^ 0x1));
-	   }
+               spi_set_clock_polarity(p_spi, device->id, flags >> 1);
+               spi_set_clock_phase(p_spi, device->id, ((flags & 0x1) ^ 0x1));
+           }
 \endcode
  *
  * \subsection spi_basic_use_case_setup_flow Workflow
  * -# Initialize the SPI in master mode:
  *   - \code
-	void spi_master_init(SPI_EXAMPLE);
+        void spi_master_init(SPI_EXAMPLE);
 \endcode
  * -# Set up an SPI device:
  *   - \code void spi_master_setup_device(SPI_EXAMPLE, &SPI_DEVICE_EXAMPLE,
-	        SPI_MODE_0, SPI_EXAMPLE_BAUDRATE, 0); \endcode
- *   - \note The returned device descriptor structure must be passed to the driver
+                SPI_MODE_0, SPI_EXAMPLE_BAUDRATE, 0); \endcode
+ *   - \note The returned device descriptor structure must be passed to the
+driver
  *      whenever that device should be used as current slave device.
  * -# Enable SPI module:
  *   - \code spi_enable(SPI_EXAMPLE); \endcode

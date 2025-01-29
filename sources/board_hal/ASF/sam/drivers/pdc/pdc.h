@@ -41,16 +41,18 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef PDC_H_INCLUDED
 #define PDC_H_INCLUDED
 
 /**
- * \defgroup asfdoc_sam_drivers_pdc_group SAM3A/3N/3S/3U/3X/4E/4N/4S/G Peripheral DMA Controller (PDC) Driver
- * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides 
- * an interface for the configuration and management of the the Peripheral 
+ * \defgroup asfdoc_sam_drivers_pdc_group SAM3A/3N/3S/3U/3X/4E/4N/4S/G
+ Peripheral DMA Controller (PDC) Driver
+ * This driver for Atmel&reg; | SMART ARM&reg;-based microcontrollers provides
+ * an interface for the configuration and management of the the Peripheral
  * Direct Memory Access (DMA) Controller (PDC) module.
  *
  * The PDC transfers data between on-chip serial peripherals and the on and/or
@@ -138,16 +140,16 @@ extern "C" {
  * \brief PDC data packet for transfer.
  */
 typedef struct pdc_packet {
-	/** Start address of the transfer packet data. */
-	uint32_t ul_addr;
-	/** Transfer packet size (in units of the peripheral data width). */
-	uint32_t ul_size;
+  /** Start address of the transfer packet data. */
+  uint32_t ul_addr;
+  /** Transfer packet size (in units of the peripheral data width). */
+  uint32_t ul_size;
 } pdc_packet_t;
 
 void pdc_tx_init(Pdc *p_pdc, pdc_packet_t *p_packet,
-		pdc_packet_t *p_next_packet);
+                 pdc_packet_t *p_next_packet);
 void pdc_rx_init(Pdc *p_pdc, pdc_packet_t *p_packet,
-		pdc_packet_t *p_next_packet);
+                 pdc_packet_t *p_next_packet);
 void pdc_rx_clear_cnt(Pdc *p_pdc);
 void pdc_enable_transfer(Pdc *p_pdc, uint32_t ul_controls);
 void pdc_disable_transfer(Pdc *p_pdc, uint32_t ul_controls);
@@ -170,9 +172,10 @@ uint32_t pdc_read_tx_next_counter(Pdc *p_pdc);
 /// @endcond
 
 /** @} */
- 
+
 /**
- * \page asfdoc_sam_drivers_pdc_extra Extra Information for Peripheral DMA Controller
+ * \page asfdoc_sam_drivers_pdc_extra Extra Information for Peripheral DMA
+ *Controller
  *
  * \section asfdoc_sam_drivers_pdc_extra_acronyms Acronyms
  * Below is a table listing the acronyms used in this module, along with their
@@ -289,16 +292,17 @@ uint32_t pdc_read_tx_next_counter(Pdc *p_pdc);
  * \page asfdoc_sam_drivers_pdc_exqsg Examples for Peripheral DMA Controller
  *
  * This is a list of the available Quick Start guides (QSGs) and example
- * applications for \ref asfdoc_sam_drivers_pdc_group. QSGs are simple examples with
- * step-by-step instructions to configure and use this driver in a selection of
- * use cases. Note that a QSG can be compiled as a standalone application or be
- * added to the user application.
+ * applications for \ref asfdoc_sam_drivers_pdc_group. QSGs are simple examples
+ *with step-by-step instructions to configure and use this driver in a selection
+ *of use cases. Note that a QSG can be compiled as a standalone application or
+ *be added to the user application.
  *
  *  - \subpage asfdoc_sam_pdc_quickstart_basic
  *  - \subpage asfdoc_sam_drivers_pdc_example
  *
  *
- * \page asfdoc_sam_drivers_pdc_document_revision_history Document Revision History
+ * \page asfdoc_sam_drivers_pdc_document_revision_history Document Revision
+ *History
  *
  * <table>
  *	<tr>
@@ -309,7 +313,8 @@ uint32_t pdc_read_tx_next_counter(Pdc *p_pdc);
  *	<tr>
  *		<td>42316B</td>
  *		<td>07/2015</td>
- *		<td>Updated title of application note and added list of supported devices</td>
+ *		<td>Updated title of application note and added list of
+ *supported devices</td>
  *	</tr>
  *	<tr>
  *		<td>42316A</td>

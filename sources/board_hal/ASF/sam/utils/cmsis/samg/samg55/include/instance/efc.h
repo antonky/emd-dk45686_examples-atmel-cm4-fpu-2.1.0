@@ -39,7 +39,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef _SAMG55_EFC_INSTANCE_
@@ -47,17 +48,32 @@
 
 /* ========== Register definition for EFC peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-  #define REG_EFC_FMR                   (0x400E0A00U) /**< \brief (EFC) EEFC Flash Mode Register */
-  #define REG_EFC_FCR                   (0x400E0A04U) /**< \brief (EFC) EEFC Flash Command Register */
-  #define REG_EFC_FSR                   (0x400E0A08U) /**< \brief (EFC) EEFC Flash Status Register */
-  #define REG_EFC_FRR                   (0x400E0A0CU) /**< \brief (EFC) EEFC Flash Result Register */
-  #define REG_EFC_WPMR                  (0x400E0AE4U) /**< \brief (EFC) Write Protection Mode Register */
+#define REG_EFC_FMR (0x400E0A00U) /**< \brief (EFC) EEFC Flash Mode Register   \
+                                   */
+#define REG_EFC_FCR                                                            \
+  (0x400E0A04U) /**< \brief (EFC) EEFC Flash Command Register */
+#define REG_EFC_FSR                                                            \
+  (0x400E0A08U) /**< \brief (EFC) EEFC Flash Status Register */
+#define REG_EFC_FRR                                                            \
+  (0x400E0A0CU) /**< \brief (EFC) EEFC Flash Result Register */
+#define REG_EFC_WPMR                                                           \
+  (0x400E0AE4U) /**< \brief (EFC) Write Protection Mode Register */
 #else
-  #define REG_EFC_FMR  (*(__IO uint32_t*)0x400E0A00U) /**< \brief (EFC) EEFC Flash Mode Register */
-  #define REG_EFC_FCR  (*(__O  uint32_t*)0x400E0A04U) /**< \brief (EFC) EEFC Flash Command Register */
-  #define REG_EFC_FSR  (*(__I  uint32_t*)0x400E0A08U) /**< \brief (EFC) EEFC Flash Status Register */
-  #define REG_EFC_FRR  (*(__I  uint32_t*)0x400E0A0CU) /**< \brief (EFC) EEFC Flash Result Register */
-  #define REG_EFC_WPMR (*(__IO uint32_t*)0x400E0AE4U) /**< \brief (EFC) Write Protection Mode Register */
+#define REG_EFC_FMR                                                            \
+  (*(__IO uint32_t *)0x400E0A00U) /**< \brief (EFC) EEFC Flash Mode Register   \
+                                   */
+#define REG_EFC_FCR                                                            \
+  (*(__O uint32_t                                                              \
+         *)0x400E0A04U) /**< \brief (EFC) EEFC Flash Command Register */
+#define REG_EFC_FSR                                                            \
+  (*(__I uint32_t *)0x400E0A08U) /**< \brief (EFC) EEFC Flash Status Register  \
+                                  */
+#define REG_EFC_FRR                                                            \
+  (*(__I uint32_t *)0x400E0A0CU) /**< \brief (EFC) EEFC Flash Result Register  \
+                                  */
+#define REG_EFC_WPMR                                                           \
+  (*(__IO uint32_t                                                             \
+         *)0x400E0AE4U) /**< \brief (EFC) Write Protection Mode Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAMG55_EFC_INSTANCE_ */

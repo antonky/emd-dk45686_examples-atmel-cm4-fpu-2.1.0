@@ -39,30 +39,37 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef _SAMG55_GPBR_COMPONENT_
 #define _SAMG55_GPBR_COMPONENT_
 
-/* ============================================================================= */
+/* =============================================================================
+ */
 /**  SOFTWARE API DEFINITION FOR General Purpose Backup Registers */
-/* ============================================================================= */
+/* =============================================================================
+ */
 /** \addtogroup SAMG55_GPBR General Purpose Backup Registers */
 /*@{*/
 
 #if !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
 /** \brief Gpbr hardware registers */
 typedef struct {
-  __IO uint32_t SYS_GPBR[8]; /**< \brief (Gpbr Offset: 0x0) General Purpose Backup Register */
+  __IO uint32_t SYS_GPBR[8]; /**< \brief (Gpbr Offset: 0x0) General Purpose
+                                Backup Register */
 } Gpbr;
 #endif /* !(defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
-/* -------- SYS_GPBR[8] : (GPBR Offset: 0x0) General Purpose Backup Register -------- */
+/* -------- SYS_GPBR[8] : (GPBR Offset: 0x0) General Purpose Backup Register
+ * -------- */
 #define SYS_GPBR_GPBR_VALUE_Pos 0
-#define SYS_GPBR_GPBR_VALUE_Msk (0xffffffffu << SYS_GPBR_GPBR_VALUE_Pos) /**< \brief (SYS_GPBR[8]) Value of GPBR x */
-#define SYS_GPBR_GPBR_VALUE(value) ((SYS_GPBR_GPBR_VALUE_Msk & ((value) << SYS_GPBR_GPBR_VALUE_Pos)))
+#define SYS_GPBR_GPBR_VALUE_Msk                                                \
+  (0xffffffffu                                                                 \
+   << SYS_GPBR_GPBR_VALUE_Pos) /**< \brief (SYS_GPBR[8]) Value of GPBR x */
+#define SYS_GPBR_GPBR_VALUE(value)                                             \
+  ((SYS_GPBR_GPBR_VALUE_Msk & ((value) << SYS_GPBR_GPBR_VALUE_Pos)))
 
 /*@}*/
-
 
 #endif /* _SAMG55_GPBR_COMPONENT_ */

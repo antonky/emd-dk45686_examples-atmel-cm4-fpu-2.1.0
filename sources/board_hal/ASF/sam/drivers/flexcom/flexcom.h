@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef FLEXCOM_H_INCLUDED
@@ -74,10 +75,10 @@ extern "C" {
  * FLEXCOM opration Mode
  */
 enum flexcom_opmode {
-	FLEXCOM_NONE  = FLEXCOM_MR_OPMODE_NO_COM,
-	FLEXCOM_USART = FLEXCOM_MR_OPMODE_USART,
-	FLEXCOM_SPI   = FLEXCOM_MR_OPMODE_SPI,
-	FLEXCOM_TWI   = FLEXCOM_MR_OPMODE_TWI,
+  FLEXCOM_NONE = FLEXCOM_MR_OPMODE_NO_COM,
+  FLEXCOM_USART = FLEXCOM_MR_OPMODE_USART,
+  FLEXCOM_SPI = FLEXCOM_MR_OPMODE_SPI,
+  FLEXCOM_TWI = FLEXCOM_MR_OPMODE_TWI,
 };
 
 void flexcom_enable(Flexcom *p_flexcom);
@@ -129,8 +130,8 @@ void flexcom_read(Flexcom *p_flexcom, uint32_t *data);
  * \subsection flexcom_basic_use_case_usage_flow Workflow
  * -# Use write/read function to access the data
  * \code
-	 flexcom_write(FLEXCOM0, data);
-	 flexcom_read(FLEXCOM0, &data);
+         flexcom_write(FLEXCOM0, data);
+         flexcom_read(FLEXCOM0, &data);
  \endcode
  */
 

@@ -1,10 +1,10 @@
 /*
  *
  * Copyright (c) [2020] by InvenSense, Inc.
- * 
+ *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
@@ -34,35 +34,38 @@ extern "C" {
 /** @brief IMU B2S parameters definition
  */
 typedef struct {
-	/* B2S */
-	uint32_t b2s_mounting_matrix; /**< Specifies mounting matrix to be applied to B2S raw data
-                                       Set bit 2 : swap X/Y ; flip Z
-                                       Set bit 1 : flip X ; flip Z
-                                       Set bit 0 : flip Y ; flip Z */
+  /* B2S */
+  uint32_t
+      b2s_mounting_matrix; /**< Specifies mounting matrix to be applied to B2S
+                            raw data Set bit 2 : swap X/Y ; flip Z Set bit 1 :
+                            flip X ; flip Z Set bit 0 : flip Y ; flip Z */
 } inv_imu_edmp_b2s_parameters_t;
 
-/** @brief  Initialize B2S algorithm. 
+/** @brief  Initialize B2S algorithm.
  *  @param[in] s  Pointer to device.
  *  @return       0 on success, negative value on error.
  */
 int inv_imu_edmp_b2s_init(inv_imu_device_t *s);
 
-/** @brief  Get current B2S configuration settings. 
+/** @brief  Get current B2S configuration settings.
  *  @param[in]  s           Pointer to device.
- *  @param[out] b2s_params  Pointer to B2S configuration structure, which will hold current B2S configuration.
+ *  @param[out] b2s_params  Pointer to B2S configuration structure, which will
+ * hold current B2S configuration.
  *  @return                 0 on success, negative value on error.
  */
-int inv_imu_edmp_b2s_get_parameters(inv_imu_device_t *s, inv_imu_edmp_b2s_parameters_t *b2s_params);
+int inv_imu_edmp_b2s_get_parameters(inv_imu_device_t *s,
+                                    inv_imu_edmp_b2s_parameters_t *b2s_params);
 
-/** @brief  Set new B2S configuration settings. 
+/** @brief  Set new B2S configuration settings.
  *  @param[in]  s           Pointer to device.
- *  @param[in]  b2s_params  Pointer to B2S configuration structure, which contains new B2S configuration.
+ *  @param[in]  b2s_params  Pointer to B2S configuration structure, which
+ * contains new B2S configuration.
  *  @return                 0 on success, negative value on error.
  */
-int inv_imu_edmp_b2s_set_parameters(inv_imu_device_t *                   s,
-                                    const inv_imu_edmp_b2s_parameters_t *b2s_params);
+int inv_imu_edmp_b2s_set_parameters(
+    inv_imu_device_t *s, const inv_imu_edmp_b2s_parameters_t *b2s_params);
 
-/** @brief  Enable APEX algorithm B2S. 
+/** @brief  Enable APEX algorithm B2S.
  *  @param[in] s  Pointer to device.
  *  @return       0 on success, negative value on error.
  */

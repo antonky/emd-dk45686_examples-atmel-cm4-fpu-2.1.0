@@ -32,7 +32,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip Support</a>
+ * Support and FAQ: visit <a href="https://www.microchip.com/support/">Microchip
+ * Support</a>
  */
 
 #ifndef _UDI_HID_MOUSE_CONF_H_
@@ -45,26 +46,24 @@
 
 //! Control endpoint size
 #ifdef USB_DEVICE_HS_SUPPORT
-#  define  USB_DEVICE_EP_CTRL_SIZE       64
+#define USB_DEVICE_EP_CTRL_SIZE 64
 #else
-#  define  USB_DEVICE_EP_CTRL_SIZE       8
+#define USB_DEVICE_EP_CTRL_SIZE 8
 #endif
 
-
 //! Endpoint number used by HID mouse interface
-#define  UDI_HID_MOUSE_EP_IN            (1 | USB_EP_DIR_IN)
+#define UDI_HID_MOUSE_EP_IN (1 | USB_EP_DIR_IN)
 
 //! Interface number
-#define  UDI_HID_MOUSE_IFACE_NUMBER     0
-
+#define UDI_HID_MOUSE_IFACE_NUMBER 0
 
 /**
  * \name UDD Configuration
  */
 //@{
-#undef USB_DEVICE_MAX_EP   // undefine this definition in header file
+#undef USB_DEVICE_MAX_EP // undefine this definition in header file
 //! 1 endpoint used by HID mouse standard interface
-#define  USB_DEVICE_MAX_EP             1
+#define USB_DEVICE_MAX_EP 1
 //@}
 
 //@}

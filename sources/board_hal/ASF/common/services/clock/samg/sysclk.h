@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef CHIP_SYSCLK_H_INCLUDED
@@ -51,19 +52,26 @@
 #include <pll.h>
 
 /**
- * \page sysclk_quickstart Quick Start Guide for the System Clock Management service (SAMG51)
+ * \page sysclk_quickstart Quick Start Guide for the System Clock Management
+service (SAMG51)
  *
- * This is the quick start guide for the \ref sysclk_group "System Clock Management"
- * service, with step-by-step instructions on how to configure and use the service for
+ * This is the quick start guide for the \ref sysclk_group "System Clock
+Management"
+ * service, with step-by-step instructions on how to configure and use the
+service for
  * specific use cases.
  *
  * \section sysclk_quickstart_usecases System Clock Management use cases
  * - \ref sysclk_quickstart_basic
  *
- * \section sysclk_quickstart_basic Basic usage of the System Clock Management service
- * This section will present a basic use case for the System Clock Management service.
- * This use case will configure the main system clock to 100Hz, using an internal PLL
- * module to multiply the frequency of a crystal attached to the microcontroller.
+ * \section sysclk_quickstart_basic Basic usage of the System Clock Management
+service
+ * This section will present a basic use case for the System Clock Management
+service.
+ * This use case will configure the main system clock to 100Hz, using an
+internal PLL
+ * module to multiply the frequency of a crystal attached to the
+microcontroller.
  *
  * \subsection sysclk_quickstart_use_case_1_prereq Prerequisites
  *  - None
@@ -71,7 +79,7 @@
  * \subsection sysclk_quickstart_use_case_1_setup_steps Initialization code
  * Add to the application initialization code:
  * \code
-	sysclk_init();
+        sysclk_init();
 \endcode
  *
  * \subsection sysclk_quickstart_use_case_1_setup_steps_workflow Workflow
@@ -79,36 +87,43 @@
  *    \code sysclk_init(); \endcode
  *
  * \subsection sysclk_quickstart_use_case_1_example_code Example code
- *   Add or uncomment the following in your conf_clock.h header file, commenting out all other
+ *   Add or uncomment the following in your conf_clock.h header file, commenting
+out all other
  *   definitions of the same symbol(s):
  *   \code
-	   #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_PLLACK
+           #define CONFIG_SYSCLK_SOURCE        SYSCLK_SRC_PLLACK
 
-	   // Fpll0 = (Fclk * PLL_mul) / PLL_div
-	   #define CONFIG_PLL0_SOURCE          PLL_SRC_SCLK_RC
-	   #define CONFIG_PLL0_MUL             (1500)
-	   #define CONFIG_PLL0_DIV             1
+           // Fpll0 = (Fclk * PLL_mul) / PLL_div
+           #define CONFIG_PLL0_SOURCE          PLL_SRC_SCLK_RC
+           #define CONFIG_PLL0_MUL             (1500)
+           #define CONFIG_PLL0_DIV             1
 
-	   // Fbus = Fsys / BUS_div
-	   #define CONFIG_SYSCLK_PRES          SYSCLK_PRES_1
+           // Fbus = Fsys / BUS_div
+           #define CONFIG_SYSCLK_PRES          SYSCLK_PRES_1
 \endcode
  *
  * \subsection sysclk_quickstart_use_case_1_example_workflow Workflow
- *  -# Configure the main system clock to use the output of the PLL module as its source:
+ *  -# Configure the main system clock to use the output of the PLL module as
+its source:
  *   \code #define CONFIG_SYSCLK_SOURCE          SYSCLK_SRC_PLLACK \endcode
- *  -# Configure the PLL module to use the fast external fast crystal oscillator as its source:
+ *  -# Configure the PLL module to use the fast external fast crystal oscillator
+as its source:
  *   \code #define CONFIG_PLL0_SOURCE            PLL_SRC_SCLK_RC \endcode
- *  -# Configure the PLL module to multiply the internal 32K RC frequency up to 48MHz:
+ *  -# Configure the PLL module to multiply the internal 32K RC frequency up to
+48MHz:
  *   \code
-	#define CONFIG_PLL0_MUL             (1500)
-	#define CONFIG_PLL0_DIV             1
+        #define CONFIG_PLL0_MUL             (1500)
+        #define CONFIG_PLL0_DIV             1
 \endcode
- *  -# Configure the main clock to run at the full 48MHz, disable scaling of the main system clock speed:
+ *  -# Configure the main clock to run at the full 48MHz, disable scaling of the
+main system clock speed:
  *    \code
-	#define CONFIG_SYSCLK_PRES         SYSCLK_PRES_1
+        #define CONFIG_SYSCLK_PRES         SYSCLK_PRES_1
 \endcode
- *    \note Some dividers are powers of two, while others are integer division factors. Refer to the
- *          formulas in the conf_clock.h template commented above each division define.
+ *    \note Some dividers are powers of two, while others are integer division
+factors. Refer to the
+ *          formulas in the conf_clock.h template commented above each division
+define.
  */
 
 /// @cond 0
@@ -134,7 +149,7 @@ extern "C" {
  * initialization.
  */
 #ifndef CONFIG_SYSCLK_SOURCE
-# define CONFIG_SYSCLK_SOURCE   SYSCLK_SRC_MAINCK_8M_RC
+#define CONFIG_SYSCLK_SOURCE SYSCLK_SRC_MAINCK_8M_RC
 #endif
 /**
  * \def CONFIG_SYSCLK_PRES
@@ -147,44 +162,55 @@ extern "C" {
  * after initialization.
  */
 #ifndef CONFIG_SYSCLK_PRES
-# define CONFIG_SYSCLK_PRES  0
+#define CONFIG_SYSCLK_PRES 0
 #endif
 
 //@}
 
 //! \name Master Clock Sources (MCK)
 //@{
-#define SYSCLK_SRC_SLCK_RC              0       //!< Internal 32kHz RC oscillator as master source clock
-#define SYSCLK_SRC_SLCK_XTAL            1       //!< External 32kHz crystal oscillator as master source clock
-#define SYSCLK_SRC_SLCK_BYPASS          2       //!< External 32kHz bypass oscillator as master source clock
-#define SYSCLK_SRC_MAINCK_8M_RC         3       //!< Internal 8MHz RC oscillator as master source clock
-#define SYSCLK_SRC_MAINCK_16M_RC        4       //!< Internal 16MHz RC oscillator as master source clock
-#define SYSCLK_SRC_MAINCK_24M_RC        5       //!< Internal 24MHz RC oscillator as master source clock
-#define SYSCLK_SRC_MAINCK_XTAL          6       //!< External crystal oscillator as master source clock
-#define SYSCLK_SRC_MAINCK_BYPASS        7       //!< External bypass oscillator as master source clock
-#define SYSCLK_SRC_PLLACK               8       //!< Use PLLACK as master source clock
+#define SYSCLK_SRC_SLCK_RC                                                     \
+  0 //!< Internal 32kHz RC oscillator as master source clock
+#define SYSCLK_SRC_SLCK_XTAL                                                   \
+  1 //!< External 32kHz crystal oscillator as master source clock
+#define SYSCLK_SRC_SLCK_BYPASS                                                 \
+  2 //!< External 32kHz bypass oscillator as master source clock
+#define SYSCLK_SRC_MAINCK_8M_RC                                                \
+  3 //!< Internal 8MHz RC oscillator as master source clock
+#define SYSCLK_SRC_MAINCK_16M_RC                                               \
+  4 //!< Internal 16MHz RC oscillator as master source clock
+#define SYSCLK_SRC_MAINCK_24M_RC                                               \
+  5 //!< Internal 24MHz RC oscillator as master source clock
+#define SYSCLK_SRC_MAINCK_XTAL                                                 \
+  6 //!< External crystal oscillator as master source clock
+#define SYSCLK_SRC_MAINCK_BYPASS                                               \
+  7 //!< External bypass oscillator as master source clock
+#define SYSCLK_SRC_PLLACK 8 //!< Use PLLACK as master source clock
 #if SAMG55
-#define SYSCLK_SRC_PLLBCK               9       //!< Use PLLBCK as master source clock
+#define SYSCLK_SRC_PLLBCK 9 //!< Use PLLBCK as master source clock
 #endif
 //@}
 
 //! \name Master Clock Prescalers (MCK)
 //@{
-#define SYSCLK_PRES_1                   PMC_MCKR_PRES_CLK_1     //!< Set master clock prescaler to 1
-#define SYSCLK_PRES_2                   PMC_MCKR_PRES_CLK_2     //!< Set master clock prescaler to 2
-#define SYSCLK_PRES_4                   PMC_MCKR_PRES_CLK_4     //!< Set master clock prescaler to 4
-#define SYSCLK_PRES_8                   PMC_MCKR_PRES_CLK_8     //!< Set master clock prescaler to 8
-#define SYSCLK_PRES_16                  PMC_MCKR_PRES_CLK_16    //!< Set master clock prescaler to 16
-#define SYSCLK_PRES_32                  PMC_MCKR_PRES_CLK_32    //!< Set master clock prescaler to 32
-#define SYSCLK_PRES_64                  PMC_MCKR_PRES_CLK_64    //!< Set master clock prescaler to 64
-#define SYSCLK_PRES_3                   PMC_MCKR_PRES_CLK_3     //!< Set master clock prescaler to 3
+#define SYSCLK_PRES_1 PMC_MCKR_PRES_CLK_1 //!< Set master clock prescaler to 1
+#define SYSCLK_PRES_2 PMC_MCKR_PRES_CLK_2 //!< Set master clock prescaler to 2
+#define SYSCLK_PRES_4 PMC_MCKR_PRES_CLK_4 //!< Set master clock prescaler to 4
+#define SYSCLK_PRES_8 PMC_MCKR_PRES_CLK_8 //!< Set master clock prescaler to 8
+#define SYSCLK_PRES_16                                                         \
+  PMC_MCKR_PRES_CLK_16 //!< Set master clock prescaler to 16
+#define SYSCLK_PRES_32                                                         \
+  PMC_MCKR_PRES_CLK_32 //!< Set master clock prescaler to 32
+#define SYSCLK_PRES_64                                                         \
+  PMC_MCKR_PRES_CLK_64                    //!< Set master clock prescaler to 64
+#define SYSCLK_PRES_3 PMC_MCKR_PRES_CLK_3 //!< Set master clock prescaler to 3
 //@}
 
 #if SAMG55
 //! \name USB Clock Sources
 //@{
-#define USBCLK_SRC_PLL0       0     //!< Use PLLA
-#define USBCLK_SRC_PLL1       1     //!< Use PLLB
+#define USBCLK_SRC_PLL0 0 //!< Use PLLA
+#define USBCLK_SRC_PLL1 1 //!< Use PLLB
 //@}
 
 /**
@@ -198,7 +224,7 @@ extern "C" {
  * USB is not required.
  */
 #ifdef __DOXYGEN__
-# define CONFIG_USBCLK_SOURCE
+#define CONFIG_USBCLK_SOURCE
 #endif
 
 /**
@@ -210,7 +236,7 @@ extern "C" {
  * defined.
  */
 #ifdef __DOXYGEN__
-# define CONFIG_USBCLK_DIV
+#define CONFIG_USBCLK_DIV
 #endif
 #endif
 
@@ -239,50 +265,49 @@ extern "C" {
 #if (defined CONFIG_SYSCLK_DEFAULT_RETURNS_SLOW_OSC)
 extern uint32_t sysclk_initialized;
 #endif
-static inline uint32_t sysclk_get_main_hz(void)
-{
+static inline uint32_t sysclk_get_main_hz(void) {
 #if (defined CONFIG_SYSCLK_DEFAULT_RETURNS_SLOW_OSC)
-	if (!sysclk_initialized ) {
-		return OSC_MAINCK_8M_RC_HZ;
-	}
+  if (!sysclk_initialized) {
+    return OSC_MAINCK_8M_RC_HZ;
+  }
 #endif
 
-	/* Config system clock setting */
-	if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_RC) {
-		return OSC_SLCK_32K_RC_HZ;
-	} else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_XTAL) {
-		return OSC_SLCK_32K_XTAL_HZ;
-	} else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_BYPASS) {
-		return OSC_SLCK_32K_BYPASS_HZ;
-	} else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_8M_RC) {
-		return OSC_MAINCK_8M_RC_HZ;
-	} else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_16M_RC) {
-		return OSC_MAINCK_16M_RC_HZ;
-	} else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_24M_RC) {
-		return OSC_MAINCK_24M_RC_HZ;
-	} else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_XTAL) {
-		return OSC_MAINCK_XTAL_HZ;
-	} else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_BYPASS) {
-		return OSC_MAINCK_BYPASS_HZ;
-	}
+  /* Config system clock setting */
+  if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_RC) {
+    return OSC_SLCK_32K_RC_HZ;
+  } else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_XTAL) {
+    return OSC_SLCK_32K_XTAL_HZ;
+  } else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_SLCK_BYPASS) {
+    return OSC_SLCK_32K_BYPASS_HZ;
+  } else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_8M_RC) {
+    return OSC_MAINCK_8M_RC_HZ;
+  } else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_16M_RC) {
+    return OSC_MAINCK_16M_RC_HZ;
+  } else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_24M_RC) {
+    return OSC_MAINCK_24M_RC_HZ;
+  } else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_XTAL) {
+    return OSC_MAINCK_XTAL_HZ;
+  } else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_MAINCK_BYPASS) {
+    return OSC_MAINCK_BYPASS_HZ;
+  }
 #ifdef CONFIG_PLL0_SOURCE
-	else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_PLLACK) {
-		return pll_get_default_rate(0);
-	}
+  else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_PLLACK) {
+    return pll_get_default_rate(0);
+  }
 #endif
 
 #if SAMG55
 #ifdef CONFIG_PLL1_SOURCE
-	else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_PLLBCK) {
-		return pll_get_default_rate(1);
-	}
+  else if (CONFIG_SYSCLK_SOURCE == SYSCLK_SRC_PLLBCK) {
+    return pll_get_default_rate(1);
+  }
 #endif
 #endif
 
-	else {
-		/* unhandled_case(CONFIG_SYSCLK_SOURCE); */
-		return 0;
-	}
+  else {
+    /* unhandled_case(CONFIG_SYSCLK_SOURCE); */
+    return 0;
+  }
 }
 
 /**
@@ -296,13 +321,13 @@ static inline uint32_t sysclk_get_main_hz(void)
  *
  * \return Frequency of the CPU clock, in Hz.
  */
-static inline uint32_t sysclk_get_cpu_hz(void)
-{
-	/* CONFIG_SYSCLK_PRES is the register value for setting the expected */
-	/* prescaler, not an immediate value. */
-	return sysclk_get_main_hz() /
-		((CONFIG_SYSCLK_PRES == SYSCLK_PRES_3) ? 3 :
-			(1 << (CONFIG_SYSCLK_PRES >> PMC_MCKR_PRES_Pos)));
+static inline uint32_t sysclk_get_cpu_hz(void) {
+  /* CONFIG_SYSCLK_PRES is the register value for setting the expected */
+  /* prescaler, not an immediate value. */
+  return sysclk_get_main_hz() /
+         ((CONFIG_SYSCLK_PRES == SYSCLK_PRES_3)
+              ? 3
+              : (1 << (CONFIG_SYSCLK_PRES >> PMC_MCKR_PRES_Pos)));
 }
 
 /**
@@ -310,13 +335,13 @@ static inline uint32_t sysclk_get_cpu_hz(void)
  *
  * \return Frequency of the peripheral clocks, in Hz.
  */
-static inline uint32_t sysclk_get_peripheral_hz(void)
-{
-	/* CONFIG_SYSCLK_PRES is the register value for setting the expected */
-	/* prescaler, not an immediate value. */
-	return sysclk_get_main_hz() /
-		((CONFIG_SYSCLK_PRES == SYSCLK_PRES_3) ? 3 :
-			(1 << (CONFIG_SYSCLK_PRES >> PMC_MCKR_PRES_Pos)));
+static inline uint32_t sysclk_get_peripheral_hz(void) {
+  /* CONFIG_SYSCLK_PRES is the register value for setting the expected */
+  /* prescaler, not an immediate value. */
+  return sysclk_get_main_hz() /
+         ((CONFIG_SYSCLK_PRES == SYSCLK_PRES_3)
+              ? 3
+              : (1 << (CONFIG_SYSCLK_PRES >> PMC_MCKR_PRES_Pos)));
 }
 
 /**
@@ -327,10 +352,10 @@ static inline uint32_t sysclk_get_peripheral_hz(void)
  *
  * \return Frequency of the bus attached to the specified peripheral, in Hz.
  */
-static inline uint32_t sysclk_get_peripheral_bus_hz(const volatile void *module)
-{
-	UNUSED(module);
-	return sysclk_get_peripheral_hz();
+static inline uint32_t
+sysclk_get_peripheral_bus_hz(const volatile void *module) {
+  UNUSED(module);
+  return sysclk_get_peripheral_hz();
 }
 //@}
 
@@ -342,9 +367,8 @@ static inline uint32_t sysclk_get_peripheral_bus_hz(const volatile void *module)
  *
  * \param ul_id Id (number) of the peripheral clock.
  */
-static inline void sysclk_enable_peripheral_clock(uint32_t ul_id)
-{
-	pmc_enable_periph_clk(ul_id);
+static inline void sysclk_enable_peripheral_clock(uint32_t ul_id) {
+  pmc_enable_periph_clk(ul_id);
 }
 
 /**
@@ -352,9 +376,8 @@ static inline void sysclk_enable_peripheral_clock(uint32_t ul_id)
  *
  * \param ul_id Id (number) of the peripheral clock.
  */
-static inline void sysclk_disable_peripheral_clock(uint32_t ul_id)
-{
-	pmc_disable_periph_clk(ul_id);
+static inline void sysclk_disable_peripheral_clock(uint32_t ul_id) {
+  pmc_disable_periph_clk(ul_id);
 }
 
 //@}

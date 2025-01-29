@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 #ifndef SLEEPMGR_H
 #define SLEEPMGR_H
@@ -49,24 +50,25 @@
 #include <compiler.h>
 #include <parts.h>
 
-#if (SAM3S || SAM3U || SAM3N || SAM3XA || SAM4S || SAM4E || SAM4N || SAM4C || SAMG || SAM4CP || SAM4CM || SAMV71 || SAMV70 || SAMS70 || SAME70)
-# include "sam/sleepmgr.h"
+#if (SAM3S || SAM3U || SAM3N || SAM3XA || SAM4S || SAM4E || SAM4N || SAM4C ||  \
+     SAMG || SAM4CP || SAM4CM || SAMV71 || SAMV70 || SAMS70 || SAME70)
+#include "sam/sleepmgr.h"
 #elif XMEGA
-# include "xmega/sleepmgr.h"
+#include "xmega/sleepmgr.h"
 #elif UC3
-# include "uc3/sleepmgr.h"
+#include "uc3/sleepmgr.h"
 #elif SAM4L
-# include "sam4l/sleepmgr.h"
+#include "sam4l/sleepmgr.h"
 #elif MEGA
-# include "mega/sleepmgr.h"
+#include "mega/sleepmgr.h"
 #elif (SAMD20 || SAMD21 || SAMR21 || SAMD11 || SAMDA1)
-# include "samd/sleepmgr.h"
+#include "samd/sleepmgr.h"
 #elif (SAML21 || SAML22 || SAMR30)
-# include "saml/sleepmgr.h"
+#include "saml/sleepmgr.h"
 #elif (SAMC21)
-# include "samc/sleepmgr.h"
+#include "samc/sleepmgr.h"
 #else
-# error Unsupported device.
+#error Unsupported device.
 #endif
 
 #ifdef __cplusplus
@@ -107,7 +109,7 @@ extern "C" {
  * This symbol may be defined in \ref conf_sleepmgr.h.
  */
 #if defined(__DOXYGEN__) && !defined(CONFIG_SLEEPMGR_ENABLE)
-#  define CONFIG_SLEEPMGR_ENABLE
+#define CONFIG_SLEEPMGR_ENABLE
 #endif
 
 /**
@@ -124,15 +126,14 @@ extern "C" {
  * is done to simplify the algorithm for finding the deepest allowable sleep
  * mode in \ref sleepmgr_enter_sleep.
  */
-static inline void sleepmgr_init(void)
-{
+static inline void sleepmgr_init(void) {
 #ifdef CONFIG_SLEEPMGR_ENABLE
-	uint8_t i;
+  uint8_t i;
 
-	for (i = 0; i < SLEEPMGR_NR_OF_MODES - 1; i++) {
-		sleepmgr_locks[i] = 0;
-	}
-	sleepmgr_locks[SLEEPMGR_NR_OF_MODES - 1] = 1;
+  for (i = 0; i < SLEEPMGR_NR_OF_MODES - 1; i++) {
+    sleepmgr_locks[i] = 0;
+  }
+  sleepmgr_locks[SLEEPMGR_NR_OF_MODES - 1] = 1;
 #endif /* CONFIG_SLEEPMGR_ENABLE */
 }
 
@@ -144,27 +145,26 @@ static inline void sleepmgr_init(void)
  *
  * \param mode Sleep mode to lock.
  */
-static inline void sleepmgr_lock_mode(enum sleepmgr_mode mode)
-{
+static inline void sleepmgr_lock_mode(enum sleepmgr_mode mode) {
 #ifdef CONFIG_SLEEPMGR_ENABLE
-	irqflags_t flags;
+  irqflags_t flags;
 
-	if(sleepmgr_locks[mode] >= 0xff) {
-		while (true) {
-			// Warning: maximum value of sleepmgr_locks buffer is no more than 255.
-			// Check APP or change the data type to uint16_t.
-		}
-	}
+  if (sleepmgr_locks[mode] >= 0xff) {
+    while (true) {
+      // Warning: maximum value of sleepmgr_locks buffer is no more than 255.
+      // Check APP or change the data type to uint16_t.
+    }
+  }
 
-	// Enter a critical section
-	flags = cpu_irq_save();
+  // Enter a critical section
+  flags = cpu_irq_save();
 
-	++sleepmgr_locks[mode];
+  ++sleepmgr_locks[mode];
 
-	// Leave the critical section
-	cpu_irq_restore(flags);
+  // Leave the critical section
+  cpu_irq_restore(flags);
 #else
-	UNUSED(mode);
+  UNUSED(mode);
 #endif /* CONFIG_SLEEPMGR_ENABLE */
 }
 
@@ -176,57 +176,55 @@ static inline void sleepmgr_lock_mode(enum sleepmgr_mode mode)
  *
  * \param mode Sleep mode to unlock.
  */
-static inline void sleepmgr_unlock_mode(enum sleepmgr_mode mode)
-{
+static inline void sleepmgr_unlock_mode(enum sleepmgr_mode mode) {
 #ifdef CONFIG_SLEEPMGR_ENABLE
-	irqflags_t flags;
+  irqflags_t flags;
 
-	if(sleepmgr_locks[mode] == 0) {
-		while (true) {
-			// Warning: minimum value of sleepmgr_locks buffer is no less than 0.
-			// Check APP.
-		}
-	}
+  if (sleepmgr_locks[mode] == 0) {
+    while (true) {
+      // Warning: minimum value of sleepmgr_locks buffer is no less than 0.
+      // Check APP.
+    }
+  }
 
-	// Enter a critical section
-	flags = cpu_irq_save();
+  // Enter a critical section
+  flags = cpu_irq_save();
 
-	--sleepmgr_locks[mode];
+  --sleepmgr_locks[mode];
 
-	// Leave the critical section
-	cpu_irq_restore(flags);
+  // Leave the critical section
+  cpu_irq_restore(flags);
 #else
-	UNUSED(mode);
+  UNUSED(mode);
 #endif /* CONFIG_SLEEPMGR_ENABLE */
 }
 
- /**
+/**
  * \brief Retrieves the deepest allowable sleep mode
  *
  * Searches through the sleep mode lock counts, starting at the shallowest sleep
  * mode, until the first non-zero lock count is found. The deepest allowable
  * sleep mode is then returned.
  */
-static inline enum sleepmgr_mode sleepmgr_get_sleep_mode(void)
-{
-	enum sleepmgr_mode sleep_mode = SLEEPMGR_ACTIVE;
+static inline enum sleepmgr_mode sleepmgr_get_sleep_mode(void) {
+  enum sleepmgr_mode sleep_mode = SLEEPMGR_ACTIVE;
 
 #ifdef CONFIG_SLEEPMGR_ENABLE
-	uint8_t *lock_ptr = sleepmgr_locks;
+  uint8_t *lock_ptr = sleepmgr_locks;
 
-	// Find first non-zero lock count, starting with the shallowest modes.
-	while (!(*lock_ptr)) {
-		lock_ptr++;
-		sleep_mode = (enum sleepmgr_mode)(sleep_mode + 1);
-	}
+  // Find first non-zero lock count, starting with the shallowest modes.
+  while (!(*lock_ptr)) {
+    lock_ptr++;
+    sleep_mode = (enum sleepmgr_mode)(sleep_mode + 1);
+  }
 
-	// Catch the case where one too many sleepmgr_unlock_mode() call has been
-	// performed on the deepest sleep mode.
-	Assert((uintptr_t)(lock_ptr - sleepmgr_locks) < SLEEPMGR_NR_OF_MODES);
+  // Catch the case where one too many sleepmgr_unlock_mode() call has been
+  // performed on the deepest sleep mode.
+  Assert((uintptr_t)(lock_ptr - sleepmgr_locks) < SLEEPMGR_NR_OF_MODES);
 
 #endif /* CONFIG_SLEEPMGR_ENABLE */
 
-	return sleep_mode;
+  return sleep_mode;
 }
 
 /**
@@ -242,27 +240,25 @@ static inline enum sleepmgr_mode sleepmgr_get_sleep_mode(void)
  * mode being locked.
  */
 
-static inline void sleepmgr_enter_sleep(void)
-{
+static inline void sleepmgr_enter_sleep(void) {
 #ifdef CONFIG_SLEEPMGR_ENABLE
-	enum sleepmgr_mode sleep_mode;
+  enum sleepmgr_mode sleep_mode;
 
-	cpu_irq_disable();
+  cpu_irq_disable();
 
-	// Find the deepest allowable sleep mode
-	sleep_mode = sleepmgr_get_sleep_mode();
-	// Return right away if first mode (ACTIVE) is locked.
-	if (sleep_mode==SLEEPMGR_ACTIVE) {
-		cpu_irq_enable();
-		return;
-	}
-	// Enter the deepest allowable sleep mode with interrupts enabled
-	sleepmgr_sleep(sleep_mode);
+  // Find the deepest allowable sleep mode
+  sleep_mode = sleepmgr_get_sleep_mode();
+  // Return right away if first mode (ACTIVE) is locked.
+  if (sleep_mode == SLEEPMGR_ACTIVE) {
+    cpu_irq_enable();
+    return;
+  }
+  // Enter the deepest allowable sleep mode with interrupts enabled
+  sleepmgr_sleep(sleep_mode);
 #else
-	cpu_irq_enable();
+  cpu_irq_enable();
 #endif /* CONFIG_SLEEPMGR_ENABLE */
 }
-
 
 //! @}
 

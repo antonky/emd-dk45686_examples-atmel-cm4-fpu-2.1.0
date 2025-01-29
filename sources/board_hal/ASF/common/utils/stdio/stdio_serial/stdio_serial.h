@@ -4,8 +4,8 @@
  *
  * \brief Common Standard I/O Serial Management.
  *
- * This file defines a useful set of functions for the Stdio Serial interface on AVR
- * and SAM devices.
+ * This file defines a useful set of functions for the Stdio Serial interface on
+ *AVR and SAM devices.
  *
  * Copyright (c) 2009-2015 Atmel Corporation. All rights reserved.
  *
@@ -45,9 +45,9 @@
  *
  ******************************************************************************/
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
-
 
 #ifndef _STDIO_SERIAL_H_
 #define _STDIO_SERIAL_H_
@@ -62,68 +62,68 @@
  * \{
  */
 
-#include <stdio.h>
 #include "compiler.h"
+#include <stdio.h>
 #ifndef SAMD20
-# include "sysclk.h"
+#include "sysclk.h"
 #endif
 #include "serial.h"
 
 #if (XMEGA || MEGA_RF) && defined(__GNUC__)
-	extern int _write (char c, int *f);
-	extern int _read (int *f);
+extern int _write(char c, int *f);
+extern int _read(int *f);
 #endif
-
 
 //! Pointer to the base of the USART module instance to use for stdio.
 extern volatile void *volatile stdio_base;
 //! Pointer to the external low level write function.
-extern int (*ptr_put)(void volatile*, char);
+extern int (*ptr_put)(void volatile *, char);
 
 //! Pointer to the external low level read function.
-extern void (*ptr_get)(void volatile*, char*);
+extern void (*ptr_get)(void volatile *, char *);
 
 /*! \brief Initializes the stdio in Serial Mode.
  *
  * \param usart       Base address of the USART instance.
- * \param opt         Options needed to set up RS232 communication (see \ref usart_options_t).
+ * \param opt         Options needed to set up RS232 communication (see \ref
+ * usart_options_t).
  *
  */
-static inline void stdio_serial_init(volatile void *usart, const usart_serial_options_t *opt)
-{
-	stdio_base = (void *)usart;
-	ptr_put = (int (*)(void volatile*,char))&usart_serial_putchar;
-	ptr_get = (void (*)(void volatile*,char*))&usart_serial_getchar;
-# if (XMEGA || MEGA_RF)
-	usart_serial_init((USART_t *)usart,opt);
-# elif UC3
-	usart_serial_init(usart,(usart_serial_options_t *)opt);
-# elif SAM
-	usart_serial_init((Usart *)usart,(usart_serial_options_t *)opt);
-# else
-#  error Unsupported chip type
-# endif
+static inline void stdio_serial_init(volatile void *usart,
+                                     const usart_serial_options_t *opt) {
+  stdio_base = (void *)usart;
+  ptr_put = (int (*)(void volatile *, char))&usart_serial_putchar;
+  ptr_get = (void (*)(void volatile *, char *))&usart_serial_getchar;
+#if (XMEGA || MEGA_RF)
+  usart_serial_init((USART_t *)usart, opt);
+#elif UC3
+  usart_serial_init(usart, (usart_serial_options_t *)opt);
+#elif SAM
+  usart_serial_init((Usart *)usart, (usart_serial_options_t *)opt);
+#else
+#error Unsupported chip type
+#endif
 
-# if defined(__GNUC__)
-#  if (XMEGA || MEGA_RF)
-	// For AVR GCC libc print redirection uses fdevopen.
-	fdevopen((int (*)(char, FILE*))(_write),(int (*)(FILE*))(_read));
-#  endif
-#  if UC3 || SAM
-	// For AVR32 and SAM GCC
-	// Specify that stdout and stdin should not be buffered.
-	setbuf(stdout, NULL);
-	setbuf(stdin, NULL);
-	// Note: Already the case in IAR's Normal DLIB default configuration
-	// and AVR GCC library:
-	// - printf() emits one character at a time.
-	// - getchar() requests only 1 byte to exit.
-#  endif
-# endif
+#if defined(__GNUC__)
+#if (XMEGA || MEGA_RF)
+  // For AVR GCC libc print redirection uses fdevopen.
+  fdevopen((int (*)(char, FILE *))(_write), (int (*)(FILE *))(_read));
+#endif
+#if UC3 || SAM
+  // For AVR32 and SAM GCC
+  // Specify that stdout and stdin should not be buffered.
+  setbuf(stdout, NULL);
+  setbuf(stdin, NULL);
+  // Note: Already the case in IAR's Normal DLIB default configuration
+  // and AVR GCC library:
+  // - printf() emits one character at a time.
+  // - getchar() requests only 1 byte to exit.
+#endif
+#endif
 }
 
 /**
  * \}
  */
 
-#endif  // _STDIO_SERIAL_H_
+#endif // _STDIO_SERIAL_H_

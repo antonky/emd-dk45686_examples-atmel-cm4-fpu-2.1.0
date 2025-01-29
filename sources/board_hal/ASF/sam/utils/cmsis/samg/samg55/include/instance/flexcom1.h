@@ -39,7 +39,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef _SAMG55_FLEXCOM1_INSTANCE_
@@ -47,13 +48,22 @@
 
 /* ========== Register definition for FLEXCOM1 peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-  #define REG_FLEXCOM1_MR                   (0x40020000U) /**< \brief (FLEXCOM1) FLEXCOM Mode register */
-  #define REG_FLEXCOM1_RHR                  (0x40020010U) /**< \brief (FLEXCOM1) FLEXCOM Receive Holding Register */
-  #define REG_FLEXCOM1_THR                  (0x40020020U) /**< \brief (FLEXCOM1) FLEXCOM Transmit Holding Register */
+#define REG_FLEXCOM1_MR                                                        \
+  (0x40020000U) /**< \brief (FLEXCOM1) FLEXCOM Mode register */
+#define REG_FLEXCOM1_RHR                                                       \
+  (0x40020010U) /**< \brief (FLEXCOM1) FLEXCOM Receive Holding Register */
+#define REG_FLEXCOM1_THR                                                       \
+  (0x40020020U) /**< \brief (FLEXCOM1) FLEXCOM Transmit Holding Register */
 #else
-  #define REG_FLEXCOM1_MR  (*(__IO uint32_t*)0x40020000U) /**< \brief (FLEXCOM1) FLEXCOM Mode register */
-  #define REG_FLEXCOM1_RHR (*(__I  uint32_t*)0x40020010U) /**< \brief (FLEXCOM1) FLEXCOM Receive Holding Register */
-  #define REG_FLEXCOM1_THR (*(__IO uint32_t*)0x40020020U) /**< \brief (FLEXCOM1) FLEXCOM Transmit Holding Register */
+#define REG_FLEXCOM1_MR                                                        \
+  (*(__IO uint32_t                                                             \
+         *)0x40020000U) /**< \brief (FLEXCOM1) FLEXCOM Mode register */
+#define REG_FLEXCOM1_RHR                                                       \
+  (*(__I uint32_t *)0x40020010U) /**< \brief (FLEXCOM1) FLEXCOM Receive        \
+                                    Holding Register */
+#define REG_FLEXCOM1_THR                                                       \
+  (*(__IO uint32_t *)0x40020020U) /**< \brief (FLEXCOM1) FLEXCOM Transmit      \
+                                     Holding Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAMG55_FLEXCOM1_INSTANCE_ */

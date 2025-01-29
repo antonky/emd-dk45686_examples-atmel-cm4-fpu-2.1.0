@@ -1,10 +1,10 @@
 /*
  *
  * Copyright (c) [2015] by InvenSense, Inc.
- * 
+ *
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
  * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
  * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
@@ -24,7 +24,7 @@
  *            Under Linux, Windows or Arduino, messages are enabled by default.
  *            Use INV_MSG_DISABLE to disable them.
  *
- *            Under other environment, message are disabled by default. 
+ *            Under other environment, message are disabled by default.
  *            Use INV_MSG_ENABLE to disable them.
  *
  *  @ingroup  EmbUtils
@@ -89,30 +89,32 @@ extern "C" {
 #define INV_MSG_LEVEL _INV_MSG_LEVEL
 
 #if defined(INV_MSG_DISABLE)
-#define _INV_MSG(level, ...)            (void)0
+#define _INV_MSG(level, ...) (void)0
 #define _INV_MSG_P(level, printer, ...) (void)0
-#define _INV_MSG_SETUP(level, printer)  (void)0
-#define _INV_MSG_SETUP_LEVEL(level)     (void)0
-#define _INV_MSG_LEVEL                  INV_MSG_LEVEL_OFF
+#define _INV_MSG_SETUP(level, printer) (void)0
+#define _INV_MSG_SETUP_LEVEL(level) (void)0
+#define _INV_MSG_LEVEL INV_MSG_LEVEL_OFF
 #else
-#define _INV_MSG(level, ...)            inv_msg(level, __VA_ARGS__)
-#define _INV_MSG_P(level, printer, ...) inv_msg_printer(level, printer, __VA_ARGS__)
-#define _INV_MSG_SETUP(level, printer)  inv_msg_setup(level, printer)
-#define _INV_MSG_SETUP_LEVEL(level)     inv_msg_setup(level, inv_msg_printer_default)
-#define _INV_MSG_SETUP_DEFAULT()        inv_msg_setup_default()
-#define _INV_MSG_LEVEL                  inv_msg_get_level()
+#define _INV_MSG(level, ...) inv_msg(level, __VA_ARGS__)
+#define _INV_MSG_P(level, printer, ...)                                        \
+  inv_msg_printer(level, printer, __VA_ARGS__)
+#define _INV_MSG_SETUP(level, printer) inv_msg_setup(level, printer)
+#define _INV_MSG_SETUP_LEVEL(level)                                            \
+  inv_msg_setup(level, inv_msg_printer_default)
+#define _INV_MSG_SETUP_DEFAULT() inv_msg_setup_default()
+#define _INV_MSG_LEVEL inv_msg_get_level()
 #endif
 
 /** @brief message level definition
  */
 enum inv_msg_level {
-	INV_MSG_LEVEL_OFF = 0,
-	INV_MSG_LEVEL_ERROR,
-	INV_MSG_LEVEL_WARNING,
-	INV_MSG_LEVEL_INFO,
-	INV_MSG_LEVEL_VERBOSE,
-	INV_MSG_LEVEL_DEBUG,
-	INV_MSG_LEVEL_MAX
+  INV_MSG_LEVEL_OFF = 0,
+  INV_MSG_LEVEL_ERROR,
+  INV_MSG_LEVEL_WARNING,
+  INV_MSG_LEVEL_INFO,
+  INV_MSG_LEVEL_VERBOSE,
+  INV_MSG_LEVEL_DEBUG,
+  INV_MSG_LEVEL_MAX
 };
 
 /** @brief Prototype for print routine function
@@ -120,7 +122,8 @@ enum inv_msg_level {
 typedef void (*inv_msg_printer_t)(int level, const char *str, va_list ap);
 
 /** @brief Set message level and printer function
- *  @param[in] level   only message above level will be passed to printer function
+ *  @param[in] level   only message above level will be passed to printer
+ * function
  *  @param[in] printer user provided function in charge printing message
  *  @return none
  */
@@ -135,20 +138,19 @@ void inv_msg_printer_default(int level, const char *str, va_list ap);
 
 /** @brief Set message level
  *  Default printer function will be used.
- *  @param[in] level   only message above level will be passed to printer function
+ *  @param[in] level   only message above level will be passed to printer
+ * function
  *  @return none
  */
-static inline void inv_msg_setup_level(int level)
-{
-	inv_msg_setup(level, inv_msg_printer_default);
+static inline void inv_msg_setup_level(int level) {
+  inv_msg_setup(level, inv_msg_printer_default);
 }
 
 /** @brief Set default message level and printer
  *  @return none
  */
-static inline void inv_msg_setup_default(void)
-{
-	inv_msg_setup(INV_MSG_LEVEL_INFO, inv_msg_printer_default);
+static inline void inv_msg_setup_default(void) {
+  inv_msg_setup(INV_MSG_LEVEL_INFO, inv_msg_printer_default);
 }
 
 /** @brief Return current message level
@@ -171,7 +173,8 @@ void inv_msg(int level, const char *str, ...);
  *  @param[in]	...      optional arguments
  *  @return none
  */
-void inv_msg_printer(int level, inv_msg_printer_t printer, const char *str, ...);
+void inv_msg_printer(int level, inv_msg_printer_t printer, const char *str,
+                     ...);
 
 #ifdef __cplusplus
 }

@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef SUPC_H_INCLUDED
@@ -59,22 +60,23 @@ extern "C" {
 
 /** Key used to write SUPC registers */
 #ifndef SUPC_CR_KEY_PASSWD
-#define SUPC_CR_KEY_PASSWD    SUPC_CR_KEY(0xA5U)
+#define SUPC_CR_KEY_PASSWD SUPC_CR_KEY(0xA5U)
 #endif
 
 #ifndef SUPC_MR_KEY_PASSWD
-#define SUPC_MR_KEY_PASSWD    SUPC_MR_KEY(0xA5U)
+#define SUPC_MR_KEY_PASSWD SUPC_MR_KEY(0xA5U)
 #endif
 
 #if (SAM4C || SAM4CP || SAM4CM)
 /** Power Mode */
 enum slcdc_power_mode {
-	/** The internal supply source and the external supply source are both deselected. */
-	SLCDC_POWER_MODE_LCDOFF = SUPC_MR_LCDMODE_LCDOFF,
-	/** The external supply source for LCD is selected */
-	SLCDC_POWER_MODE_LCDON_EXTVR = SUPC_MR_LCDMODE_LCDON_EXTVR,
-	/** The internal supply source for LCD is selected */
-	SLCDC_POWER_MODE_LCDON_INVR = SUPC_MR_LCDMODE_LCDON_INVR,
+  /** The internal supply source and the external supply source are both
+     deselected. */
+  SLCDC_POWER_MODE_LCDOFF = SUPC_MR_LCDMODE_LCDOFF,
+  /** The external supply source for LCD is selected */
+  SLCDC_POWER_MODE_LCDON_EXTVR = SUPC_MR_LCDMODE_LCDON_EXTVR,
+  /** The internal supply source for LCD is selected */
+  SLCDC_POWER_MODE_LCDON_INVR = SUPC_MR_LCDMODE_LCDON_INVR,
 };
 #endif
 
@@ -97,7 +99,7 @@ void supc_disable_monitor_interrupt(Supc *p_supc);
 #if (!(SAMG51 || SAMG53 || SAMG54))
 void supc_set_wakeup_mode(Supc *p_supc, uint32_t ul_mode);
 void supc_set_wakeup_inputs(Supc *p_supc, uint32_t ul_inputs,
-		uint32_t ul_transition);
+                            uint32_t ul_transition);
 #endif
 uint32_t supc_get_status(Supc *p_supc);
 #if (SAM4C || SAM4CP || SAM4CM)

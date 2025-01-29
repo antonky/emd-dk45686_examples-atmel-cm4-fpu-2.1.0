@@ -41,13 +41,14 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
-#include <stdio.h>
 #include <stdarg.h>
-#include <sys/types.h>
+#include <stdio.h>
 #include <sys/stat.h>
+#include <sys/types.h>
 
 /// @cond 0
 /**INDENT-OFF**/
@@ -72,68 +73,48 @@ extern void _exit(int status);
 extern void _kill(int pid, int sig);
 extern int _getpid(void);
 
-extern caddr_t _sbrk(int incr)
-{
-	static unsigned char *heap = NULL;
-	unsigned char *prev_heap;
-	int ramend = (int)&__ram_end__;
+extern caddr_t _sbrk(int incr) {
+  static unsigned char *heap = NULL;
+  unsigned char *prev_heap;
+  int ramend = (int)&__ram_end__;
 
-	if (heap == NULL) {
-		heap = (unsigned char *)&_end;
-	}
-	prev_heap = heap;
+  if (heap == NULL) {
+    heap = (unsigned char *)&_end;
+  }
+  prev_heap = heap;
 
-	if (((int)prev_heap + incr) > ramend) {
-		return (caddr_t) -1;	
-	}
+  if (((int)prev_heap + incr) > ramend) {
+    return (caddr_t)-1;
+  }
 
-	heap += incr;
+  heap += incr;
 
-	return (caddr_t) prev_heap;
+  return (caddr_t)prev_heap;
 }
 
-extern int link(char *old, char *new)
-{
-	return -1;
+extern int link(char *old, char *new) { return -1; }
+
+extern int _close(int file) { return -1; }
+
+extern int _fstat(int file, struct stat *st) {
+  st->st_mode = S_IFCHR;
+
+  return 0;
 }
 
-extern int _close(int file)
-{
-	return -1;
+extern int _isatty(int file) { return 1; }
+
+extern int _lseek(int file, int ptr, int dir) { return 0; }
+
+extern void _exit(int status) {
+  __asm("BKPT #0");
+  for (;;)
+    ;
 }
 
-extern int _fstat(int file, struct stat *st)
-{
-	st->st_mode = S_IFCHR;
+extern void _kill(int pid, int sig) { return; }
 
-	return 0;
-}
-
-extern int _isatty(int file)
-{
-	return 1;
-}
-
-extern int _lseek(int file, int ptr, int dir)
-{
-	return 0;
-}
-
-extern void _exit(int status)
-{
-	__asm("BKPT #0");
-	for (;;);
-}
-
-extern void _kill(int pid, int sig)
-{
-	return;
-}
-
-extern int _getpid(void)
-{
-	return -1;
-}
+extern int _getpid(void) { return -1; }
 
 /// @cond 0
 /**INDENT-OFF**/

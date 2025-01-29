@@ -39,7 +39,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef _SAMG55_CMCC_INSTANCE_
@@ -47,27 +48,59 @@
 
 /* ========== Register definition for CMCC peripheral ========== */
 #if (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__))
-  #define REG_CMCC_TYPE                    (0x4003C000U) /**< \brief (CMCC) Cache Controller Type Register */
-  #define REG_CMCC_CFG                     (0x4003C004U) /**< \brief (CMCC) Cache Controller Configuration Register */
-  #define REG_CMCC_CTRL                    (0x4003C008U) /**< \brief (CMCC) Cache Controller Control Register */
-  #define REG_CMCC_SR                      (0x4003C00CU) /**< \brief (CMCC) Cache Controller Status Register */
-  #define REG_CMCC_MAINT0                  (0x4003C020U) /**< \brief (CMCC) Cache Controller Maintenance Register 0 */
-  #define REG_CMCC_MAINT1                  (0x4003C024U) /**< \brief (CMCC) Cache Controller Maintenance Register 1 */
-  #define REG_CMCC_MCFG                    (0x4003C028U) /**< \brief (CMCC) Cache Controller Monitor Configuration Register */
-  #define REG_CMCC_MEN                     (0x4003C02CU) /**< \brief (CMCC) Cache Controller Monitor Enable Register */
-  #define REG_CMCC_MCTRL                   (0x4003C030U) /**< \brief (CMCC) Cache Controller Monitor Control Register */
-  #define REG_CMCC_MSR                     (0x4003C034U) /**< \brief (CMCC) Cache Controller Monitor Status Register */
+#define REG_CMCC_TYPE                                                          \
+  (0x4003C000U) /**< \brief (CMCC) Cache Controller Type Register */
+#define REG_CMCC_CFG                                                           \
+  (0x4003C004U) /**< \brief (CMCC) Cache Controller Configuration Register */
+#define REG_CMCC_CTRL                                                          \
+  (0x4003C008U) /**< \brief (CMCC) Cache Controller Control Register */
+#define REG_CMCC_SR                                                            \
+  (0x4003C00CU) /**< \brief (CMCC) Cache Controller Status Register */
+#define REG_CMCC_MAINT0                                                        \
+  (0x4003C020U) /**< \brief (CMCC) Cache Controller Maintenance Register 0 */
+#define REG_CMCC_MAINT1                                                        \
+  (0x4003C024U) /**< \brief (CMCC) Cache Controller Maintenance Register 1 */
+#define REG_CMCC_MCFG                                                          \
+  (0x4003C028U) /**< \brief (CMCC) Cache Controller Monitor Configuration      \
+                   Register */
+#define REG_CMCC_MEN                                                           \
+  (0x4003C02CU) /**< \brief (CMCC) Cache Controller Monitor Enable Register */
+#define REG_CMCC_MCTRL                                                         \
+  (0x4003C030U) /**< \brief (CMCC) Cache Controller Monitor Control Register   \
+                 */
+#define REG_CMCC_MSR                                                           \
+  (0x4003C034U) /**< \brief (CMCC) Cache Controller Monitor Status Register */
 #else
-  #define REG_CMCC_TYPE   (*(__I  uint32_t*)0x4003C000U) /**< \brief (CMCC) Cache Controller Type Register */
-  #define REG_CMCC_CFG    (*(__IO uint32_t*)0x4003C004U) /**< \brief (CMCC) Cache Controller Configuration Register */
-  #define REG_CMCC_CTRL   (*(__O  uint32_t*)0x4003C008U) /**< \brief (CMCC) Cache Controller Control Register */
-  #define REG_CMCC_SR     (*(__I  uint32_t*)0x4003C00CU) /**< \brief (CMCC) Cache Controller Status Register */
-  #define REG_CMCC_MAINT0 (*(__O  uint32_t*)0x4003C020U) /**< \brief (CMCC) Cache Controller Maintenance Register 0 */
-  #define REG_CMCC_MAINT1 (*(__O  uint32_t*)0x4003C024U) /**< \brief (CMCC) Cache Controller Maintenance Register 1 */
-  #define REG_CMCC_MCFG   (*(__IO uint32_t*)0x4003C028U) /**< \brief (CMCC) Cache Controller Monitor Configuration Register */
-  #define REG_CMCC_MEN    (*(__IO uint32_t*)0x4003C02CU) /**< \brief (CMCC) Cache Controller Monitor Enable Register */
-  #define REG_CMCC_MCTRL  (*(__O  uint32_t*)0x4003C030U) /**< \brief (CMCC) Cache Controller Monitor Control Register */
-  #define REG_CMCC_MSR    (*(__I  uint32_t*)0x4003C034U) /**< \brief (CMCC) Cache Controller Monitor Status Register */
+#define REG_CMCC_TYPE                                                          \
+  (*(__I uint32_t                                                              \
+         *)0x4003C000U) /**< \brief (CMCC) Cache Controller Type Register */
+#define REG_CMCC_CFG                                                           \
+  (*(__IO uint32_t *)0x4003C004U) /**< \brief (CMCC) Cache Controller          \
+                                     Configuration Register */
+#define REG_CMCC_CTRL                                                          \
+  (*(__O uint32_t *)0x4003C008U) /**< \brief (CMCC) Cache Controller Control   \
+                                    Register */
+#define REG_CMCC_SR                                                            \
+  (*(__I uint32_t                                                              \
+         *)0x4003C00CU) /**< \brief (CMCC) Cache Controller Status Register */
+#define REG_CMCC_MAINT0                                                        \
+  (*(__O uint32_t *)0x4003C020U) /**< \brief (CMCC) Cache Controller           \
+                                    Maintenance Register 0 */
+#define REG_CMCC_MAINT1                                                        \
+  (*(__O uint32_t *)0x4003C024U) /**< \brief (CMCC) Cache Controller           \
+                                    Maintenance Register 1 */
+#define REG_CMCC_MCFG                                                          \
+  (*(__IO uint32_t *)0x4003C028U) /**< \brief (CMCC) Cache Controller Monitor  \
+                                     Configuration Register */
+#define REG_CMCC_MEN                                                           \
+  (*(__IO uint32_t *)0x4003C02CU) /**< \brief (CMCC) Cache Controller Monitor  \
+                                     Enable Register */
+#define REG_CMCC_MCTRL                                                         \
+  (*(__O uint32_t *)0x4003C030U) /**< \brief (CMCC) Cache Controller Monitor   \
+                                    Control Register */
+#define REG_CMCC_MSR                                                           \
+  (*(__I uint32_t *)0x4003C034U) /**< \brief (CMCC) Cache Controller Monitor   \
+                                    Status Register */
 #endif /* (defined(__ASSEMBLY__) || defined(__IAR_SYSTEMS_ASM__)) */
 
 #endif /* _SAMG55_CMCC_INSTANCE_ */

@@ -41,7 +41,8 @@
  *
  */
 /*
- * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel Support</a>
+ * Support and FAQ: visit <a href="http://www.atmel.com/design-support/">Atmel
+ * Support</a>
  */
 
 #ifndef SLEEP_H
@@ -75,26 +76,26 @@ extern "C" {
  */
 #endif
 /* SAM3,SAM4,SAMG,SAMV,SAME and SAMS series */
-#if (SAM3S || SAM3N || SAM3XA || SAM3U || SAM4S || SAM4E || SAM4N || SAM4C || \
-		SAM4CM || SAM4CP || SAMG || SAMV71 || SAME70 || SAMS70)
-# define  SAM_PM_SMODE_ACTIVE     0 /**< Active */
-# define  SAM_PM_SMODE_SLEEP_WFE  1 /**< Wait for Events */
-# define  SAM_PM_SMODE_SLEEP_WFI  2 /**< Wait for Interrupts */
-# define  SAM_PM_SMODE_WAIT_FAST  3 /**< Wait Mode, startup fast (in 3ms) */
-# define  SAM_PM_SMODE_WAIT       4 /**< Wait Mode */
+#if (SAM3S || SAM3N || SAM3XA || SAM3U || SAM4S || SAM4E || SAM4N || SAM4C ||  \
+     SAM4CM || SAM4CP || SAMG || SAMV71 || SAME70 || SAMS70)
+#define SAM_PM_SMODE_ACTIVE 0    /**< Active */
+#define SAM_PM_SMODE_SLEEP_WFE 1 /**< Wait for Events */
+#define SAM_PM_SMODE_SLEEP_WFI 2 /**< Wait for Interrupts */
+#define SAM_PM_SMODE_WAIT_FAST 3 /**< Wait Mode, startup fast (in 3ms) */
+#define SAM_PM_SMODE_WAIT 4      /**< Wait Mode */
 #if (!(SAMG51 || SAMG53 || SAMG54))
-# define  SAM_PM_SMODE_BACKUP     5 /**< Backup Mode */
+#define SAM_PM_SMODE_BACKUP 5 /**< Backup Mode */
 #endif
 
 /** (SCR) Sleep deep bit */
-#define SCR_SLEEPDEEP   (0x1 <<  2)
+#define SCR_SLEEPDEEP (0x1 << 2)
 
 /**
  * Clocks restored callback function type.
  * Registered by routine pmc_wait_wakeup_clocks_restore()
  * Callback called when all clocks are restored.
  */
-typedef void (*pmc_callback_wakeup_clocks_restored_t) (void);
+typedef void (*pmc_callback_wakeup_clocks_restored_t)(void);
 
 /**
  * Enter sleep mode
@@ -114,7 +115,7 @@ bool pmc_is_wakeup_clocks_restored(void);
  * \return true if start waiting
  */
 void pmc_wait_wakeup_clocks_restore(
-		pmc_callback_wakeup_clocks_restored_t callback);
+    pmc_callback_wakeup_clocks_restored_t callback);
 
 #endif
 
