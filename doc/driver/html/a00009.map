@@ -1,0 +1,9 @@
+<map id="inv_imu_driver.h" name="inv_imu_driver.h">
+<area shape="rect" id="node1" title=" " alt="" coords="130,5,242,35"/>
+<area shape="rect" id="node3" href="$a00005.html" title=" " alt="" coords="204,83,335,112"/>
+<area shape="rect" id="node5" title=" " alt="" coords="70,160,134,189"/>
+<area shape="rect" id="node11" href="$a00023.html" title=" " alt="" coords="23,83,180,112"/>
+<area shape="rect" id="node15" title=" " alt="" coords="359,83,423,112"/>
+<area shape="rect" id="node7" title=" " alt="" coords="188,160,290,189"/>
+<area shape="rect" id="node9" href="$a00002.html" title="File exposing the device register map." alt="" coords="314,160,482,189"/>
+</map>

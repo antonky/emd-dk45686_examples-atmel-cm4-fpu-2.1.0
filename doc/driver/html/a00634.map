@@ -1,0 +1,4 @@
+<map id="inv_imu_fifo_data_t" name="inv_imu_fifo_data_t">
+<area shape="rect" id="node1" title="One frame of FIFO header+data." alt="" coords="5,101,136,131"/>
+<area shape="rect" id="node2" href="$a00584.html" title="Describe the content of the FIFO header." alt="" coords="24,5,117,35"/>
+</map>

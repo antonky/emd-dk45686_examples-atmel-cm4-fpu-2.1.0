@@ -1,0 +1,11 @@
+<map id="inv_imu_selftest.h" name="inv_imu_selftest.h">
+<area shape="rect" id="node1" title=" " alt="" coords="5,5,131,35"/>
+<area shape="rect" id="node3" title=" " alt="" coords="59,333,123,363"/>
+<area shape="rect" id="node5" href="$a00011.html" title=" " alt="" coords="85,83,211,130"/>
+<area shape="rect" id="node7" href="$a00008.html" title=" " alt="" coords="137,179,276,208"/>
+<area shape="rect" id="node20" title=" " alt="" coords="464,256,528,285"/>
+<area shape="rect" id="node9" href="$a00005.html" title=" " alt="" coords="309,256,440,285"/>
+<area shape="rect" id="node16" href="$a00023.html" title=" " alt="" coords="128,256,285,285"/>
+<area shape="rect" id="node12" title=" " alt="" coords="244,333,345,363"/>
+<area shape="rect" id="node14" href="$a00002.html" title="File exposing the device register map." alt="" coords="369,333,537,363"/>
+</map>

@@ -1,0 +1,22 @@
+var searchData=
+[
+  ['sensor_5fdata_2145',['sensor_data',['../a00636.html#af72ed07580218dd1b2ea0118e91d086d',1,'inv_imu_fifo_data_t']]],
+  ['sensor_5fevent_5fcb_2146',['sensor_event_cb',['../a00664.html#a25c7a7cba221e8de3e034d0b0686eea8',1,'inv_imu_adv_var_t']]],
+  ['sensor_5fmask_2147',['sensor_mask',['../a00660.html#aa143099eedf52e54685698375938bfe9',1,'inv_imu_sensor_event_t']]],
+  ['serif_5ftype_2148',['serif_type',['../a00712.html#a06899328b73cc485288c392cab57d5eb',1,'inv_imu_transport_t']]],
+  ['sifs_5fixc_5ftimeout_5ferr_2149',['sifs_ixc_timeout_err',['../a00412.html#a9a28d370f02baba8e6c4dad5ef344046',1,'sifs_ixc_error_status_t']]],
+  ['sleep_5fus_2150',['sleep_us',['../a00712.html#ab7c4a7f8fdc4c55dc925f70620ee1ce9',1,'inv_imu_transport_t']]],
+  ['smd_5fen_2151',['smd_en',['../a00116.html#a3e7357938606e8319bf35c65e40a088b',1,'edmp_apex_en0_t']]],
+  ['smd_5fsensitivity_2152',['smd_sensitivity',['../a00688.html#af166f1b511a9bea1f02da98a229d7f5a',1,'inv_imu_edmp_apex_parameters_t']]],
+  ['soft_5fhard_5firon_5fcorr_5fen_2153',['soft_hard_iron_corr_en',['../a00120.html#afe1a89abd3881c75bcd3eb1078277d8f',1,'edmp_apex_en1_t']]],
+  ['soft_5firon_5fsensitivity_5fmatrix_2154',['soft_iron_sensitivity_matrix',['../a00688.html#ab84bdf339101924bfcc9830bb7a54fdc',1,'inv_imu_edmp_apex_parameters_t']]],
+  ['soft_5frst_2155',['soft_rst',['../a00256.html#a263a37d72cc3352042ee116835031948',1,'reg_misc2_t']]],
+  ['sreg_5faux_5faccel_5fonly_5fen_2156',['sreg_aux_accel_only_en',['../a00424.html#abbeda3e7adae281e3583c9951760226a',1,'smc_control_1_t']]],
+  ['sreg_5fdata_5fendian_5fsel_2157',['sreg_data_endian_sel',['../a00432.html#a66fa2e9f7d6dc1dd059b8b4c2fce4764',1,'sreg_ctrl_t']]],
+  ['stc_5fsensor_5fsel_2158',['stc_sensor_sel',['../a00428.html#a21f1524e69dfcf56be3303907e72fc4a',1,'stc_config_t']]],
+  ['step_5fcadence_2159',['step_cadence',['../a00692.html#ab7b86f21038af5aca0c806010632da21',1,'inv_imu_edmp_pedometer_data_t']]],
+  ['step_5fcnt_2160',['step_cnt',['../a00692.html#a743ad0de6f55a61095838794d710055c',1,'inv_imu_edmp_pedometer_data_t']]],
+  ['step_5fcount_5fedmp_5fwptr_2161',['step_count_edmp_wptr',['../a00124.html#a5d0c79e0fc09164da5d145978aa3c0c4',1,'apex_buffer_mgmt_t']]],
+  ['step_5fcount_5fhost_5frptr_2162',['step_count_host_rptr',['../a00124.html#aa8abd9a4f4766566aa49183cc91268ee',1,'apex_buffer_mgmt_t']]],
+  ['sw_5fpll1_5ftrim_2163',['sw_pll1_trim',['../a00504.html#acbc491546c5dfe2b95b2ff908bcc6678',1,'sw_pll1_trim_t']]]
+];

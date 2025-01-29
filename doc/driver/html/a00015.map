@@ -1,0 +1,11 @@
+<map id="inv_imu_edmp.h" name="inv_imu_edmp.h">
+<area shape="rect" id="node1" title=" " alt="" coords="529,5,644,35"/>
+<area shape="rect" id="node3" href="$a00008.html" title=" " alt="" coords="344,83,483,112"/>
+<area shape="rect" id="node7" title=" " alt="" coords="343,237,407,267"/>
+<area shape="rect" id="node17" title=" " alt="" coords="516,160,580,189"/>
+<area shape="rect" id="node19" title=" " alt="" coords="655,83,855,112"/>
+<area shape="rect" id="node5" href="$a00005.html" title=" " alt="" coords="129,160,260,189"/>
+<area shape="rect" id="node13" href="$a00023.html" title=" " alt="" coords="335,160,492,189"/>
+<area shape="rect" id="node9" title=" " alt="" coords="5,237,107,267"/>
+<area shape="rect" id="node11" href="$a00002.html" title="File exposing the device register map." alt="" coords="131,237,299,267"/>
+</map>

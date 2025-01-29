@@ -1,0 +1,9 @@
+<map id="inv_imu_regmap_le.h" name="inv_imu_regmap_le.h">
+<area shape="rect" id="node1" title="File exposing the device register map." alt="" coords="189,5,331,35"/>
+<area shape="rect" id="node3" href="$a00005.html" title=" " alt="" coords="207,83,313,112"/>
+<area shape="rect" id="node5" href="$a00008.html" title=" " alt="" coords="204,160,316,189"/>
+<area shape="rect" id="node7" href="$a00011.html" title=" " alt="" coords="5,237,179,267"/>
+<area shape="rect" id="node11" href="$a00014.html" title=" " alt="" coords="203,237,317,267"/>
+<area shape="rect" id="node13" href="$a00017.html" title=" " alt="" coords="341,237,515,267"/>
+<area shape="rect" id="node9" href="$a00020.html" title=" " alt="" coords="29,315,155,344"/>
+</map>

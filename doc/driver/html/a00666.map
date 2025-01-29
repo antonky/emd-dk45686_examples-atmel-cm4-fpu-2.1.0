@@ -1,0 +1,4 @@
+<map id="inv_imu_adv_fifo_config_t" name="inv_imu_adv_fifo_config_t">
+<area shape="rect" id="node1" title="FIFO configuration structure." alt="" coords="5,101,171,131"/>
+<area shape="rect" id="node2" href="$a00656.html" title="Basic FIFO configuration." alt="" coords="19,5,157,35"/>
+</map>

@@ -1,0 +1,5 @@
+<map id="intx_statusx_t" name="intx_statusx_t">
+<area shape="rect" id="node1" title="Registers to retrieve interrupts status." alt="" coords="69,101,173,131"/>
+<area shape="rect" id="node2" href="$a00060.html" title=" " alt="" coords="5,5,109,35"/>
+<area shape="rect" id="node4" href="$a00064.html" title=" " alt="" coords="133,5,237,35"/>
+</map>

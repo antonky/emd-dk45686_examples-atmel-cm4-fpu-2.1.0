@@ -1,0 +1,4 @@
+<map id="inv_imu_device_t" name="inv_imu_device_t">
+<area shape="rect" id="node1" title="Basic driver configuration structure." alt="" coords="13,101,131,131"/>
+<area shape="rect" id="node2" href="$a00712.html" title="Structure dedicated to transport layer transport interface." alt="" coords="5,5,139,35"/>
+</map>
